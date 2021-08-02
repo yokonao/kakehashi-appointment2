@@ -36,7 +36,7 @@ class Appointment < ApplicationRecord
   validates :birthday, presence: true
   validates :is_first_visit, inclusion: [true, false]
   validates :clinical_number, presence: { message: '再診の方は診察券番号を入力してください' }, unless: :is_first_visit
-  validates :email, presence: true # TODO: メールアドレスのバリデーション
+  validates :email, presence: true, email: true 
   validates :phone_number, presence: true # TODO: 電話番号のバリデーション
   validates :reason, presence: true
   validates :menu_id, presence: true

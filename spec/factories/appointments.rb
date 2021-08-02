@@ -7,7 +7,7 @@ FactoryBot.define do
     birthday { '2021-08-01' }
     is_first_visit { false }
     clinical_number { 'MyString' }
-    email { 'MyString' }
+    email { 'test@example.com' }
     phone_number { 'MyString' }
     reason { 'MyString' }
     free_comment { 'MyText' }

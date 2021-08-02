@@ -146,4 +146,17 @@ RSpec.describe Appointment, type: :model do
       expect(appointment.valid?).to eq false
     end
   end
+
+  it 'has invalid mail address and is invalid' do
+    appointment = build(:valid_appointment, email: 'hogehoge')
+    expect(appointment.valid?).to eq false
+    expect(appointment.errors[:email]).to include('は不正な値です')
+  end
+
+  # test@example.comあいうえお のようなメールアドレスは受け入れてしまう
+  # it 'has mail address has hiragana prefix and is invalid' do
+  #   appointment = build(:valid_appointment, email: 'test@example.comあいうえお')
+  #   expect(appointment.valid?).to eq false
+  #   expect(appointment.errors[:email]).to include('は不正な値です')
+  # end
 end
