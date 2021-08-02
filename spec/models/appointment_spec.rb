@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Appointment, type: :model do
-  let!(:menu) { create(:menu) }
+  let!(:menu) { create(:menu, start_at: '2021-07-21 09:30:00') }
 
   it 'is valid using valid_appointment factory' do
     appointment = build(:valid_appointment)

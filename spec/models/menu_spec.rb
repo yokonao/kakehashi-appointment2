@@ -17,4 +17,20 @@ RSpec.describe Menu, type: :model do
       expect(menu.valid?).to eq true
     end
   end
+
+  it 'is only one ever 30 minutes' do
+    start_time = Time.parse('2021-08-01 15:00:00')
+    create(:menu, start_at: start_time)
+    create(:menu, start_at: start_time + 30.minutes)
+    menu = build(:menu, start_at: start_time)
+    expect(menu.valid?).to eq false
+    expect(menu.errors[:start_at]).to include('が重複する予約メニューは設定できません')
+    menu = build(:menu, start_at: start_time + 30.minutes)
+    expect(menu.valid?).to eq false
+    expect(menu.errors[:start_at]).to include('が重複する予約メニューは設定できません')
+    menu = build(:menu, start_at: start_time - 30.minutes)
+    expect(menu.valid?).to eq true
+    menu = build(:menu, start_at: start_time + 1.hours)
+    expect(menu.valid?).to eq true
+  end
 end
