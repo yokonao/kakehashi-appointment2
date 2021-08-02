@@ -4,6 +4,6 @@ Rails.application.routes.draw do
       get 'menus/index'
     end
   end
-  get '/*react_path', to: 'react#show'
+  get '/form', to: 'react#show'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
