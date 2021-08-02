@@ -14,7 +14,7 @@ class Menu < ApplicationRecord
   has_many :appointment
   validates :start_at, :end_at, presence: true
   before_validation :set_end_time
-  enum :department, { endocrine: 0, kampo: 1 }
+  validates :department, presence: true, inclusion: %w[内科 漢方]
 
   def set_end_time
     self.end_at = start_at + 30.minutes if start_at
