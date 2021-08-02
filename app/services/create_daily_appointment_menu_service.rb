@@ -5,7 +5,7 @@ class CreateDailyAppointmentMenuService
   INTERVAL = 1800
 
   def initialize(date)
-    @date = Date.parse(date)
+    @date = date.instance_of?(Date) ? date : Date.parse(date)
     @datetime = Time.parse(@date.to_s)
   end
 
