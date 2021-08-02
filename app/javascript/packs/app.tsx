@@ -2,19 +2,15 @@ import { createBrowserHistory } from "history";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Switch, Route, Router } from "react-router";
+import Form from "../features/Form/form"
 
 const history = createBrowserHistory();
-const Hoge = () => <div>hogehoge</div>;
-const Fuga = () => <div>fugafuga</div>;
 const App = (): JSX.Element => {
   return (
     <div>
-      <h1>BookingSample</h1>
-      hello react on rails
       <Router history={history}>
         <Switch>
-          <Route path="/hoge" component={Hoge}></Route>
-          <Route path="/fuga" component={Fuga}></Route>
+          <Route path="/form" component={Form}></Route>
         </Switch>
       </Router>
     </div>
