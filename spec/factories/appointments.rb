@@ -8,7 +8,7 @@ FactoryBot.define do
     is_first_visit { false }
     clinical_number { 'MyString' }
     email { 'test@example.com' }
-    phone_number { 'MyString' }
+    phone_number { '0000000000' }
     reason { 'MyString' }
     free_comment { 'MyText' }
   end

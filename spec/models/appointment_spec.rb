@@ -79,7 +79,6 @@ RSpec.describe Appointment, type: :model do
     it 'is valid when appointment does not have freee comment' do
       appointment = build(:valid_appointment, free_comment: nil, menu_id: menu.id)
       appointment.valid?
-      puts appointment.errors.full_messages
       expect(appointment.valid?).to eq true
     end
 
@@ -159,4 +158,10 @@ RSpec.describe Appointment, type: :model do
   #   expect(appointment.valid?).to eq false
   #   expect(appointment.errors[:email]).to include('は不正な値です')
   # end
+
+  it 'has invalid phone number and is invalid' do
+    appointment = build(:valid_appointment, phone_number: '`+*#$$Q')
+    expect(appointment.valid?).to eq false
+    expect(appointment.errors[:phone_number]).to include('は不正な値です')
+  end
 end
