@@ -6,6 +6,7 @@ import {
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import jaLocale from "date-fns/locale/ja";
+import TimeTable from "./time_table";
 
 const Form = () => {
   const [date, setDate] = React.useState(new Date());
@@ -24,6 +25,7 @@ const Form = () => {
           maxDate={new Date().setDate(today.getDate() + 14)}
         />
       </MuiPickersUtilsProvider>
+      <TimeTable name="nao" baseDate={today}/>
       <div>
         <TextField required id="last_name" label="姓" variant="outlined" />
         <TextField required id="first_name" label="名" variant="outlined" />
