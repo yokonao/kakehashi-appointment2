@@ -21,11 +21,18 @@
 # fk menu_id
 
 class Appointment < ApplicationRecord
+  MAX_NAME_LENGTH = 20
   belongs_to :menu
-  validates :first_name, presence: true # TODO: 文字数制限
-  validates :last_name, presence: true # TODO: 文字数制限
-  validates :first_kana_name, presence: true # TODO: 文字数制限、かな制限
-  validates :last_kana_name, presence: true # TODO: 文字数制限、かな制限
+  validates :first_name,
+            :last_name,
+            presence: true,
+            length: { maximum: MAX_NAME_LENGTH }
+  validates :first_kana_name,
+            if: :first_kana_name?,
+            format: { with: /\A[ァ-ヶー－]+\z/ }
+  validates :last_kana_name,
+            if: :last_kana_name?,
+            format: { with: /\A[ァ-ヶー－]+\z/ }
   validates :birthday, presence: true
   validates :is_first_visit, inclusion: [true, false]
   validates :clinical_number, presence: { message: '再診の方は診察券番号を入力してください' }, unless: :is_first_visit

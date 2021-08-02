@@ -9,7 +9,6 @@ RSpec.describe Menu, type: :model do
     end
     it 'start_at, so the menu is invalid' do
       menu = build(:menu, start_at: nil)
-      p menu
       expect(menu.valid?).to eq false
       expect(menu.errors[:start_at]).to include('を入力してください')
     end

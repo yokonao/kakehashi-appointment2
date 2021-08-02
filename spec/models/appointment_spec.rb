@@ -26,10 +26,14 @@ RSpec.describe Appointment, type: :model do
       expect(appointment.errors[:last_name]).to include('を入力してください')
     end
 
-    it 'is invalid when appointment does not have first kana name' do
+    it 'is valid when appointment does not have first kana name' do
       appointment = build(:valid_appointment, first_kana_name: nil)
-      expect(appointment.valid?).to eq false
-      expect(appointment.errors[:first_kana_name]).to include('を入力してください')
+      expect(appointment.valid?).to eq true
+    end
+
+    it 'is valid when appointment does not have last kana name' do
+      appointment = build(:valid_appointment, last_kana_name: nil)
+      expect(appointment.valid?).to eq true
     end
 
     it 'is invalid when appointment does not have birthday' do
@@ -105,17 +109,17 @@ RSpec.describe Appointment, type: :model do
       expect(appointment.valid?).to eq false
     end
 
-    it 'has the first kana name contains katakana character' do
-      appointment = build(:valid_appointment, first_kana_name: 'カケハシ')
+    it 'has the first kana name contains hiragana character' do
+      appointment = build(:valid_appointment, first_kana_name: 'かけはし')
       expect(appointment.valid?).to eq false
     end
 
-    it 'has the first kana name contains 記号' do
-      appointment = build(:valid_appointment, first_kana_name: 'かけはし@+-')
+    it 'has the first kana name contains some symbol' do
+      appointment = build(:valid_appointment, first_kana_name: 'カケハシ@+-')
       expect(appointment.valid?).to eq false
     end
 
-    it 'has the first kana name contains alphabet' do
+    it 'has the first kana name contains some alphabet' do
       appointment = build(:valid_appointment, first_kana_name: 'Kakehashi')
       expect(appointment.valid?).to eq false
     end
@@ -127,17 +131,17 @@ RSpec.describe Appointment, type: :model do
       expect(appointment.valid?).to eq false
     end
 
-    it 'has the last kana name contains katakana character' do
-      appointment = build(:valid_appointment, last_kana_name: 'ハナコ')
+    it 'has the last kana name contains hiragana character' do
+      appointment = build(:valid_appointment, last_kana_name: 'はなこ')
       expect(appointment.valid?).to eq false
     end
 
-    it 'has the last kana name contains 記号' do
-      appointment = build(:valid_appointment, last_kana_name: '%はなこ)(')
+    it 'has the last kana name contains some symbol' do
+      appointment = build(:valid_appointment, last_kana_name: '%ハナコ)(')
       expect(appointment.valid?).to eq false
     end
 
-    it 'has the last kana name contains alphabet' do
+    it 'has the last kana name contains some alphabet' do
       appointment = build(:valid_appointment, last_kana_name: 'Hanako')
       expect(appointment.valid?).to eq false
     end
