@@ -14,8 +14,6 @@ class EmailValidator < ActiveModel::EachValidator
       valid = false
     end
 
-    unless valid
-      record.errors.add(attribute, I18n.t('errors.messages.invalid'))
-    end
+    record.errors.add(attribute, I18n.t('errors.messages.invalid')) unless valid
   end
 end
