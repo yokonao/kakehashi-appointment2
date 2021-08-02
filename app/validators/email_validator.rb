@@ -10,7 +10,7 @@ class EmailValidator < ActiveModel::EachValidator
 
       # check domain for mail address.
       valid &&= mail.domain.split('.').length > 1
-    rescue Exception => e
+    rescue StandardError => _e
       valid = false
     end
 
