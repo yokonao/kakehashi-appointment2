@@ -8,7 +8,6 @@ import {
   TableRow,
 } from "@material-ui/core";
 import { format, addDays, eachMinuteOfInterval } from "date-fns";
-import { eachDayOfInterval, eachHourOfInterval } from "date-fns/esm";
 import * as React from "react";
 import {
   getAfternoonOpeningTime,
