@@ -2,7 +2,7 @@ import { createBrowserHistory } from "history";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Switch, Route, Router } from "react-router";
-import Form from "../features/form/Form"
+import InternalMedicineFormContainer from "../features/internalMedicine/InternalMedicineFormContainer";
 
 const history = createBrowserHistory();
 const App = (): JSX.Element => {
@@ -10,7 +10,7 @@ const App = (): JSX.Element => {
     <div>
       <Router history={history}>
         <Switch>
-          <Route path="/form" component={Form}></Route>
+          <Route path="/form" component={InternalMedicineFormContainer}></Route>
         </Switch>
       </Router>
     </div>

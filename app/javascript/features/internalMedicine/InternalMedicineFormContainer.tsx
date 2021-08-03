@@ -4,3 +4,5 @@ import Form from '../form/Form'
 const InternalMedicineFormContainer = () => {
   return <Form/>
 }
+
+export default InternalMedicineFormContainer
