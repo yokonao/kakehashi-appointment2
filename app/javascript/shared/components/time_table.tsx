@@ -1,4 +1,5 @@
 import {
+  Button,
   makeStyles,
   Table,
   TableBody,
@@ -50,8 +51,8 @@ function createBusinessTimesEveryThirtyMinutes(base: Date): Date[] {
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 700,
-    maxWidth: 800,
+    minWidth: 500,
+    maxWidth: 500,
   },
 });
 
@@ -69,7 +70,7 @@ const TimeTable = (props: TimeTableProps) => {
           <TableRow>
             <TableCell />
             {createTwoWeeks(props.baseDate).map((date) => (
-              <TableCell align="right">{format(date, "MM/dd")}</TableCell>
+              <TableCell align="center">{format(date, "MM/dd")}</TableCell>
             ))}
           </TableRow>
         </TableHead>
@@ -83,7 +84,9 @@ const TimeTable = (props: TimeTableProps) => {
                   (menu) => menu.start_at.getTime() === date.getTime()
                 );
                 return (
-                  <TableCell align="center">{menu ? menu.id : "-"}</TableCell>
+                  <TableCell align="center">
+                    {menu ? <Button color="primary" variant='contained'>○</Button> : "-"}
+                  </TableCell>
                 );
               })}
             </TableRow>
