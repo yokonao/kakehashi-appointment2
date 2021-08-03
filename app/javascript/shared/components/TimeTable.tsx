@@ -20,6 +20,7 @@ import { MenuSerializer } from "../../features/hooks/useMenusContext";
 type TimeTableProps = {
   menus: MenuSerializer[];
   baseDate: Date;
+  onSelect: (menu: MenuSerializer) => void;
 };
 
 function createTwoWeeks(baseDate: Date): Date[] {
@@ -55,7 +56,7 @@ const useStyles = makeStyles({
   },
 });
 
-const TimeTable = (props: TimeTableProps) => {
+const TimeTable = React.memo((props: TimeTableProps) => {
   const classes = useStyles();
   return (
     <>
@@ -78,13 +79,22 @@ const TimeTable = (props: TimeTableProps) => {
             <TableRow>
               <TableCell>{format(e, "hh:mm")}</TableCell>
               {createTwoWeeks(e).map((date) => {
-                console.log(date);
                 const menu = props.menus.find(
                   (menu) => menu.start_at.getTime() === date.getTime()
                 );
                 return (
                   <TableCell align="center">
-                    {menu ? <Button color="primary" variant='contained'>○</Button> : "-"}
+                    {menu ? (
+                      <Button
+                        color="primary"
+                        variant="contained"
+                        onClick={() => props.onSelect(menu)}
+                      >
+                        ○
+                      </Button>
+                    ) : (
+                      "-"
+                    )}
                   </TableCell>
                 );
               })}
@@ -94,6 +104,6 @@ const TimeTable = (props: TimeTableProps) => {
       </Table>
     </>
   );
-};
+});
 
 export default TimeTable;
