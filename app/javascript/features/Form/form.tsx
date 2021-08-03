@@ -8,16 +8,9 @@ import {
   TextField,
   Theme,
 } from "@material-ui/core";
-import {
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider,
-} from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
-import jaLocale from "date-fns/locale/ja";
 import TimeTable from "../../shared/components/TimeTable";
 import { MenuSerializer, useMenusContext } from "../hooks/useMenusContext";
 import { Field, FieldProps, Formik } from "formik";
-import { string } from "prop-types";
 import { format } from "date-fns";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -54,17 +47,6 @@ const Form = () => {
         return (
           <>
             <h1>情報の入力</h1>
-            {/* <MuiPickersUtilsProvider utils={DateFnsUtils} locale={jaLocale}>
-              <KeyboardDatePicker
-                variant="inline"
-                format="yyyy年MM月dd日"
-                id="appointment-date"
-                value={date}
-                onChange={(date: Date) => setDate(date)}
-                minDate={today}
-                maxDate={new Date().setDate(today.getDate() + 14)}
-              />
-            </MuiPickersUtilsProvider> */}
             <Field name="menu">
               {({ field }: FieldProps<MenuSerializer>) => {
                 console.log(field.value);
