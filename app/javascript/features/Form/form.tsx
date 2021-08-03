@@ -12,6 +12,7 @@ import TimeTable from "../../shared/components/TimeTable";
 import { MenuSerializer, useMenusContext } from "../hooks/useMenusContext";
 import { Field, FieldProps, Formik } from "formik";
 import { format } from "date-fns";
+import { number } from "prop-types";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,17 +23,29 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+type DateValue = {
+  year?: number;
+  month?: number;
+  day?: number;
+};
+
 const initialValues: {
   first_name: string;
   last_name: string;
   first_kana_name: string;
   last_kana_name: string;
   menu?: MenuSerializer;
+  date_value: DateValue;
 } = {
   first_name: "",
   last_name: "",
   first_kana_name: "",
   last_kana_name: "",
+  date_value: {
+    year: undefined,
+    month: undefined,
+    day: undefined,
+  },
 };
 
 const Form = () => {
@@ -48,12 +61,15 @@ const Form = () => {
       }}
     >
       {({ setFieldValue }) => {
+        const onSelectMenu = React.useCallback(
+          (menu: MenuSerializer) => setFieldValue("menu", menu),
+          [setFieldValue]
+        );
         return (
           <>
             <h1>情報の入力</h1>
             <Field name="menu">
               {({ field }: FieldProps<MenuSerializer>) => {
-                console.log(field.value);
                 return field.value ? (
                   <div>
                     予約日時: {format(field.value.start_at, "MM月dd日hh時mm分")}
@@ -68,9 +84,7 @@ const Form = () => {
                   <TimeTable
                     menus={menus}
                     baseDate={today}
-                    onSelect={(menu: MenuSerializer) => {
-                      setFieldValue(field.name, menu);
-                    }}
+                    onSelect={onSelectMenu}
                   />
                 );
               }}
@@ -139,6 +153,56 @@ const Form = () => {
                       label="メイ"
                       variant="outlined"
                     />
+                  );
+                }}
+              </Field>
+              <Field name="date_value">
+                {({ field }: FieldProps<DateValue>) => {
+                  return (
+                    <div>
+                      <TextField
+                        required
+                        id="birthday_year"
+                        value={field.value.year}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                          setFieldValue(field.name, {
+                            ...field.value,
+                            year: e.target.value,
+                          });
+                        }}
+                        label="年"
+                        variant="outlined"
+                      />
+                      年
+                      <TextField
+                        required
+                        id="birthday_month"
+                        value={field.value.month}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                          setFieldValue(field.name, {
+                            ...field.value,
+                            month: e.target.value,
+                          });
+                        }}
+                        label="月"
+                        variant="outlined"
+                      />
+                      月
+                      <TextField
+                        required
+                        id="birthday_day"
+                        value={field.value.day}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                          setFieldValue(field.name, {
+                            ...field.value,
+                            day: e.target.value,
+                          });
+                        }}
+                        label="日"
+                        variant="outlined"
+                      />
+                      日
+                    </div>
                   );
                 }}
               </Field>
