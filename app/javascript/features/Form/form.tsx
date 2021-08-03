@@ -25,10 +25,14 @@ const useStyles = makeStyles((theme: Theme) =>
 const initialValues: {
   first_name: string;
   last_name: string;
+  first_kana_name: string;
+  last_kana_name: string;
   menu?: MenuSerializer;
 } = {
   first_name: "",
   last_name: "",
+  first_kana_name: "",
+  last_kana_name: "",
 };
 
 const Form = () => {
@@ -106,8 +110,38 @@ const Form = () => {
               </Field>
             </div>
             <div>
-              <TextField id="last_kana_name" label="セイ" variant="outlined" />
-              <TextField id="first_kana_name" label="メイ" variant="outlined" />
+              <Field name="last_kana_name">
+                {({ field }: FieldProps<string>) => {
+                  return (
+                    <TextField
+                      required
+                      id="last_kana_name"
+                      value={field.value}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        setFieldValue(field.name, e.target.value);
+                      }}
+                      label="セイ"
+                      variant="outlined"
+                    />
+                  );
+                }}
+              </Field>
+              <Field name="first_kana_name">
+                {({ field }: FieldProps<string>) => {
+                  return (
+                    <TextField
+                      required
+                      id="first_kana_name"
+                      value={field.value}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        setFieldValue(field.name, e.target.value);
+                      }}
+                      label="メイ"
+                      variant="outlined"
+                    />
+                  );
+                }}
+              </Field>
             </div>
             <Button variant="contained" color="primary">
               予約
