@@ -1,4 +1,5 @@
 import * as React from "react";
+import client from "../../shared/api/client";
 
 type MenuSerializer = {
   id: number;
@@ -9,10 +10,12 @@ type MenuSerializer = {
 
 type State = {
   menus: MenuSerializer[];
+  isLoading: boolean;
 };
 
 const initialState: State = {
   menus: [],
+  isLoading: true,
 };
 
 type Dispatcher = {
@@ -21,15 +24,22 @@ type Dispatcher = {
 
 type Context = State & Dispatcher;
 
-type Action = {
-  type: "SET_MENUS";
-  payload: MenuSerializer[];
-};
+type Action =
+  | {
+      type: "SET_MENUS";
+      payload: MenuSerializer[];
+    }
+  | {
+      type: "SET_IS_LOADING";
+      payload: boolean;
+    };
 
 const reducer: React.Reducer<State, Action> = (state, action) => {
   switch (action.type) {
     case "SET_MENUS":
       return { ...state, menus: action.payload };
+    case "SET_IS_LOADING":
+      return { ...state, isLoading: action.payload };
     default:
       return state;
   }
@@ -55,6 +65,16 @@ export const MenusContextProvider: React.FC<Props> = ({ children }) => {
     }),
     [state, setMenus]
   );
+  React.useEffect(() => {
+    client
+      .get<MenuSerializer[]>("/api/v1/menus/index")
+      .then((res) => {
+        console.log(res.data);
+        dispatch({ type: "SET_MENUS", payload: res.data });
+        dispatch({ type: "SET_IS_LOADING", payload: false });
+      })
+      .catch((e) => console.log(e));
+  }, []);
   return (
     <MenusContext.Provider value={value}>{children}</MenusContext.Provider>
   );
