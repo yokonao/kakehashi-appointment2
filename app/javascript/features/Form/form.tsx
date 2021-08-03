@@ -14,7 +14,7 @@ import {
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import jaLocale from "date-fns/locale/ja";
-import TimeTable from "../../shared/components/time_table";
+import TimeTable from "../../shared/components/TimeTable";
 import { useMenusContext } from "../hooks/useMenusContext";
 
 const useStyles = makeStyles((theme: Theme) =>
