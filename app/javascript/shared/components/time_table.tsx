@@ -7,7 +7,7 @@ import {
   TableRow,
 } from "@material-ui/core";
 import { format, addDays, eachMinuteOfInterval } from "date-fns";
-import { eachDayOfInterval } from "date-fns/esm";
+import { eachDayOfInterval, eachHourOfInterval } from "date-fns/esm";
 import * as React from "react";
 import {
   getAfternoonOpeningTime,
@@ -15,14 +15,18 @@ import {
   getMorningLastTime,
   getOpeningTime,
 } from "../../domain/business_rule";
+import { MenuSerializer } from "../../features/hooks/useMenusContext";
 
 type TimeTableProps = {
-  name: string;
+  menus: MenuSerializer[];
   baseDate: Date;
 };
 
 function createTwoWeeks(baseDate: Date): Date[] {
-  return eachDayOfInterval({ start: baseDate, end: addDays(baseDate, 14) });
+  return eachMinuteOfInterval(
+    { start: baseDate, end: addDays(baseDate, 14) },
+    { step: 24 * 60 }
+  );
 }
 
 function createBusinessTimesEveryThirtyMinutes(base: Date): Date[] {
@@ -73,8 +77,14 @@ const TimeTable = (props: TimeTableProps) => {
           {createBusinessTimesEveryThirtyMinutes(props.baseDate).map((e) => (
             <TableRow>
               <TableCell>{format(e, "hh:mm")}</TableCell>
-              {createTwoWeeks(props.baseDate).map((date) => {
-                return <TableCell align="center">○</TableCell>;
+              {createTwoWeeks(e).map((date) => {
+                console.log(date);
+                const menu = props.menus.find(
+                  (menu) => menu.start_at.getTime() === date.getTime()
+                );
+                return (
+                  <TableCell align="center">{menu ? menu.id : "-"}</TableCell>
+                );
               })}
             </TableRow>
           ))}

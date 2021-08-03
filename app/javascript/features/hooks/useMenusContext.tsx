@@ -1,12 +1,22 @@
+import { any } from "prop-types";
 import * as React from "react";
 import client from "../../shared/api/client";
 
-type MenuSerializer = {
+export type MenuSerializer = {
   id: number;
   department: string;
-  start_at: string;
-  end_at: string;
+  start_at: Date;
+  end_at: Date;
 };
+
+function createMenusFromResponse(data: any): MenuSerializer[] {
+  return data.map((e: any) => ({
+    id: e.id,
+    department: e.department,
+    start_at: new Date(e.start_at),
+    end_at: new Date(e.end_at),
+  }));
+}
 
 type State = {
   menus: MenuSerializer[];
@@ -69,8 +79,8 @@ export const MenusContextProvider: React.FC<Props> = ({ children }) => {
     client
       .get<MenuSerializer[]>("/api/v1/menus/index")
       .then((res) => {
-        console.log(res.data);
-        dispatch({ type: "SET_MENUS", payload: res.data });
+        const menus = createMenusFromResponse(res.data);
+        dispatch({ type: "SET_MENUS", payload: menus });
         dispatch({ type: "SET_IS_LOADING", payload: false });
       })
       .catch((e) => console.log(e));

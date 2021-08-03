@@ -30,8 +30,8 @@ const Form = () => {
   const classes = useStyles();
   const [date, setDate] = React.useState(new Date());
   const today = React.useMemo<Date>(() => new Date(), []);
-  const { menus, isLoading } = useMenusContext()
-  console.log(menus)
+  const { menus, isLoading } = useMenusContext();
+  console.log(menus);
   return (
     <div>
       <h1>情報の入力</h1>
@@ -46,7 +46,7 @@ const Form = () => {
           maxDate={new Date().setDate(today.getDate() + 14)}
         />
       </MuiPickersUtilsProvider>
-      <TimeTable name="nao" baseDate={today} />
+      <TimeTable menus={menus} baseDate={today} />
       <div>
         <TextField required id="last_name" label="姓" variant="outlined" />
         <TextField required id="first_name" label="名" variant="outlined" />
