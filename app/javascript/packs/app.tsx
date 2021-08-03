@@ -2,7 +2,7 @@ import { createBrowserHistory } from "history";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Switch, Route, Router } from "react-router";
-import Form from "../features/Form/form"
+import Form from "../features/form/Form"
 
 const history = createBrowserHistory();
 const App = (): JSX.Element => {

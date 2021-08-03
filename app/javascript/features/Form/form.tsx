@@ -6,7 +6,7 @@ import {
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import jaLocale from "date-fns/locale/ja";
-import TimeTable from "./time_table";
+import TimeTable from "../../shared/components/time_table";
 
 const Form = () => {
   const [date, setDate] = React.useState(new Date());
