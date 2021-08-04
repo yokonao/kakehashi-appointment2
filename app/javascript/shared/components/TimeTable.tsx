@@ -1,5 +1,7 @@
 import {
   Button,
+  Icon,
+  IconButton,
   makeStyles,
   Table,
   TableBody,
@@ -16,6 +18,7 @@ import {
   getOpeningTime,
 } from "../../domain/business_rule";
 import { MenuSerializer } from "../../features/hooks/useMenusContext";
+import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 
 type TimeTableProps = {
   menus: MenuSerializer[];
@@ -50,8 +53,7 @@ function createBusinessTimesEveryThirtyMinutes(base: Date): Date[] {
 }
 
 const useStyles = makeStyles({
-  table: {
-  },
+  table: {},
 });
 
 const TimeTable = React.memo((props: TimeTableProps) => {
@@ -68,14 +70,16 @@ const TimeTable = React.memo((props: TimeTableProps) => {
           <TableRow>
             <TableCell />
             {createTwoWeeks(props.baseDate).map((date) => (
-              <TableCell align="center" padding="none">{format(date, "MM/dd")}</TableCell>
+              <TableCell align="center" padding="none">
+                {format(date, "MM/dd")}
+              </TableCell>
             ))}
           </TableRow>
         </TableHead>
         <TableBody>
           {createBusinessTimesEveryThirtyMinutes(props.baseDate).map((e) => (
             <TableRow>
-              <TableCell>{format(e, "hh:mm")}</TableCell>
+              <TableCell align="center" padding="none">{format(e, "hh:mm")}</TableCell>
               {createTwoWeeks(e).map((date) => {
                 const menu = props.menus.find(
                   (menu) => menu.start_at.getTime() === date.getTime()
@@ -83,14 +87,13 @@ const TimeTable = React.memo((props: TimeTableProps) => {
                 return (
                   <TableCell align="center" padding="none" size="small">
                     {menu ? (
-                      <Button
+                      <IconButton
                         color="primary"
-                        variant="contained"
                         onClick={() => props.onSelect(menu)}
                         size="small"
                       >
-                        ○
-                      </Button>
+                        <Icon>event_note</Icon>
+                      </IconButton>
                     ) : (
                       "-"
                     )}
