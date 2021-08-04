@@ -3,6 +3,7 @@ import {
   Backdrop,
   Button,
   CircularProgress,
+  Container,
   createStyles,
   makeStyles,
   TextField,
@@ -53,169 +54,178 @@ const Form = () => {
   const today = React.useMemo<Date>(() => new Date(), []);
   const { menus, isLoading } = useMenusContext();
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={async (values) => {
-        console.log(values);
-      }}
-    >
-      {({ setFieldValue }) => {
-        const onSelectMenu = React.useCallback(
-          (menu: MenuSerializer) => setFieldValue("menu", menu),
-          [setFieldValue]
-        );
-        return (
-          <>
-            <h1>情報の入力</h1>
-            <Field name="menu">
-              {({ field }: FieldProps<MenuSerializer>) => {
-                return field.value ? (
-                  <div>
-                    予約日時: {format(field.value.start_at, "MM月dd日hh時mm分")}
-                    <Button
-                      color="primary"
-                      onClick={() => setFieldValue(field.name, undefined)}
-                    >
-                      日時を選択する
-                    </Button>
-                  </div>
-                ) : (
-                  <TimeTable
-                    menus={menus}
-                    baseDate={today}
-                    onSelect={onSelectMenu}
-                  />
-                );
-              }}
-            </Field>
-            <div>
-              <Field name="last_name">
-                {({ field }: FieldProps<string>) => {
-                  return (
-                    <TextField
-                      required
-                      id="last_name"
-                      value={field.value}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                        setFieldValue(field.name, e.target.value);
-                      }}
-                      label="姓"
-                      variant="outlined"
-                    />
-                  );
-                }}
-              </Field>
-              <Field name="first_name">
-                {({ field }: FieldProps<string>) => {
-                  return (
-                    <TextField
-                      required
-                      id="first_name"
-                      value={field.value}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                        setFieldValue(field.name, e.target.value);
-                      }}
-                      label="名"
-                      variant="outlined"
-                    />
-                  );
-                }}
-              </Field>
-            </div>
-            <div>
-              <Field name="last_kana_name">
-                {({ field }: FieldProps<string>) => {
-                  return (
-                    <TextField
-                      required
-                      id="last_kana_name"
-                      value={field.value}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                        setFieldValue(field.name, e.target.value);
-                      }}
-                      label="セイ"
-                      variant="outlined"
-                    />
-                  );
-                }}
-              </Field>
-              <Field name="first_kana_name">
-                {({ field }: FieldProps<string>) => {
-                  return (
-                    <TextField
-                      required
-                      id="first_kana_name"
-                      value={field.value}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                        setFieldValue(field.name, e.target.value);
-                      }}
-                      label="メイ"
-                      variant="outlined"
-                    />
-                  );
-                }}
-              </Field>
-              <Field name="date_value">
-                {({ field }: FieldProps<DateValue>) => {
-                  return (
+    <Container maxWidth="md">
+      <Formik
+        initialValues={initialValues}
+        onSubmit={async (values) => {
+          console.log(values);
+        }}
+      >
+        {({ setFieldValue }) => {
+          const onSelectMenu = React.useCallback(
+            (menu: MenuSerializer) => setFieldValue("menu", menu),
+            [setFieldValue]
+          );
+          return (
+            <>
+              <h1>情報の入力</h1>
+              <Field name="menu">
+                {({ field }: FieldProps<MenuSerializer>) => {
+                  return field.value ? (
                     <div>
-                      <TextField
-                        required
-                        id="birthday_year"
-                        value={field.value.year}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                          setFieldValue(field.name, {
-                            ...field.value,
-                            year: e.target.value,
-                          });
-                        }}
-                        label="年"
-                        variant="outlined"
-                      />
-                      年
-                      <TextField
-                        required
-                        id="birthday_month"
-                        value={field.value.month}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                          setFieldValue(field.name, {
-                            ...field.value,
-                            month: e.target.value,
-                          });
-                        }}
-                        label="月"
-                        variant="outlined"
-                      />
-                      月
-                      <TextField
-                        required
-                        id="birthday_day"
-                        value={field.value.day}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                          setFieldValue(field.name, {
-                            ...field.value,
-                            day: e.target.value,
-                          });
-                        }}
-                        label="日"
-                        variant="outlined"
-                      />
-                      日
+                      予約日時:{" "}
+                      {format(field.value.start_at, "MM月dd日hh時mm分")}
+                      <Button
+                        color="primary"
+                        onClick={() => setFieldValue(field.name, undefined)}
+                      >
+                        日時を選択する
+                      </Button>
                     </div>
+                  ) : (
+                    <TimeTable
+                      menus={menus}
+                      baseDate={today}
+                      onSelect={onSelectMenu}
+                    />
                   );
                 }}
               </Field>
-            </div>
-            <Button variant="contained" color="primary">
-              予約
-            </Button>
-            <Backdrop className={classes.backdrop} open={isLoading}>
-              <CircularProgress color="inherit" />
-            </Backdrop>
-          </>
-        );
-      }}
-    </Formik>
+              <div>
+                <Field name="last_name">
+                  {({ field }: FieldProps<string>) => {
+                    return (
+                      <TextField
+                        required
+                        id="last_name"
+                        value={field.value}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                          setFieldValue(field.name, e.target.value);
+                        }}
+                        label="姓"
+                        variant="outlined"
+                      />
+                    );
+                  }}
+                </Field>
+                <Field name="first_name">
+                  {({ field }: FieldProps<string>) => {
+                    return (
+                      <TextField
+                        required
+                        id="first_name"
+                        value={field.value}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                          setFieldValue(field.name, e.target.value);
+                        }}
+                        label="名"
+                        variant="outlined"
+                      />
+                    );
+                  }}
+                </Field>
+              </div>
+              <div>
+                <Field name="last_kana_name">
+                  {({ field }: FieldProps<string>) => {
+                    return (
+                      <TextField
+                        required
+                        id="last_kana_name"
+                        value={field.value}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                          setFieldValue(field.name, e.target.value);
+                        }}
+                        label="セイ"
+                        variant="outlined"
+                      />
+                    );
+                  }}
+                </Field>
+                <Field name="first_kana_name">
+                  {({ field }: FieldProps<string>) => {
+                    return (
+                      <TextField
+                        required
+                        id="first_kana_name"
+                        value={field.value}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                          setFieldValue(field.name, e.target.value);
+                        }}
+                        label="メイ"
+                        variant="outlined"
+                      />
+                    );
+                  }}
+                </Field>
+                <Field name="date_value">
+                  {({ field }: FieldProps<DateValue>) => {
+                    return (
+                      <div>
+                        <TextField
+                          required
+                          id="birthday_year"
+                          value={field.value.year}
+                          onChange={(
+                            e: React.ChangeEvent<HTMLInputElement>
+                          ) => {
+                            setFieldValue(field.name, {
+                              ...field.value,
+                              year: e.target.value,
+                            });
+                          }}
+                          label="年"
+                          variant="outlined"
+                        />
+                        年
+                        <TextField
+                          required
+                          id="birthday_month"
+                          value={field.value.month}
+                          onChange={(
+                            e: React.ChangeEvent<HTMLInputElement>
+                          ) => {
+                            setFieldValue(field.name, {
+                              ...field.value,
+                              month: e.target.value,
+                            });
+                          }}
+                          label="月"
+                          variant="outlined"
+                        />
+                        月
+                        <TextField
+                          required
+                          id="birthday_day"
+                          value={field.value.day}
+                          onChange={(
+                            e: React.ChangeEvent<HTMLInputElement>
+                          ) => {
+                            setFieldValue(field.name, {
+                              ...field.value,
+                              day: e.target.value,
+                            });
+                          }}
+                          label="日"
+                          variant="outlined"
+                        />
+                        日
+                      </div>
+                    );
+                  }}
+                </Field>
+              </div>
+              <Button variant="contained" color="primary">
+                予約
+              </Button>
+              <Backdrop className={classes.backdrop} open={isLoading}>
+                <CircularProgress color="inherit" />
+              </Backdrop>
+            </>
+          );
+        }}
+      </Formik>
+    </Container>
   );
 };
 

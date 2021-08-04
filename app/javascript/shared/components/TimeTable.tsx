@@ -51,8 +51,6 @@ function createBusinessTimesEveryThirtyMinutes(base: Date): Date[] {
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 500,
-    maxWidth: 500,
   },
 });
 
@@ -70,7 +68,7 @@ const TimeTable = React.memo((props: TimeTableProps) => {
           <TableRow>
             <TableCell />
             {createTwoWeeks(props.baseDate).map((date) => (
-              <TableCell align="center">{format(date, "MM/dd")}</TableCell>
+              <TableCell align="center" padding="none">{format(date, "MM/dd")}</TableCell>
             ))}
           </TableRow>
         </TableHead>
@@ -83,12 +81,13 @@ const TimeTable = React.memo((props: TimeTableProps) => {
                   (menu) => menu.start_at.getTime() === date.getTime()
                 );
                 return (
-                  <TableCell align="center">
+                  <TableCell align="center" padding="none" size="small">
                     {menu ? (
                       <Button
                         color="primary"
                         variant="contained"
                         onClick={() => props.onSelect(menu)}
+                        size="small"
                       >
                         ○
                       </Button>
