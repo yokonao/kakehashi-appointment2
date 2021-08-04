@@ -1,4 +1,4 @@
-type PersonName = {
+export type PersonName = {
   firstName: string;
   lastName: string;
   firstKanaName: string;
