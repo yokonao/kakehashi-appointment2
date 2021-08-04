@@ -13,6 +13,8 @@ import TimeTable from "../../shared/components/TimeTable";
 import { MenuSerializer, useMenusContext } from "../hooks/useMenusContext";
 import { Field, FieldProps, Formik } from "formik";
 import { format } from "date-fns";
+import { PersonName } from "../../domain/personName";
+import PersonNameField from "../../shared/components/PersonNameField";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,17 +32,16 @@ type DateValue = {
 };
 
 const initialValues: {
-  first_name: string;
-  last_name: string;
-  first_kana_name: string;
-  last_kana_name: string;
+  personName: PersonName;
   menu?: MenuSerializer;
   date_value: DateValue;
 } = {
-  first_name: "",
-  last_name: "",
-  first_kana_name: "",
-  last_kana_name: "",
+  personName: {
+    firstName: "",
+    lastName: "",
+    firstKanaName: "",
+    lastKanaName: "",
+  },
   date_value: {
     year: undefined,
     month: undefined,
@@ -91,73 +92,19 @@ const Form = () => {
                   );
                 }}
               </Field>
+              <Field name="personName">
+                {({ field }: FieldProps<PersonName>) => {
+                  return (
+                    <PersonNameField
+                      value={field.value}
+                      onChanged={(personName) =>
+                        setFieldValue(field.name, personName)
+                      }
+                    />
+                  );
+                }}
+              </Field>
               <div>
-                <Field name="last_name">
-                  {({ field }: FieldProps<string>) => {
-                    return (
-                      <TextField
-                        required
-                        id="last_name"
-                        value={field.value}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                          setFieldValue(field.name, e.target.value);
-                        }}
-                        label="姓"
-                        variant="outlined"
-                      />
-                    );
-                  }}
-                </Field>
-                <Field name="first_name">
-                  {({ field }: FieldProps<string>) => {
-                    return (
-                      <TextField
-                        required
-                        id="first_name"
-                        value={field.value}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                          setFieldValue(field.name, e.target.value);
-                        }}
-                        label="名"
-                        variant="outlined"
-                      />
-                    );
-                  }}
-                </Field>
-              </div>
-              <div>
-                <Field name="last_kana_name">
-                  {({ field }: FieldProps<string>) => {
-                    return (
-                      <TextField
-                        required
-                        id="last_kana_name"
-                        value={field.value}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                          setFieldValue(field.name, e.target.value);
-                        }}
-                        label="セイ"
-                        variant="outlined"
-                      />
-                    );
-                  }}
-                </Field>
-                <Field name="first_kana_name">
-                  {({ field }: FieldProps<string>) => {
-                    return (
-                      <TextField
-                        required
-                        id="first_kana_name"
-                        value={field.value}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                          setFieldValue(field.name, e.target.value);
-                        }}
-                        label="メイ"
-                        variant="outlined"
-                      />
-                    );
-                  }}
-                </Field>
                 <Field name="date_value">
                   {({ field }: FieldProps<DateValue>) => {
                     return (
