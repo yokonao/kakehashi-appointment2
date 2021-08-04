@@ -1,6 +1,7 @@
 import * as React from "react";
 import {
   Backdrop,
+  Box,
   Button,
   CircularProgress,
   Container,
@@ -8,6 +9,7 @@ import {
   makeStyles,
   TextField,
   Theme,
+  Typography,
 } from "@material-ui/core";
 import TimeTable from "../../shared/components/TimeTable";
 import { MenuSerializer, useMenusContext } from "../hooks/useMenusContext";
@@ -60,29 +62,47 @@ const Form = () => {
           );
           return (
             <>
-              <h1>情報の入力</h1>
+              <Box py={2} my={2}>
+                <Typography variant="h4" color="inherit">
+                  内科外来予約
+                </Typography>
+              </Box>
+              <Box py={2} my={2}>
+                <Typography color="inherit">
+                  1. 予約日時を選択してください
+                </Typography>
+              </Box>
               <Field name="menu">
                 {({ field }: FieldProps<MenuSerializer>) => {
-                  return field.value ? (
+                  return (
                     <div>
-                      予約日時:{" "}
-                      {format(field.value.start_at, "MM月dd日hh時mm分")}
-                      <Button
+                      <Box ml={2}>
+                        <Typography color="inherit">
+                          {field.value
+                            ? format(field.value.start_at, "M月d日HH時mm分")
+                            : ""}
+                        </Typography>
+                      </Box>
+                      {/* <Button
                         color="primary"
                         onClick={() => setFieldValue(field.name, undefined)}
                       >
                         日時を選択する
-                      </Button>
+                      </Button> */}
+                      <TimeTable
+                        menus={menus}
+                        baseDate={today}
+                        onSelect={onSelectMenu}
+                      />
                     </div>
-                  ) : (
-                    <TimeTable
-                      menus={menus}
-                      baseDate={today}
-                      onSelect={onSelectMenu}
-                    />
                   );
                 }}
               </Field>
+              <Box py={2} my={2}>
+                <Typography color="inherit">
+                  2. 氏名・生年月日を入力してください
+                </Typography>
+              </Box>
               <Field name="personName">
                 {({ field }: FieldProps<PersonName>) => {
                   return (
