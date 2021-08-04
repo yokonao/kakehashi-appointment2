@@ -1,24 +1,9 @@
-# README
+# kakehashi-appointment2
+予約システム
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Tasks
+二週間分の予約枠を作成
+```
+bin/rake menu:two_week
+```
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
