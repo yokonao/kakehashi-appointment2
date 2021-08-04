@@ -12,7 +12,6 @@ import TimeTable from "../../shared/components/TimeTable";
 import { MenuSerializer, useMenusContext } from "../hooks/useMenusContext";
 import { Field, FieldProps, Formik } from "formik";
 import { format } from "date-fns";
-import { number } from "prop-types";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
