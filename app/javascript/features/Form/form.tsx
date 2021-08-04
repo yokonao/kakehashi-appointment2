@@ -15,15 +15,7 @@ import { Field, FieldProps, Formik } from "formik";
 import { format } from "date-fns";
 import { PersonName } from "../../domain/personName";
 import PersonNameField from "../../shared/components/PersonNameField";
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    backdrop: {
-      zIndex: theme.zIndex.drawer + 1,
-      color: "#fff",
-    },
-  })
-);
+import useStyles from "../../styles/useStyles";
 
 type DateValue = {
   year?: number;
@@ -51,11 +43,10 @@ const initialValues: {
 
 const Form = () => {
   const classes = useStyles();
-  const [date, setDate] = React.useState(new Date());
   const today = React.useMemo<Date>(() => new Date(), []);
   const { menus, isLoading } = useMenusContext();
   return (
-    <Container maxWidth="md">
+    <Container className={classes.form} maxWidth="md">
       <Formik
         initialValues={initialValues}
         onSubmit={async (values) => {
