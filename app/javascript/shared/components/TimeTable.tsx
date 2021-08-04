@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Icon,
   IconButton,
@@ -18,7 +19,6 @@ import {
   getOpeningTime,
 } from "../../domain/business_rule";
 import { MenuSerializer } from "../../features/hooks/useMenusContext";
-import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 
 type TimeTableProps = {
   menus: MenuSerializer[];
@@ -59,7 +59,7 @@ const useStyles = makeStyles({
 const TimeTable = React.memo((props: TimeTableProps) => {
   const classes = useStyles();
   return (
-    <>
+    <Box m={2}>
       <Table
         className={classes.table}
         size="small"
@@ -79,7 +79,9 @@ const TimeTable = React.memo((props: TimeTableProps) => {
         <TableBody>
           {createBusinessTimesEveryThirtyMinutes(props.baseDate).map((e) => (
             <TableRow>
-              <TableCell align="center" padding="none">{format(e, "hh:mm")}</TableCell>
+              <TableCell align="center" padding="none">
+                {format(e, "hh:mm")}
+              </TableCell>
               {createTwoWeeks(e).map((date) => {
                 const menu = props.menus.find(
                   (menu) => menu.start_at.getTime() === date.getTime()
@@ -104,7 +106,7 @@ const TimeTable = React.memo((props: TimeTableProps) => {
           ))}
         </TableBody>
       </Table>
-    </>
+    </Box>
   );
 });
 
