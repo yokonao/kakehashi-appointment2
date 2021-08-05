@@ -5,10 +5,6 @@ import {
   Button,
   CircularProgress,
   Container,
-  createStyles,
-  makeStyles,
-  TextField,
-  Theme,
   Typography,
 } from "@material-ui/core";
 import TimeTable from "../../shared/components/TimeTable";
@@ -18,28 +14,18 @@ import { format } from "date-fns";
 import { PersonName } from "../../domain/personName";
 import PersonNameField from "../../shared/components/PersonNameField";
 import useStyles from "../../styles/useStyles";
-
-type DateValue = {
-  year?: number;
-  month?: number;
-  day?: number;
-};
+import BirthdayField from "../../shared/components/BirthdayField";
 
 const initialValues: {
   personName: PersonName;
   menu?: MenuSerializer;
-  date_value: DateValue;
+  birthday?: Date;
 } = {
   personName: {
     firstName: "",
     lastName: "",
     firstKanaName: "",
     lastKanaName: "",
-  },
-  date_value: {
-    year: undefined,
-    month: undefined,
-    day: undefined,
   },
 };
 
@@ -83,12 +69,6 @@ const Form = () => {
                             : ""}
                         </Typography>
                       </Box>
-                      {/* <Button
-                        color="primary"
-                        onClick={() => setFieldValue(field.name, undefined)}
-                      >
-                        日時を選択する
-                      </Button> */}
                       <TimeTable
                         menus={menus}
                         baseDate={today}
@@ -116,59 +96,15 @@ const Form = () => {
                 }}
               </Field>
               <div>
-                <Field name="date_value">
-                  {({ field }: FieldProps<DateValue>) => {
+                <Field name="birthday">
+                  {({ field }: FieldProps<Date>) => {
                     return (
-                      <div>
-                        <TextField
-                          required
-                          id="birthday_year"
-                          value={field.value.year}
-                          onChange={(
-                            e: React.ChangeEvent<HTMLInputElement>
-                          ) => {
-                            setFieldValue(field.name, {
-                              ...field.value,
-                              year: e.target.value,
-                            });
-                          }}
-                          label="年"
-                          variant="outlined"
-                        />
-                        年
-                        <TextField
-                          required
-                          id="birthday_month"
-                          value={field.value.month}
-                          onChange={(
-                            e: React.ChangeEvent<HTMLInputElement>
-                          ) => {
-                            setFieldValue(field.name, {
-                              ...field.value,
-                              month: e.target.value,
-                            });
-                          }}
-                          label="月"
-                          variant="outlined"
-                        />
-                        月
-                        <TextField
-                          required
-                          id="birthday_day"
-                          value={field.value.day}
-                          onChange={(
-                            e: React.ChangeEvent<HTMLInputElement>
-                          ) => {
-                            setFieldValue(field.name, {
-                              ...field.value,
-                              day: e.target.value,
-                            });
-                          }}
-                          label="日"
-                          variant="outlined"
-                        />
-                        日
-                      </div>
+                      <BirthdayField
+                        date={field.value}
+                        onChanged={(date: Date) => {
+                          setFieldValue(field.name, date);
+                        }}
+                      />
                     );
                   }}
                 </Field>

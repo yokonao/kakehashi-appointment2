@@ -74,7 +74,7 @@ const PersonNameField = (props: Props) => {
               };
               onChanged(newValue);
             }}
-            label="姓"
+            label="名"
             variant="outlined"
           />
         </Grid>
