@@ -23,7 +23,8 @@ const BirthdayFieldSimple = (props: Props) => {
           id="birthday"
           value={value}
           onChange={(date: Date) => onChanged(date)}
-        />{" "}
+          maxDate={new Date()}
+        />
       </MuiPickersUtilsProvider>
     </Box>
   );
