@@ -14,15 +14,16 @@ import { format } from "date-fns";
 import { PersonName } from "../../domain/personName";
 import PersonNameField from "../../shared/components/PersonNameField";
 import useStyles from "../../styles/useStyles";
-import BirthdayField from "../../shared/components/BirthdayField";
 import BirthdayFieldSimple from "../../shared/components/BirthdayFieldSimple";
 import PhoneNumberInput from "../../shared/components/PhoneNumberInput";
+import EmailInput from "../../shared/components/EmailInput";
 
 const initialValues: {
   personName: PersonName;
   menu?: MenuSerializer;
   birthday?: Date;
   phoneNumber?: string;
+  email?: string;
 } = {
   personName: {
     firstName: "",
@@ -120,6 +121,18 @@ const Form = () => {
                 {({ field }: FieldProps<string>) => {
                   return (
                     <PhoneNumberInput
+                      value={field.value}
+                      onChanged={(value: string) => {
+                        field.name, value;
+                      }}
+                    />
+                  );
+                }}
+              </Field>
+              <Field name="email">
+                {({ field }: FieldProps<string>) => {
+                  return (
+                    <EmailInput
                       value={field.value}
                       onChanged={(value: string) => {
                         field.name, value;
