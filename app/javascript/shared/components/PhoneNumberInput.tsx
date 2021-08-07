@@ -15,6 +15,7 @@ const PhoneNumberInput = (props: Props) => {
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           onChanged(e.target.value);
         }}
+        inputProps={{ maxLength: 11, pattern: "\A[0-9]{10, 11}\z" }}
         type="tel"
         placeholder="0524833377"
         helperText="電話番号（ハイフン無し）"

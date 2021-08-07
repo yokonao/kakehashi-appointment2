@@ -24,6 +24,7 @@ const PersonNameField = (props: Props) => {
               };
               onChanged(newValue);
             }}
+            inputProps={{ maxLength: 20 }}
             placeholder="架橋"
             helperText="姓（漢字）"
             variant="outlined"
@@ -41,6 +42,7 @@ const PersonNameField = (props: Props) => {
               };
               onChanged(newValue);
             }}
+            inputProps={{ maxLength: 20 }}
             placeholder="花子"
             helperText="名（漢字）"
             variant="outlined"
@@ -60,6 +62,7 @@ const PersonNameField = (props: Props) => {
               };
               onChanged(newValue);
             }}
+            inputProps={{ maxLength: 20 }}
             placeholder="カケハシ"
             helperText="セイ（カタカナ）"
             variant="outlined"
@@ -77,6 +80,7 @@ const PersonNameField = (props: Props) => {
               };
               onChanged(newValue);
             }}
+            inputProps={{ maxLength: 20 }}
             placeholder="ハナコ"
             helperText="メイ（カタカナ）"
             variant="outlined"
