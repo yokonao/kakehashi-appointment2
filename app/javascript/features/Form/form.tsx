@@ -16,11 +16,13 @@ import PersonNameField from "../../shared/components/PersonNameField";
 import useStyles from "../../styles/useStyles";
 import BirthdayField from "../../shared/components/BirthdayField";
 import BirthdayFieldSimple from "../../shared/components/BirthdayFieldSimple";
+import PhoneNumberInput from "../../shared/components/PhoneNumberInput";
 
 const initialValues: {
   personName: PersonName;
   menu?: MenuSerializer;
   birthday?: Date;
+  phoneNumber?: string;
 } = {
   personName: {
     firstName: "",
@@ -104,6 +106,23 @@ const Form = () => {
                       value={field.value}
                       onChanged={(date: Date) => {
                         setFieldValue(field.name, date);
+                      }}
+                    />
+                  );
+                }}
+              </Field>
+              <Box py={2} my={2}>
+                <Typography color="inherit">
+                  3. 電話番号・メールアドレスを入力してください
+                </Typography>
+              </Box>
+              <Field name="phoneNumber">
+                {({ field }: FieldProps<string>) => {
+                  return (
+                    <PhoneNumberInput
+                      value={field.value}
+                      onChanged={(value: string) => {
+                        field.name, value;
                       }}
                     />
                   );

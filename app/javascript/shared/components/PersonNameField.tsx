@@ -24,7 +24,8 @@ const PersonNameField = (props: Props) => {
               };
               onChanged(newValue);
             }}
-            label="姓"
+            placeholder="架橋"
+            helperText="姓（漢字）"
             variant="outlined"
           />
         </Grid>
@@ -40,7 +41,8 @@ const PersonNameField = (props: Props) => {
               };
               onChanged(newValue);
             }}
-            label="名"
+            placeholder="花子"
+            helperText="名（漢字）"
             variant="outlined"
           />
         </Grid>
@@ -58,7 +60,8 @@ const PersonNameField = (props: Props) => {
               };
               onChanged(newValue);
             }}
-            label="セイ"
+            placeholder="カケハシ"
+            helperText="セイ（カタカナ）"
             variant="outlined"
           />
         </Grid>
@@ -74,7 +77,8 @@ const PersonNameField = (props: Props) => {
               };
               onChanged(newValue);
             }}
-            label="名"
+            placeholder="ハナコ"
+            helperText="メイ（カタカナ）"
             variant="outlined"
           />
         </Grid>
