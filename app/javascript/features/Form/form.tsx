@@ -17,6 +17,7 @@ import useStyles from "../../styles/useStyles";
 import BirthdayFieldSimple from "../../shared/components/BirthdayFieldSimple";
 import PhoneNumberInput from "../../shared/components/PhoneNumberInput";
 import EmailInput from "../../shared/components/EmailInput";
+import ConsultationReasonSelector from "../../shared/components/ConsultationReasonSelector";
 
 const initialValues: {
   personName: PersonName;
@@ -24,6 +25,7 @@ const initialValues: {
   birthday?: Date;
   phoneNumber?: string;
   email?: string;
+  reason: string[];
 } = {
   personName: {
     firstName: "",
@@ -32,6 +34,7 @@ const initialValues: {
     lastKanaName: "",
   },
   birthday: new Date(1990, 0, 1),
+  reason: [],
 };
 
 const Form = () => {
@@ -123,7 +126,7 @@ const Form = () => {
                     <PhoneNumberInput
                       value={field.value}
                       onChanged={(value: string) => {
-                        field.name, value;
+                        setFieldValue(field.name, value);
                       }}
                     />
                   );
@@ -135,7 +138,24 @@ const Form = () => {
                     <EmailInput
                       value={field.value}
                       onChanged={(value: string) => {
-                        field.name, value;
+                        setFieldValue(field.name, value);
+                      }}
+                    />
+                  );
+                }}
+              </Field>
+              <Box py={2} my={2}>
+                <Typography color="inherit">
+                  4. 受診理由に当てはまるものを全てチェックしてください
+                </Typography>
+              </Box>
+              <Field name="reasons">
+                {({ field }: FieldProps<string>) => {
+                  return (
+                    <ConsultationReasonSelector
+                      value={[]}
+                      onChanged={(value: string[]) => {
+                        setFieldValue(field.name, value);
                       }}
                     />
                   );
