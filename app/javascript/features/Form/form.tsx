@@ -97,20 +97,18 @@ const Form = () => {
                   );
                 }}
               </Field>
-              <div>
-                <Field name="birthday">
-                  {({ field }: FieldProps<Date>) => {
-                    return (
-                      <BirthdayFieldSimple
-                        value={field.value}
-                        onChanged={(date: Date) => {
-                          setFieldValue(field.name, date);
-                        }}
-                      />
-                    );
-                  }}
-                </Field>
-              </div>
+              <Field name="birthday">
+                {({ field }: FieldProps<Date>) => {
+                  return (
+                    <BirthdayFieldSimple
+                      value={field.value}
+                      onChanged={(date: Date) => {
+                        setFieldValue(field.name, date);
+                      }}
+                    />
+                  );
+                }}
+              </Field>
               <Button variant="contained" color="primary">
                 予約
               </Button>
