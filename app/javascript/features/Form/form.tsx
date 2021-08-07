@@ -15,6 +15,7 @@ import { PersonName } from "../../domain/personName";
 import PersonNameField from "../../shared/components/PersonNameField";
 import useStyles from "../../styles/useStyles";
 import BirthdayField from "../../shared/components/BirthdayField";
+import BirthdayFieldSimple from "../../shared/components/BirthdayFieldSimple";
 
 const initialValues: {
   personName: PersonName;
@@ -27,6 +28,7 @@ const initialValues: {
     firstKanaName: "",
     lastKanaName: "",
   },
+  birthday: new Date(1990, 0, 1),
 };
 
 const Form = () => {
@@ -99,8 +101,8 @@ const Form = () => {
                 <Field name="birthday">
                   {({ field }: FieldProps<Date>) => {
                     return (
-                      <BirthdayField
-                        date={field.value}
+                      <BirthdayFieldSimple
+                        value={field.value}
                         onChanged={(date: Date) => {
                           setFieldValue(field.name, date);
                         }}
