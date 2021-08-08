@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       get 'menus/index'
-      post 'appointments/new'
+      post 'appointments/create'
     end
   end
   get '/form', to: 'react#show'
