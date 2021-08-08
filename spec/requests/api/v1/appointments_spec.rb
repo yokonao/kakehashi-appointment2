@@ -10,7 +10,7 @@ RSpec.describe 'Api::V1::Appointments', type: :request do
         last_kana_name: 'ハナコ',
         birthday: '1990-01-01',
         is_first_visit: false,
-        clinical_number: '000000000',
+        clinical_number: '00001',
         email: 'test@example.com',
         phone_number: '0000000000',
         reason: '糖尿病,脂質異常症',

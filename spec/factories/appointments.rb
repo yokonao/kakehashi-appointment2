@@ -6,7 +6,7 @@ FactoryBot.define do
     last_kana_name { 'ハナコ' }
     birthday { '2021-08-01' }
     is_first_visit { false }
-    clinical_number { 'MyString' }
+    clinical_number { '00099' }
     email { 'test@example.com' }
     phone_number { '0000000000' }
     reason { 'MyString' }
