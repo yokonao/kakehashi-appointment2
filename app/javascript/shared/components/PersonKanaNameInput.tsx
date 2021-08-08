@@ -3,6 +3,7 @@ import * as React from "react";
 import { PersonKanaName } from "../../domain/PersonKanaName";
 import useFormElementState from "../../features/hooks/useFormElementState";
 import CheckMark from "./CheckMark";
+import ErrorMessages from "./ErrorMessages";
 
 type Props = {
   value: PersonKanaName;
@@ -86,11 +87,7 @@ const PersonKanaNameInput = (props: Props) => {
           />
         </Grid>
       </Grid>
-      <Box>
-        {state.errorMessages.map((e) => {
-          return <Box color="red">{e}</Box>;
-        })}
-      </Box>
+      <ErrorMessages messages={state.errorMessages} />
     </Box>
   );
 };
