@@ -20,6 +20,8 @@ import EmailInput from "../../shared/components/EmailInput";
 import ConsultationReasonSelector from "../../shared/components/ConsultationReasonSelector";
 import FreeCommentInput from "../../shared/components/FreeCommentInput";
 import InstructionText from "../../shared/components/InstructionText";
+import KarteInformationInput from "../../shared/components/KarteInformationInput";
+import { KarteInformation } from "../../domain/KarteInformation";
 
 const initialValues: {
   personName: PersonName;
@@ -27,6 +29,7 @@ const initialValues: {
   birthday?: Date;
   phoneNumber?: string;
   email?: string;
+  clinicalNumber?: string;
   reason?: string;
   freeComment?: string;
 } = {
@@ -134,7 +137,20 @@ const Form = () => {
                   );
                 }}
               </Field>
-              <InstructionText text="4. 受診理由に当てはまるものを全てチェックしてください" />
+              <InstructionText text="4. 再診の患者様は診察券番号を入力してください" />
+              <Field name="clinicalNumber">
+                {({ field }: FieldProps<string>) => {
+                  return (
+                    <KarteInformationInput
+                      value={{ clinicalNumber: field.value }}
+                      onChanged={(value: KarteInformation) => {
+                        setFieldValue(field.name, value.clinicalNumber);
+                      }}
+                    />
+                  );
+                }}
+              </Field>
+              <InstructionText text="5. 受診理由に当てはまるものを全てチェックしてください" />
               <Field name="reasons">
                 {({ field }: FieldProps<string>) => {
                   return (
@@ -146,7 +162,7 @@ const Form = () => {
                   );
                 }}
               </Field>
-              <InstructionText text="5. 医師に伝えておきたいことを記入してください（任意）" />
+              <InstructionText text="6. 医師に伝えておきたいことを記入してください（任意）" />
               <Field name="freeComment">
                 {({ field }: FieldProps<string>) => {
                   return (
