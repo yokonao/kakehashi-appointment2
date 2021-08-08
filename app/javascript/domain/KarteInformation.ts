@@ -1,4 +1,5 @@
 
 export type KarteInformation = {
-  clinicalNumber: string;
+  isFirstVisit: boolean;
+  clinicalNumber?: string;
 };

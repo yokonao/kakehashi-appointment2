@@ -32,7 +32,7 @@ const initialValues: {
   birthday?: Date;
   phoneNumber?: string;
   email?: string;
-  clinicalNumber?: string;
+  karteInformation: KarteInformation;
   reason?: string;
   freeComment?: string;
 } = {
@@ -45,6 +45,9 @@ const initialValues: {
     lastKanaName: "",
   },
   birthday: new Date(1990, 0, 1),
+  karteInformation: {
+    isFirstVisit: true,
+  }
 };
 
 const Form = () => {
@@ -147,14 +150,14 @@ const Form = () => {
                   );
                 }}
               </Field>
-              <InstructionText text="4. 再診の患者様は診察券番号を入力してください" />
-              <Field name="clinicalNumber">
-                {({ field }: FieldProps<string>) => {
+              <InstructionText text="5. 当院を初めてご利用になりますか？" />
+              <Field name="karteInformation">
+                {({ field }: FieldProps<KarteInformation>) => {
                   return (
                     <KarteInformationInput
-                      value={{ clinicalNumber: field.value }}
+                      value={field.value}
                       onChanged={(value: KarteInformation) => {
-                        setFieldValue(field.name, value.clinicalNumber);
+                        setFieldValue(field.name, value);
                       }}
                     />
                   );
