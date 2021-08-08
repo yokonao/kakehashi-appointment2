@@ -39,6 +39,7 @@ class Appointment < ApplicationRecord
   validates :email, presence: true, email: true
   validates :phone_number, presence: true, format: { with: /\A[0-9]{10,11}\z/}
   validates :reason, presence: true
+  validates :menu, uniqueness: { message: 'が一杯です。別の日時を選択してください'}
 
   def return_visit?
     !is_first_visit

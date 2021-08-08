@@ -40,7 +40,7 @@ RSpec.describe 'Api::V1::Appointments', type: :request do
       it 'returns an error' do
         expect(subject).to have_http_status(:ok)
         expect(Appointment.count).to eq 0
-        expect(json['errors']).to include '予約メニューを入力してください'
+        expect(json['errors']['menu']).to include '予約枠を入力してください'
       end
     end
     context 'when the specified menu does not exist' do
@@ -48,7 +48,18 @@ RSpec.describe 'Api::V1::Appointments', type: :request do
       it 'returns an error' do
         expect(subject).to have_http_status(:ok)
         expect(Appointment.count).to eq 0
-        expect(json['errors']).to include '予約メニューを入力してください'
+        expect(json['errors']['menu']).to include '予約枠を入力してください'
+      end
+    end
+    context 'when the specified menu is already filled' do
+      before do
+        create(:appointment, menu_id: menu.id)
+      end
+      let(:params) { valid_params }
+      it 'returns an error' do
+        expect(subject).to have_http_status(:ok)
+        expect(Appointment.count).to eq 1
+        expect(json['errors']['menu']).to include '予約枠が一杯です。別の日時を選択してください'
       end
     end
   end

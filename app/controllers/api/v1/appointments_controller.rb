@@ -5,7 +5,7 @@ class Api::V1::AppointmentsController < ApplicationController
       appointment.save!
       render json: appointment
     else
-      render json: { "errors": appointment.errors.full_messages }
+      render json: { "errors": appointment.errors.as_json(full_messages: true) }
     end
   end
 
