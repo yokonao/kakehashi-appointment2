@@ -7,14 +7,17 @@ export type MenuSerializer = {
   department: string;
   start_at: Date;
   end_at: Date;
+  isFilled: boolean;
 };
 
 function createMenusFromResponse(data: any): MenuSerializer[] {
+  console.log(data)
   return data.map((e: any) => ({
     id: e.id,
     department: e.department,
     start_at: new Date(e.start_at),
     end_at: new Date(e.end_at),
+    isFilled: e.filled
   }));
 }
 

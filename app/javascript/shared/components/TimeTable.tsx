@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Icon,
   IconButton,
   makeStyles,
@@ -90,9 +89,10 @@ const TimeTable = React.memo((props: TimeTableProps) => {
                   <TableCell align="center" padding="none" size="small">
                     {menu ? (
                       <IconButton
-                        color="primary"
+                        color={menu.isFilled ? "default" : "primary"}
                         onClick={() => props.onSelect(menu)}
                         size="small"
+                        disabled={menu.isFilled}
                       >
                         <Icon>event_note</Icon>
                       </IconButton>
