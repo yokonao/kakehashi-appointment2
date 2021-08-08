@@ -8,7 +8,7 @@ type Props = {
 type State = { [reason: string]: boolean };
 
 function createInitialState(): State {
-  return { 糖尿病: false, 脂質異常症: false, 高血圧: false, 甲状腺: false };
+  return { 糖尿病: false, 甲状腺: false, その他: false };
 }
 
 const ConsultationReasonSelector = (props: Props) => {
