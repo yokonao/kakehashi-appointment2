@@ -36,10 +36,13 @@ const reducer: React.Reducer<State, Action> = (
     case "ADD_ERROR_MESSAGE":
       return {
         ...state,
-        errorMessages: Array.from(new Set([...state.errorMessages, action.payload])),
+        isValid: false,
+        errorMessages: Array.from(
+          new Set([...state.errorMessages, action.payload])
+        ),
       };
     case "SET_EXTERNAL_ERRORS":
-      return { ...state, sisValid: false, externalErrors: action.payload };
+      return { ...state, isValid: false, externalErrors: action.payload };
     default:
       return state;
   }

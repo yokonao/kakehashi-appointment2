@@ -30,7 +30,6 @@ const BirthdayInput = (props: Props) => {
       addErrorMessage("無効な日付です");
       return;
     }
-    console.log(date);
     verify();
   }, [value, verify, addErrorMessage]);
 
