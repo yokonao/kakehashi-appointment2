@@ -5,12 +5,12 @@ import {
   Button,
   CircularProgress,
   Container,
+  TextField,
   Typography,
 } from "@material-ui/core";
 import TimeTable from "../../shared/components/TimeTable";
 import { MenuSerializer, useMenusContext } from "../hooks/useMenusContext";
 import { Field, FieldProps, Formik } from "formik";
-import { format } from "date-fns";
 import { PersonName } from "../../domain/personName";
 import PersonNameField from "../../shared/components/PersonNameField";
 import useStyles from "../../styles/useStyles";
@@ -22,6 +22,12 @@ import FreeCommentInput from "../../shared/components/FreeCommentInput";
 import InstructionText from "../../shared/components/InstructionText";
 import KarteInformationInput from "../../shared/components/KarteInformationInput";
 import { KarteInformation } from "../../domain/KarteInformation";
+import {
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
+import jaLocale from "date-fns/locale/ja";
+import DateFnsUtils from "@date-io/date-fns";
 
 const initialValues: {
   personName: PersonName;
@@ -71,13 +77,23 @@ const Form = () => {
                 {({ field }: FieldProps<MenuSerializer>) => {
                   return (
                     <div>
-                      <Box ml={2}>
-                        <Typography color="inherit">
-                          {field.value
-                            ? format(field.value.start_at, "M月d日HH時mm分")
-                            : ""}
-                        </Typography>
-                      </Box>
+                      {/* <MuiPickersUtilsProvider
+                        utils={DateFnsUtils}
+                        locale={jaLocale}
+                      >
+                        <DateTimePicker
+                          clearable
+                          variant="inline"
+                          color="primary"
+                          format="yyyy年MM月dd日hh時mm分"
+                          id="birthday"
+                          value={field.value?.start_at}
+                          onChange={() => {}}
+                          readOnly
+                          helperText="予約日時"
+                          renderInput={(props: any) => <TextField />}
+                        />
+                      </MuiPickersUtilsProvider> */}
                       <TimeTable
                         menus={menus}
                         baseDate={today}
