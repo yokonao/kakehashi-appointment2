@@ -11,7 +11,6 @@ import {
   TableRow,
   TextField,
 } from "@material-ui/core";
-import { Visibility, VisibilityOff } from "@material-ui/icons";
 import { format, addDays, eachMinuteOfInterval } from "date-fns";
 import * as React from "react";
 import {
@@ -20,6 +19,7 @@ import {
   getMorningLastTime,
   getOpeningTime,
 } from "../../domain/BusinessRule";
+import useFormElementState from "../../features/hooks/useFormElementState";
 import { MenuSerializer } from "../../features/hooks/useMenusContext";
 
 type TimeTableProps = {
@@ -62,6 +62,7 @@ const useStyles = makeStyles({
 const TimeTable = React.memo((props: TimeTableProps) => {
   const { value } = props;
   const classes = useStyles();
+  const { state, verify } = useFormElementState();
   return (
     <Box m={2}>
       <Box mb={2}>
@@ -72,7 +73,7 @@ const TimeTable = React.memo((props: TimeTableProps) => {
           helperText="下の表から選択してください"
           InputProps={{
             readOnly: true,
-            endAdornment: (
+            endAdornment: state.isValid && (
               <InputAdornment position="end">
                 <Icon color="primary">check</Icon>
               </InputAdornment>
@@ -111,7 +112,10 @@ const TimeTable = React.memo((props: TimeTableProps) => {
                     {menu ? (
                       <IconButton
                         color={menu.isFilled ? "default" : "primary"}
-                        onClick={() => props.onSelect(menu)}
+                        onClick={() => {
+                          props.onSelect(menu);
+                          verify();
+                        }}
                         size="small"
                         disabled={menu.isFilled}
                       >
