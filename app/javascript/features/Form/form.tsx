@@ -23,6 +23,7 @@ import KarteInformationInput from "../../shared/components/KarteInformationInput
 import { KarteInformation } from "../../domain/KarteInformation";
 import { PersonKanaName } from "../../domain/PersonKanaName";
 import PersonKanaNameInput from "../../shared/components/PersonKanaNameInput";
+import BirthdayInput from "../../shared/components/BirthdayInput";
 
 const initialValues: {
   personName: PersonName;
@@ -112,7 +113,7 @@ const Form = () => {
               <Field name="birthday">
                 {({ field }: FieldProps<Date>) => {
                   return (
-                    <BirthdayFieldSimple
+                    <BirthdayInput
                       value={field.value}
                       onChanged={(date: Date) => {
                         setFieldValue(field.name, date);
