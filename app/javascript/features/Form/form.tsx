@@ -11,7 +11,7 @@ import TimeTable from "../../shared/components/TimeTable";
 import { MenuSerializer, useMenusContext } from "../hooks/useMenusContext";
 import { Field, FieldProps, Formik } from "formik";
 import { PersonName } from "../../domain/personName";
-import PersonNameField from "../../shared/components/PersonNameField";
+import PersonNameField from "../../shared/components/PersonNameInput";
 import useStyles from "../../styles/useStyles";
 import BirthdayFieldSimple from "../../shared/components/BirthdayFieldSimple";
 import PhoneNumberInput from "../../shared/components/PhoneNumberInput";
