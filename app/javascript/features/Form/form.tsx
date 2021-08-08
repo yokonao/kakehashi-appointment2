@@ -175,7 +175,7 @@ const Form = () => {
                   );
                 }}
               </Field>
-              <InstructionText text="6. 医師に伝えておきたいことを記入してください（任意）" />
+              <InstructionText text="7. その他（任意）" />
               <Field name="freeComment">
                 {({ field }: FieldProps<string>) => {
                   return (
