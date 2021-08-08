@@ -21,10 +21,12 @@ import FreeCommentInput from "../../shared/components/FreeCommentInput";
 import InstructionText from "../../shared/components/InstructionText";
 import KarteInformationInput from "../../shared/components/KarteInformationInput";
 import { KarteInformation } from "../../domain/KarteInformation";
-
+import { PersonKanaName } from "../../domain/PersonKanaName";
+import PersonKanaNameInput from "../../shared/components/PersonKanaNameInput";
 
 const initialValues: {
   personName: PersonName;
+  personKanaName: PersonKanaName;
   menu?: MenuSerializer;
   birthday?: Date;
   phoneNumber?: string;
@@ -36,6 +38,8 @@ const initialValues: {
   personName: {
     firstName: "",
     lastName: "",
+  },
+  personKanaName: {
     firstKanaName: "",
     lastKanaName: "",
   },
@@ -87,6 +91,18 @@ const Form = () => {
                       value={field.value}
                       onChanged={(personName) =>
                         setFieldValue(field.name, personName)
+                      }
+                    />
+                  );
+                }}
+              </Field>
+              <Field name="personKanaName">
+                {({ field }: FieldProps<PersonKanaName>) => {
+                  return (
+                    <PersonKanaNameInput
+                      value={field.value}
+                      onChanged={(personKanaName) =>
+                        setFieldValue(field.name, personKanaName)
                       }
                     />
                   );
