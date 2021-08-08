@@ -2,6 +2,7 @@ import {
   Box,
   Icon,
   IconButton,
+  InputAdornment,
   makeStyles,
   Table,
   TableBody,
@@ -10,6 +11,7 @@ import {
   TableRow,
   TextField,
 } from "@material-ui/core";
+import { Visibility, VisibilityOff } from "@material-ui/icons";
 import { format, addDays, eachMinuteOfInterval } from "date-fns";
 import * as React from "react";
 import {
@@ -66,9 +68,16 @@ const TimeTable = React.memo((props: TimeTableProps) => {
         <TextField
           variant="outlined"
           value={value ? format(value.start_at, "yyyy年M月d日H時mm分") : ""}
-          InputProps={{ readOnly: true }}
           placeholder="予約日時"
           helperText="下の表から選択してください"
+          InputProps={{
+            readOnly: true,
+            endAdornment: (
+              <InputAdornment position="end">
+                <Icon color="primary">check</Icon>
+              </InputAdornment>
+            ),
+          }}
         />
       </Box>
       <Table
