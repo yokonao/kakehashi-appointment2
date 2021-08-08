@@ -2,8 +2,8 @@ import { Box, Checkbox, FormControlLabel, FormGroup } from "@material-ui/core";
 import * as React from "react";
 
 type Props = {
-  value: string[];
-  onChanged: (value: string[]) => void;
+  value: string;
+  onChanged: (value: string) => void;
 };
 
 const reasonList: string[] = ["糖尿病", "脂質異常症", "高血圧", "甲状腺"];
@@ -34,6 +34,7 @@ const ConsultationReasonSelector = (props: Props) => {
                       .map(([key, value]) => ({ key, value }))
                       .filter((e) => e.value)
                       .map((e) => e.key)
+                      .join(",")
                   );
                 }}
               />

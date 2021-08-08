@@ -25,7 +25,7 @@ const initialValues: {
   birthday?: Date;
   phoneNumber?: string;
   email?: string;
-  reason: string[];
+  reason?: string;
 } = {
   personName: {
     firstName: "",
@@ -34,7 +34,6 @@ const initialValues: {
     lastKanaName: "",
   },
   birthday: new Date(1990, 0, 1),
-  reason: [],
 };
 
 const Form = () => {
@@ -153,8 +152,8 @@ const Form = () => {
                 {({ field }: FieldProps<string>) => {
                   return (
                     <ConsultationReasonSelector
-                      value={[]}
-                      onChanged={(value: string[]) => {
+                      value={field.value}
+                      onChanged={(value: string) => {
                         setFieldValue(field.name, value);
                       }}
                     />
