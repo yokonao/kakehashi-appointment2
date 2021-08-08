@@ -54,7 +54,7 @@ const Form = () => {
           console.log(values);
         }}
       >
-        {({ setFieldValue }) => {
+        {({ setFieldValue, submitForm }) => {
           const onSelectMenu = React.useCallback(
             (menu: MenuSerializer) => setFieldValue("menu", menu),
             [setFieldValue]
@@ -175,9 +175,15 @@ const Form = () => {
                   );
                 }}
               </Field>
-              <Button variant="contained" color="primary">
-                予約
-              </Button>
+              <Box m={2} pb={10}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => submitForm()}
+                >
+                  予約
+                </Button>
+              </Box>
               <Backdrop className={classes.backdrop} open={isLoading}>
                 <CircularProgress color="inherit" />
               </Backdrop>
