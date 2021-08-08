@@ -16,7 +16,7 @@ const FreeCommentInput = (props: Props) => {
           onChanged(e.target.value);
         }}
         type="text"
-        placeholder="診察前に伝えたいことをご自由にお書きください"
+        placeholder="診察前に伝えておきたいことをご自由にお書きください"
         helperText="自由記入欄"
         variant="outlined"
         multiline

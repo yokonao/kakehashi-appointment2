@@ -125,7 +125,7 @@ const Form = () => {
                   );
                 }}
               </Field>
-              <InstructionText text="3. 電話番号・メールアドレスを入力してください" />
+              <InstructionText text="4. 電話番号・メールアドレスを入力してください" />
               <Field name="phoneNumber">
                 {({ field }: FieldProps<string>) => {
                   return (
@@ -163,7 +163,7 @@ const Form = () => {
                   );
                 }}
               </Field>
-              <InstructionText text="5. 受診理由に当てはまるものを全てチェックしてください" />
+              <InstructionText text="6. 受診理由として当てはまるものに全てチェックしてください" />
               <Field name="reasons">
                 {({ field }: FieldProps<string>) => {
                   return (
