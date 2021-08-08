@@ -5,7 +5,6 @@ import {
   Button,
   CircularProgress,
   Container,
-  TextField,
   Typography,
 } from "@material-ui/core";
 import TimeTable from "../../shared/components/TimeTable";
@@ -22,12 +21,7 @@ import FreeCommentInput from "../../shared/components/FreeCommentInput";
 import InstructionText from "../../shared/components/InstructionText";
 import KarteInformationInput from "../../shared/components/KarteInformationInput";
 import { KarteInformation } from "../../domain/KarteInformation";
-import {
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider,
-} from "@material-ui/pickers";
-import jaLocale from "date-fns/locale/ja";
-import DateFnsUtils from "@date-io/date-fns";
+
 
 const initialValues: {
   personName: PersonName;
@@ -76,30 +70,12 @@ const Form = () => {
               <Field name="menu">
                 {({ field }: FieldProps<MenuSerializer>) => {
                   return (
-                    <div>
-                      {/* <MuiPickersUtilsProvider
-                        utils={DateFnsUtils}
-                        locale={jaLocale}
-                      >
-                        <DateTimePicker
-                          clearable
-                          variant="inline"
-                          color="primary"
-                          format="yyyy年MM月dd日hh時mm分"
-                          id="birthday"
-                          value={field.value?.start_at}
-                          onChange={() => {}}
-                          readOnly
-                          helperText="予約日時"
-                          renderInput={(props: any) => <TextField />}
-                        />
-                      </MuiPickersUtilsProvider> */}
-                      <TimeTable
-                        menus={menus}
-                        baseDate={today}
-                        onSelect={onSelectMenu}
-                      />
-                    </div>
+                    <TimeTable
+                      value={field.value}
+                      menus={menus}
+                      baseDate={today}
+                      onSelect={onSelectMenu}
+                    />
                   );
                 }}
               </Field>

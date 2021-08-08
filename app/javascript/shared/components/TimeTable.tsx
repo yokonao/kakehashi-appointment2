@@ -8,6 +8,7 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  TextField,
 } from "@material-ui/core";
 import { format, addDays, eachMinuteOfInterval } from "date-fns";
 import * as React from "react";
@@ -20,6 +21,7 @@ import {
 import { MenuSerializer } from "../../features/hooks/useMenusContext";
 
 type TimeTableProps = {
+  value?: MenuSerializer;
   menus: MenuSerializer[];
   baseDate: Date;
   onSelect: (menu: MenuSerializer) => void;
@@ -56,9 +58,19 @@ const useStyles = makeStyles({
 });
 
 const TimeTable = React.memo((props: TimeTableProps) => {
+  const { value } = props;
   const classes = useStyles();
   return (
     <Box m={2}>
+      <Box mb={2}>
+        <TextField
+          variant="outlined"
+          value={value ? format(value.start_at, "yyyy年M月d日H時mm分") : ""}
+          InputProps={{ readOnly: true }}
+          placeholder="予約日時"
+          helperText="下の表から選択してください"
+        />
+      </Box>
       <Table
         className={classes.table}
         size="small"
