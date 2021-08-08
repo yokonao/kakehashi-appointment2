@@ -19,6 +19,7 @@ import PhoneNumberInput from "../../shared/components/PhoneNumberInput";
 import EmailInput from "../../shared/components/EmailInput";
 import ConsultationReasonSelector from "../../shared/components/ConsultationReasonSelector";
 import FreeCommentInput from "../../shared/components/FreeCommentInput";
+import InstructionText from "../../shared/components/InstructionText";
 
 const initialValues: {
   personName: PersonName;
@@ -62,11 +63,7 @@ const Form = () => {
                   内科外来予約
                 </Typography>
               </Box>
-              <Box py={2} my={2}>
-                <Typography color="inherit">
-                  1. 予約日時を選択してください
-                </Typography>
-              </Box>
+              <InstructionText text="1. 予約日時を選択してください" />
               <Field name="menu">
                 {({ field }: FieldProps<MenuSerializer>) => {
                   return (
@@ -87,11 +84,7 @@ const Form = () => {
                   );
                 }}
               </Field>
-              <Box py={2} my={2}>
-                <Typography color="inherit">
-                  2. 氏名・生年月日を入力してください
-                </Typography>
-              </Box>
+              <InstructionText text="2. 氏名・生年月日を入力してください" />
               <Field name="personName">
                 {({ field }: FieldProps<PersonName>) => {
                   return (
@@ -116,11 +109,7 @@ const Form = () => {
                   );
                 }}
               </Field>
-              <Box py={2} my={2}>
-                <Typography color="inherit">
-                  3. 電話番号・メールアドレスを入力してください
-                </Typography>
-              </Box>
+              <InstructionText text="3. 電話番号・メールアドレスを入力してください" />
               <Field name="phoneNumber">
                 {({ field }: FieldProps<string>) => {
                   return (
@@ -145,11 +134,7 @@ const Form = () => {
                   );
                 }}
               </Field>
-              <Box py={2} my={2}>
-                <Typography color="inherit">
-                  4. 受診理由に当てはまるものを全てチェックしてください
-                </Typography>
-              </Box>
+              <InstructionText text="4. 受診理由に当てはまるものを全てチェックしてください" />
               <Field name="reasons">
                 {({ field }: FieldProps<string>) => {
                   return (
@@ -161,11 +146,7 @@ const Form = () => {
                   );
                 }}
               </Field>
-              <Box py={2} my={2}>
-                <Typography color="inherit">
-                  5. 医師に伝えておきたいことを記入してください（任意）
-                </Typography>
-              </Box>
+              <InstructionText text="5. 医師に伝えておきたいことを記入してください（任意）" />
               <Field name="freeComment">
                 {({ field }: FieldProps<string>) => {
                   return (
