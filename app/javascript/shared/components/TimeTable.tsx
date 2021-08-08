@@ -19,7 +19,7 @@ import {
   getLastTime,
   getMorningLastTime,
   getOpeningTime,
-} from "../../domain/BuisinessRule";
+} from "../../domain/BusinessRule";
 import { MenuSerializer } from "../../features/hooks/useMenusContext";
 
 type TimeTableProps = {
