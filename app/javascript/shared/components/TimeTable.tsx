@@ -80,7 +80,7 @@ const TimeTable = React.memo((props: TimeTableProps) => {
           {createBusinessTimesEveryThirtyMinutes(props.baseDate).map((e) => (
             <TableRow>
               <TableCell align="center" padding="none">
-                {format(e, "hh:mm")}
+                {format(e, "HH:mm")}
               </TableCell>
               {createTwoWeeks(e).map((date) => {
                 const menu = props.menus.find(
