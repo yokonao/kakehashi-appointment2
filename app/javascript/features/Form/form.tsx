@@ -14,7 +14,6 @@ import { Field, FieldProps, Formik } from "formik";
 import { PersonName } from "../../domain/personName";
 import PersonNameField from "../../shared/components/PersonNameInput";
 import useStyles from "../../styles/useStyles";
-import BirthdayFieldSimple from "../../shared/components/BirthdayFieldSimple";
 import PhoneNumberInput from "../../shared/components/PhoneNumberInput";
 import EmailInput from "../../shared/components/EmailInput";
 import ConsultationReasonSelector from "../../shared/components/ConsultationReasonSelector";
