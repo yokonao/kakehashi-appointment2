@@ -1,16 +1,33 @@
-import { Box, Grid, TextField } from "@material-ui/core";
+import { Box, Grid, Icon, InputAdornment, TextField } from "@material-ui/core";
 import * as React from "react";
 import { PersonKanaName } from "../../domain/PersonKanaName";
 import useFormElementState from "../../features/hooks/useFormElementState";
+import CheckMark from "./CheckMark";
 
 type Props = {
   value: PersonKanaName;
   onChanged: (personName: PersonKanaName) => void;
 };
 
+function validateKana(target: string) {
+  return target.length > 0 && /^[ァ-ヶー－]+$/.test(target);
+}
+
 const PersonKanaNameInput = (props: Props) => {
   const { value, onChanged } = props;
-  const { state, verify } = useFormElementState();
+  const { state, verify, addErrorMessage } = useFormElementState();
+  const validate = React.useCallback(() => {
+    if (validateKana(value.firstKanaName) && validateKana(value.lastKanaName)) {
+      verify();
+    } else if (
+      value.firstKanaName.length == 0 ||
+      value.lastKanaName.length == 0
+    ) {
+      addErrorMessage("氏名をカタカナで入力してください");
+    } else {
+      addErrorMessage("カタカナで入力してください");
+    }
+  }, [value.firstKanaName, value.lastKanaName, verify, addErrorMessage]);
   return (
     <Box m={2}>
       <Grid container spacing={3}>
@@ -26,10 +43,19 @@ const PersonKanaNameInput = (props: Props) => {
               };
               onChanged(newValue);
             }}
+            onBlur={() => {
+              if (value.firstKanaName.length > 0) validate();
+            }}
             inputProps={{ maxLength: 20 }}
             placeholder="カケハシ"
             helperText="セイ（カタカナ）"
             variant="outlined"
+            InputProps={{
+              endAdornment: state.isValid && <CheckMark />,
+            }}
+            error={
+              state.errorMessages.length > 0 || state.externalErrors.length > 0
+            }
           />
         </Grid>
         <Grid item>
@@ -44,13 +70,27 @@ const PersonKanaNameInput = (props: Props) => {
               };
               onChanged(newValue);
             }}
+            onBlur={() => {
+              validate();
+            }}
             inputProps={{ maxLength: 20 }}
             placeholder="ハナコ"
             helperText="メイ（カタカナ）"
             variant="outlined"
+            InputProps={{
+              endAdornment: state.isValid && <CheckMark />,
+            }}
+            error={
+              state.errorMessages.length > 0 || state.externalErrors.length > 0
+            }
           />
         </Grid>
       </Grid>
+      <Box>
+        {state.errorMessages.map((e) => {
+          return <Box color="red">{e}</Box>;
+        })}
+      </Box>
     </Box>
   );
 };

@@ -1,6 +1,9 @@
-import { Box, Grid, TextField } from "@material-ui/core";
+import { Box, Grid, Icon, InputAdornment, TextField } from "@material-ui/core";
+import { validateYupSchema } from "formik";
 import * as React from "react";
 import { PersonName } from "../../domain/PersonName";
+import useFormElementState from "../../features/hooks/useFormElementState";
+import CheckMark from "./CheckMark";
 
 type Props = {
   value: PersonName;
@@ -9,6 +12,10 @@ type Props = {
 
 const PersonNameField = (props: Props) => {
   const { value, onChanged } = props;
+  const { state, verify } = useFormElementState();
+  const validate = React.useCallback(() => {
+    if (value.firstName.length > 0 && value.lastName.length > 0) verify();
+  }, [value, verify]);
   return (
     <Box m={2}>
       <Grid container spacing={3}>
@@ -24,10 +31,16 @@ const PersonNameField = (props: Props) => {
               };
               onChanged(newValue);
             }}
+            onBlur={() => {
+              if (value.firstName.length > 0) validate();
+            }}
             inputProps={{ maxLength: 20 }}
             placeholder="架橋"
             helperText="姓（漢字）"
             variant="outlined"
+            InputProps={{
+              endAdornment: state.isValid && <CheckMark />,
+            }}
           />
         </Grid>
         <Grid item>
@@ -42,10 +55,16 @@ const PersonNameField = (props: Props) => {
               };
               onChanged(newValue);
             }}
+            onBlur={() => {
+              if (value.lastName.length > 0) validate();
+            }}
             inputProps={{ maxLength: 20 }}
             placeholder="花子"
             helperText="名（漢字）"
             variant="outlined"
+            InputProps={{
+              endAdornment: state.isValid && <CheckMark />,
+            }}
           />
         </Grid>
       </Grid>
