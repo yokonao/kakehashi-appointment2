@@ -18,6 +18,7 @@ import BirthdayFieldSimple from "../../shared/components/BirthdayFieldSimple";
 import PhoneNumberInput from "../../shared/components/PhoneNumberInput";
 import EmailInput from "../../shared/components/EmailInput";
 import ConsultationReasonSelector from "../../shared/components/ConsultationReasonSelector";
+import FreeCommentInput from "../../shared/components/FreeCommentInput";
 
 const initialValues: {
   personName: PersonName;
@@ -26,6 +27,7 @@ const initialValues: {
   phoneNumber?: string;
   email?: string;
   reason?: string;
+  freeComment?: string;
 } = {
   personName: {
     firstName: "",
@@ -152,6 +154,23 @@ const Form = () => {
                 {({ field }: FieldProps<string>) => {
                   return (
                     <ConsultationReasonSelector
+                      onChanged={(value: string) => {
+                        setFieldValue(field.name, value);
+                      }}
+                    />
+                  );
+                }}
+              </Field>
+              <Box py={2} my={2}>
+                <Typography color="inherit">
+                  5. 医師に伝えておきたいことを記入してください（任意）
+                </Typography>
+              </Box>
+              <Field name="freeComment">
+                {({ field }: FieldProps<string>) => {
+                  return (
+                    <FreeCommentInput
+                      value={field.value}
                       onChanged={(value: string) => {
                         setFieldValue(field.name, value);
                       }}
