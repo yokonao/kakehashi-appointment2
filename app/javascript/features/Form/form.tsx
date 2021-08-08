@@ -5,6 +5,7 @@ import {
   Button,
   CircularProgress,
   Container,
+  Icon,
   Typography,
 } from "@material-ui/core";
 import TimeTable from "../../shared/components/TimeTable";
@@ -191,8 +192,10 @@ const Form = () => {
               <Box m={2} pb={10}>
                 <Button
                   variant="contained"
+                  size="large"
                   color="primary"
                   onClick={() => submitForm()}
+                  endIcon={<Icon>send</Icon>}
                 >
                   予約
                 </Button>
