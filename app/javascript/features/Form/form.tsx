@@ -152,7 +152,6 @@ const Form = () => {
                 {({ field }: FieldProps<string>) => {
                   return (
                     <ConsultationReasonSelector
-                      value={field.value}
                       onChanged={(value: string) => {
                         setFieldValue(field.name, value);
                       }}

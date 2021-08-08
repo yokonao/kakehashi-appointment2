@@ -2,11 +2,8 @@ import { Box, Checkbox, FormControlLabel, FormGroup } from "@material-ui/core";
 import * as React from "react";
 
 type Props = {
-  value: string;
   onChanged: (value: string) => void;
 };
-
-const reasonList: string[] = ["糖尿病", "脂質異常症", "高血圧", "甲状腺"];
 
 type State = { [reason: string]: boolean };
 
@@ -15,12 +12,14 @@ function createInitialState(): State {
 }
 
 const ConsultationReasonSelector = (props: Props) => {
-  const { value, onChanged } = props;
-  const [state, setState] = React.useState<State>(createInitialState());
+  const { onChanged } = props;
+  const initialState = React.useMemo(() => createInitialState(), []);
+  const [state, setState] = React.useState<State>(initialState);
+
   return (
     <Box m={2}>
       <FormGroup>
-        {reasonList.map((reason) => (
+        {Object.entries(initialState).map(([reason, _]) => (
           <FormControlLabel
             control={
               <Checkbox
