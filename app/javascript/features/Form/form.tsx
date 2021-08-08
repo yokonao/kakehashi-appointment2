@@ -92,6 +92,7 @@ const Form = () => {
                   );
                 }}
               </Field>
+              <InstructionText text="生年月日を数字8桁で入力してください" />
               <Field name="birthday">
                 {({ field }: FieldProps<Date>) => {
                   return (
