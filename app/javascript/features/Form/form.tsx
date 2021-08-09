@@ -115,7 +115,7 @@ function validate(value: FormValue): {
   const isValid =
     Object.keys(errors)
       .map((key) => errors[key])
-      .reduce((a, b) => [...a, ...b]).length == 0;
+      .reduce((a, b) => [...a, ...b], []).length == 0;
 
   return { isValid: isValid, errors: errors };
 }
