@@ -1,13 +1,13 @@
 import * as React from "react";
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
+import { Logo, LogoName } from "./Logo";
 
 const Header = () => {
   return (
-    <AppBar position="static">
+    <AppBar position="static" color="default">
       <Toolbar>
-        <Typography variant="h6" color="inherit">
-          かけはし予約システム（仮）
-        </Typography>
+        <Logo />
+        <LogoName/>
       </Toolbar>
     </AppBar>
   );
