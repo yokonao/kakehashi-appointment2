@@ -19,6 +19,8 @@ test:
 
 production:
   <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
+  database: kakehashi-appointment_production
   adapter: postgresql
   encoding: unicode
   pool: 5
