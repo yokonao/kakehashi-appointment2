@@ -45,7 +45,6 @@ const initialValues: {
     firstKanaName: "",
     lastKanaName: "",
   },
-  birthday: new Date(1990, 0, 1),
   karteInformation: {
     isFirstVisit: true,
   },
