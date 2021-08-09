@@ -11,7 +11,6 @@ export type MenuSerializer = {
 };
 
 function createMenusFromResponse(data: any): MenuSerializer[] {
-  console.log(data)
   return data.map((e: any) => ({
     id: e.id,
     department: e.department,
