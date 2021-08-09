@@ -50,10 +50,15 @@ const initialValues: {
   },
 };
 
-const Form = () => {
+type Props = {
+  menus: MenuSerializer[];
+  isLoading: boolean
+}
+
+const Form = (props: Props) => {
+  const { menus, isLoading } = props;
   const classes = useStyles();
   const today = React.useMemo<Date>(() => new Date(), []);
-  const { internalMedicineMenus: menus, isLoading } = useMenusContext();
   return (
     <Container className={classes.form} maxWidth="md">
       <Formik
