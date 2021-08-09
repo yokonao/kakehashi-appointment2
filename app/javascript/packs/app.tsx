@@ -11,7 +11,7 @@ import useStyles from "../styles/useStyles";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#997009",
+      main: "#99720f",
     },
   },
 });
