@@ -1,9 +1,6 @@
 import * as React from "react";
-import {
-  castToMenuSerializer,
-  MenuSerializer,
-} from "../../serializers/MenuSerializer";
-import client from "../../shared/api/client";
+import { MenuSerializer } from "../../serializers/MenuSerializer";
+import { getAllMenus } from "../../shared/api/getAllMenus";
 
 type State = {
   internalMedicineMenus: MenuSerializer[];
@@ -79,17 +76,13 @@ export const MenusContextProvider: React.FC<Props> = ({ children }) => {
     [state, setMenus]
   );
   React.useEffect(() => {
-    client
-      .get<MenuSerializer[]>("/api/v1/menus/index")
-      .then((res) => {
-        const menus = res.data.map((e) => castToMenuSerializer(e));
-        setMenus(menus);
-        dispatch({ type: "SET_IS_LOADING", payload: false });
-      })
-      .catch((e) => {
-        console.log(e);
-        dispatch({ type: "SET_IS_LOADING", payload: false });
-      });
+    getAllMenus().then((res) => {
+      if (res.error.length > 0) {
+        console.log(res.error);
+      }
+      setMenus(res.result);
+      dispatch({ type: "SET_IS_LOADING", payload: false });
+    });
   }, []);
   return (
     <MenusContext.Provider value={value}>{children}</MenusContext.Provider>
