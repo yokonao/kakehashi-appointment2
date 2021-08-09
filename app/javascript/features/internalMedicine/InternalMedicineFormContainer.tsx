@@ -9,7 +9,7 @@ type Props = {
 
 const InternalMedicineFormContainer = (props: Props) => {
   const { menus, isLoading } = props;
-  return <Form menus={menus} isLoading={isLoading} />;
+  return <Form title="内科外来予約" menus={menus} isLoading={isLoading} />;
 };
 
 export default InternalMedicineFormContainer;

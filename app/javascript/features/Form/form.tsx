@@ -52,11 +52,12 @@ const initialValues: {
 
 type Props = {
   menus: MenuSerializer[];
-  isLoading: boolean
-}
+  isLoading: boolean;
+  title: string;
+};
 
 const Form = (props: Props) => {
-  const { menus, isLoading } = props;
+  const { menus, isLoading, title } = props;
   const classes = useStyles();
   const today = React.useMemo<Date>(() => new Date(), []);
   return (
@@ -76,7 +77,7 @@ const Form = (props: Props) => {
             <>
               <Box py={2} my={2} textAlign="center">
                 <Typography variant="h4" color="primary">
-                  内科外来予約
+                  {title}
                 </Typography>
               </Box>
               <InstructionText text="1. 予約日時を選択してください" />
