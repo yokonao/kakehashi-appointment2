@@ -94,7 +94,7 @@ const TimeTable = React.memo((props: TimeTableProps) => {
           variant="outlined"
           onClick={() => {
             onSelect(undefined);
-            addErrorMessage("予約日時を選択してください")
+            addErrorMessage("予約日時を選択してください");
           }}
         >
           日時を再度選択する
@@ -105,7 +105,11 @@ const TimeTable = React.memo((props: TimeTableProps) => {
             <TableRow>
               <TableCell />
               {createTwoWeeks(props.baseDate).map((date) => (
-                <TableCell align="center" padding="none">
+                <TableCell
+                  key={"header-date-" + format(date, "MM月dd日hh時mm分")}
+                  align="center"
+                  padding="none"
+                >
                   {format(date, "MM/dd")}
                 </TableCell>
               ))}
@@ -113,8 +117,12 @@ const TimeTable = React.memo((props: TimeTableProps) => {
           </TableHead>
           <TableBody>
             {createBusinessTimesEveryThirtyMinutes(props.baseDate).map((e) => (
-              <TableRow>
-                <TableCell align="center" padding="none">
+              <TableRow key={"table-row-" + e.toString()}>
+                <TableCell
+                  key={"header-time-" + format(e, "HH:mm")}
+                  align="center"
+                  padding="none"
+                >
                   {format(e, "HH:mm")}
                 </TableCell>
                 {createTwoWeeks(e).map((date) => {
@@ -122,7 +130,12 @@ const TimeTable = React.memo((props: TimeTableProps) => {
                     (menu) => menu.start_at.getTime() === date.getTime()
                   );
                   return (
-                    <TableCell align="center" padding="none" size="small">
+                    <TableCell
+                      key={"menu-" + date.toString()}
+                      align="center"
+                      padding="none"
+                      size="small"
+                    >
                       {menu ? (
                         <IconButton
                           color={menu.isFilled ? "default" : "primary"}

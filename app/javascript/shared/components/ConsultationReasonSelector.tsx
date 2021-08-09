@@ -21,6 +21,7 @@ const ConsultationReasonSelector = (props: Props) => {
       <FormGroup>
         {Object.entries(initialState).map(([reason, _]) => (
           <FormControlLabel
+            key={reason}
             control={
               <Checkbox
                 color="primary"
