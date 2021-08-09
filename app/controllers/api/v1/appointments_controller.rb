@@ -3,6 +3,7 @@ class Api::V1::AppointmentsController < ApplicationController
     appointment = Appointment.new(appointment_params)
     if appointment.valid?
       appointment.save!
+      
       render json: appointment
     else
       render json: { "errors": appointment.errors.as_json(full_messages: true) }
