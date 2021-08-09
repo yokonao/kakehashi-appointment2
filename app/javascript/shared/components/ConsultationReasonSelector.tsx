@@ -22,6 +22,7 @@ const ConsultationReasonSelector = (props: Props) => {
         {Object.entries(initialState).map(([reason, _]) => (
           <FormControlLabel
             key={reason}
+            tabIndex={0}
             control={
               <Checkbox
                 color="primary"
