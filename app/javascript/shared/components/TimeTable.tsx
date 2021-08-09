@@ -71,7 +71,7 @@ const TimeTable = React.memo((props: TimeTableProps) => {
   }, [value, verify, addErrorMessage]);
   React.useEffect(() => {
     if (externalErrors && externalErrors.length > 0) {
-      addErrorMessage(externalErrors[0]);
+      setExternalErrors(externalErrors);
     }
   }, [externalErrors]);
   return (

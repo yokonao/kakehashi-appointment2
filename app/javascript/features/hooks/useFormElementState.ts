@@ -29,7 +29,7 @@ const reducer: React.Reducer<State, Action> = (
 ) => {
   switch (action.type) {
     case "VERIFY":
-      return { isValid: true, errorMessages: [], externalErrors: [] };
+      return { isValid: true, errorMessages: [] };
     case "ADD_ERROR_MESSAGE":
       return {
         ...state,
@@ -39,7 +39,7 @@ const reducer: React.Reducer<State, Action> = (
         ),
       };
     case "SET_EXTERNAL_ERRORS":
-      return { ...state, isValid: false, externalErrors: action.payload };
+      return { ...state, isValid: false, errorMessages: action.payload };
     default:
       return state;
   }
