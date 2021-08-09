@@ -5,6 +5,7 @@ import ReactDOM from "react-dom";
 import { Router } from "react-router-dom";
 import Routes from "../features/form/Routes";
 import { MenusContextProvider } from "../features/hooks/useMenusContext";
+import { NotificationContextProvider } from "../features/hooks/useNotification";
 import Header from "../shared/components/Header";
 import useStyles from "../styles/useStyles";
 
@@ -23,11 +24,13 @@ const App = (): JSX.Element => {
     <div className={classes.root}>
       <Router history={history}>
         <ThemeProvider theme={theme}>
-          <MenusContextProvider>
-            <Header />
-            <Routes />
-            <div className={classes.footer} />
-          </MenusContextProvider>
+          <NotificationContextProvider>
+            <MenusContextProvider>
+              <Header />
+              <Routes />
+              <div className={classes.footer} />
+            </MenusContextProvider>
+          </NotificationContextProvider>
         </ThemeProvider>
       </Router>
     </div>

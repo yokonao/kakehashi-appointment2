@@ -1,6 +1,7 @@
 import * as React from "react";
 import { MenuSerializer } from "../../serializers/MenuSerializer";
 import { getAllMenus } from "../../shared/api/getAllMenus";
+import { useNotification } from "./useNotification";
 
 type State = {
   internalMedicineMenus: MenuSerializer[];
@@ -68,6 +69,7 @@ export const MenusContextProvider: React.FC<Props> = ({ children }) => {
     },
     [dispatch]
   );
+  const { addError } = useNotification();
   const value = React.useMemo(
     () => ({
       ...state,
@@ -79,6 +81,7 @@ export const MenusContextProvider: React.FC<Props> = ({ children }) => {
     getAllMenus().then((res) => {
       if (res.error.length > 0) {
         console.log(res.error);
+        addError(res.error);
       }
       setMenus(res.result);
       dispatch({ type: "SET_IS_LOADING", payload: false });
