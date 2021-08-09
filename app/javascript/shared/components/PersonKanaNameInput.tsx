@@ -8,6 +8,7 @@ import ErrorMessages from "./ErrorMessages";
 type Props = {
   value: PersonKanaName;
   onChanged: (personName: PersonKanaName) => void;
+  externalErrors: string[];
 };
 
 function validateKana(target: string) {
@@ -15,8 +16,9 @@ function validateKana(target: string) {
 }
 
 const PersonKanaNameInput = (props: Props) => {
-  const { value, onChanged } = props;
-  const { state, verify, addErrorMessage } = useFormElementState();
+  const { value, onChanged, externalErrors } = props;
+  const { state, verify, addErrorMessage, setExternalErrors } =
+    useFormElementState();
   const validate = React.useCallback(() => {
     if (validateKana(value.firstKanaName) && validateKana(value.lastKanaName)) {
       verify();
@@ -29,6 +31,12 @@ const PersonKanaNameInput = (props: Props) => {
       addErrorMessage("カタカナで入力してください");
     }
   }, [value.firstKanaName, value.lastKanaName, verify, addErrorMessage]);
+  React.useEffect(() => {
+    if (externalErrors && externalErrors.length > 0) {
+      setExternalErrors(externalErrors);
+    }
+  }, [externalErrors]);
+
   return (
     <Box m={2}>
       <Grid container spacing={3}>

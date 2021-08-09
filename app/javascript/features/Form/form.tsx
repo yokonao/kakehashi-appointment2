@@ -167,6 +167,9 @@ const Form = (props: Props) => {
                       onChanged={(personName) =>
                         setFieldValue(field.name, personName)
                       }
+                      externalErrors={
+                        errorFields ? errorFields[field.name] : undefined
+                      }
                     />
                   );
                 }}
@@ -178,6 +181,9 @@ const Form = (props: Props) => {
                       value={field.value}
                       onChanged={(personKanaName) =>
                         setFieldValue(field.name, personKanaName)
+                      }
+                      externalErrors={
+                        errorFields ? errorFields[field.name] : undefined
                       }
                     />
                   );

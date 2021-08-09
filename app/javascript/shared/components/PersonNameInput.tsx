@@ -9,11 +9,13 @@ import ErrorMessages from "./ErrorMessages";
 type Props = {
   value: PersonName;
   onChanged: (personName: PersonName) => void;
+  externalErrors?: string[];
 };
 
 const PersonNameInput = (props: Props) => {
-  const { value, onChanged } = props;
-  const { state, verify, addErrorMessage } = useFormElementState();
+  const { value, onChanged, externalErrors } = props;
+  const { state, verify, addErrorMessage, setExternalErrors } =
+    useFormElementState();
   const validate = React.useCallback(() => {
     if (value.firstName.length == 0 || value.lastName.length == 0) {
       addErrorMessage("氏名を入力してください");
@@ -21,6 +23,11 @@ const PersonNameInput = (props: Props) => {
     }
     verify();
   }, [value, verify, addErrorMessage]);
+  React.useEffect(() => {
+    if (externalErrors && externalErrors.length > 0) {
+      setExternalErrors(externalErrors);
+    }
+  }, [externalErrors]);
   return (
     <Box m={2}>
       <Grid container spacing={3}>
