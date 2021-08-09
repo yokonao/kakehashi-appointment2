@@ -40,7 +40,7 @@ const KarteInformationInput = (props: Props) => {
         <FormControlLabel
           value="no"
           control={<Radio color="primary" />}
-          label="いいえ（再診の方は5桁の診察券番号を入力してください）"
+          label="いいえ（再診の方は5ケタの診察券番号を入力してください）"
         />
       </RadioGroup>
       {!value.isFirstVisit && (
