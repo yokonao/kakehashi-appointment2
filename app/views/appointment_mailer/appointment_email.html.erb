@@ -1,38 +1,32 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-  </head>
-  <body>
     <h1>予約が成立しました。</h1>
-    <p><%= @appointment.last_name %><%= @appointment.first_name %></p>
-    <p>この度は、かけはし糖尿病・甲状腺クリニックをご予約いただきましてありがとうございます。
+    <p><%= @appointment.last_name %> <%= @appointment.first_name %> 様</p>
+    <p>この度は、かけはし糖尿病・甲状腺クリニックをご予約いただきましてありがとうございます。<br>
 ご予約内容は以下の通りで承りました。お間違いないかご確認ください。</p>
-    <p>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</p>
-    <p>【ご予約内容】</p>
-    <p>■<%= @menu.department %>外来</p>
-    <p>■予約日時：<%= @menu.start_at %></p>
-    <p>■姓：<%= @appointment.last_name %></p>
-    <p>■名：<%= @appointment.first_name %></p>
-    <p>■セイ：<%= @appointment.last_kana_name %></p>
-    <p>■メイ：<%= @appointment.first_kana_name %></p>
-    <p>■生年月日：<%= @appointment.birthday %></p>
-    <p>■電話番号：<%= @appointment.phone_number %></p>
-    <p>■メールアドレス：<%= @appointment.email %></p>
-    <p>■受診歴：<%= @appointment.is_first_visit %></p>
-    <p>■診察券番号：<%= @appointment.clinical_number %></p>
-    <p>■受診歴：<%= @appointment.is_first_visit %></p>
-    <p>■受診理由：<%= @appointment.reason %></p>
-    <p>■診察前に伝えておきたいこと：<%= @appointment.free_comment %>
-    <p>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</p>
-    <p>当日は保険証とありましたら医療証・お薬手帳をお持ちになって、予約時間にご来院ください。
-    予約のキャンセル・変更はお電話・メールにてご連絡ください。
+
+    <p>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br>
+    【ご予約内容】<br>
+    ■<%= @menu.department %>外来<br>
+    ■予約日時：<%= @menu.start_at.strftime("%Y/%m/%d %k:%M") %><br>
+    ■姓：<%= @appointment.last_name %><br>
+    ■名：<%= @appointment.first_name %><br>
+    ■セイ：<%= @appointment.last_kana_name %><br>
+    ■メイ：<%= @appointment.first_kana_name %><br>
+    ■生年月日：<%= @appointment.birthday %><br>
+    ■電話番号：<%= @appointment.phone_number %><br>
+    ■メールアドレス：<%= @appointment.email %><br>
+    ■診察券番号：<%= @appointment.clinical_number %><br>
+    ■受診歴：<% if @appointment.is_first_visit then%>なし<% else %>あり<% end %><br>
+    ■受診理由：<%= @appointment.reason %><br>
+    ■診察前に伝えておきたいこと：<%= @appointment.free_comment %><br>
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</p>
+    
+    <p>当日は保険証とありましたら医療証・お薬手帳をお持ちになって、予約時間にご来院ください。<br>
+    予約のキャンセル・変更はお電話・メールにてご連絡ください。<br>
     それでは当日お待ちしております。</p>
-    <p>かけはし糖尿病・甲状腺クリニック</p>
-    <p>〒453-0832</p>
-    <p>名古屋市中村区乾出町２丁目３５番地</p>
-    <p>０５２−４８３−３３７７</p>
-    <p>kakehashi.dm@gmail.com</p>
+    
+    <p>かけはし糖尿病・甲状腺クリニック<br>
+    〒453-0832<br>
+    名古屋市中村区乾出町２丁目３５番地<br>
+    052−483−3377<br>
+    kakehashi.dm@gmail.com</p>
     <p>※このメールにお心当たりのない方は、 本メールを破棄してください。</p>
-  </body>
-</html>
