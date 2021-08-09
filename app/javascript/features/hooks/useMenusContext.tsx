@@ -69,7 +69,7 @@ export const MenusContextProvider: React.FC<Props> = ({ children }) => {
     },
     [dispatch]
   );
-  const { addError } = useNotification();
+  const { addError, addInfo } = useNotification();
   const value = React.useMemo(
     () => ({
       ...state,
@@ -83,6 +83,8 @@ export const MenusContextProvider: React.FC<Props> = ({ children }) => {
         console.log(res.error);
         addError(res.error);
       }
+      addError("通信に失敗しました")
+      // addInfo("通信に成功しました")
       setMenus(res.result);
       dispatch({ type: "SET_IS_LOADING", payload: false });
     });

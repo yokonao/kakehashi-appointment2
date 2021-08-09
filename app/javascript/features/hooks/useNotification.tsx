@@ -3,8 +3,35 @@ import * as React from "react";
 
 type Notification = {
   id: number;
-  type: "error";
+  type: "error" | "info";
   message: string;
+};
+
+const NotificationBar = (props: { notification: Notification }) => {
+  const { notification } = props;
+  const { deleteMessage } = useNotification();
+  return (
+    <Snackbar
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "center",
+      }}
+      open={true}
+      onClose={() => deleteMessage(notification.id)}
+      message={notification.message}
+      color="primary"
+      action={[
+        <IconButton
+          key="close"
+          aria-label="close"
+          color="inherit"
+          onClick={() => deleteMessage(notification.id)}
+        >
+          <Icon>close</Icon>
+        </IconButton>,
+      ]}
+    />
+  );
 };
 
 type State = {
@@ -19,6 +46,7 @@ const initialState = {
 
 type Dispatcher = {
   addError: (error: string) => void;
+  addInfo: (message: string) => void;
   deleteMessage: (id: number) => void;
 };
 
@@ -26,8 +54,8 @@ type Context = State & Dispatcher;
 
 type Action =
   | {
-      type: "ADD_ERROR";
-      payload: string;
+      type: "ADD_NOTIFICATION";
+      payload: { message: string; notificationType: "error" | "info" };
     }
   | {
       type: "DELETE_MESSAGE";
@@ -36,12 +64,16 @@ type Action =
 
 const reducer: React.Reducer<State, Action> = (state, action) => {
   switch (action.type) {
-    case "ADD_ERROR":
+    case "ADD_NOTIFICATION":
       return {
         ...state,
         notifications: [
           ...state.notifications,
-          { id: state.currentId, type: "error", message: action.payload },
+          {
+            id: state.currentId,
+            type: action.payload.notificationType,
+            message: action.payload.message,
+          },
         ],
         currentId: state.currentId + 1,
       };
@@ -67,10 +99,23 @@ export const NotificationContextProvider: React.FC<Props> = ({ children }) => {
   const [state, dispatch] = React.useReducer(reducer, initialState);
   const addError = React.useCallback(
     (message: string) => {
-      dispatch({ type: "ADD_ERROR", payload: message });
+      dispatch({
+        type: "ADD_NOTIFICATION",
+        payload: { notificationType: "error", message: message },
+      });
     },
     [dispatch]
   );
+  const addInfo = React.useCallback(
+    (message: string) => {
+      dispatch({
+        type: "ADD_NOTIFICATION",
+        payload: { notificationType: "info", message: message },
+      });
+    },
+    [dispatch]
+  );
+
   const deleteMessage = React.useCallback(
     (id: number) => {
       dispatch({ type: "DELETE_MESSAGE", payload: id });
@@ -81,33 +126,14 @@ export const NotificationContextProvider: React.FC<Props> = ({ children }) => {
     return {
       ...state,
       addError,
+      addInfo,
       deleteMessage,
     };
-  }, [state, addError, deleteMessage]);
+  }, [state, addError, addInfo, deleteMessage]);
   return (
     <NotificationContext.Provider value={value}>
       {state.notifications.map((e) => {
-        return (
-          <Snackbar
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "center",
-            }}
-            open={true}
-            onClose={() => deleteMessage(e.id)}
-            message={e.message}
-            action={[
-              <IconButton
-                key="close"
-                aria-label="close"
-                color="inherit"
-                onClick={() => deleteMessage(e.id)}
-              >
-                <Icon>close</Icon>
-              </IconButton>,
-            ]}
-          />
-        );
+        return <NotificationBar notification={e} />;
       })}
       {children}
     </NotificationContext.Provider>
