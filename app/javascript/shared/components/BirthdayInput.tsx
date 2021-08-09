@@ -10,12 +10,14 @@ import ErrorMessages from "./ErrorMessages";
 type Props = {
   value: Date;
   onChanged: (date: Date) => void;
+  externalErrors?: string[];
 };
 
 const BirthdayInput = (props: Props) => {
-  const { onChanged } = props;
+  const { onChanged, externalErrors } = props;
   const [value, setValue] = React.useState("");
-  const { state, verify, addErrorMessage } = useFormElementState();
+  const { state, verify, addErrorMessage, setExternalErrors } =
+    useFormElementState();
   const validate = React.useCallback(() => {
     if (value.length == 0) {
       addErrorMessage("生年月日を入力してください");
@@ -32,6 +34,11 @@ const BirthdayInput = (props: Props) => {
     }
     verify();
   }, [value, verify, addErrorMessage]);
+  React.useEffect(() => {
+    if (externalErrors && externalErrors.length > 0) {
+      setExternalErrors(externalErrors);
+    }
+  }, [externalErrors]);
 
   return (
     <Box m={2}>

@@ -198,6 +198,9 @@ const Form = (props: Props) => {
                       onChanged={(date: Date) => {
                         setFieldValue(field.name, date);
                       }}
+                      externalErrors={
+                        errorFields ? errorFields[field.name] : undefined
+                      }
                     />
                   );
                 }}
@@ -211,6 +214,9 @@ const Form = (props: Props) => {
                       onChanged={(value: string) => {
                         setFieldValue(field.name, value);
                       }}
+                      externalErrors={
+                        errorFields ? errorFields[field.name] : undefined
+                      }
                     />
                   );
                 }}
@@ -223,6 +229,9 @@ const Form = (props: Props) => {
                       onChanged={(value: string) => {
                         setFieldValue(field.name, value);
                       }}
+                      externalErrors={
+                        errorFields ? errorFields[field.name] : undefined
+                      }
                     />
                   );
                 }}

@@ -7,11 +7,13 @@ import ErrorMessages from "./ErrorMessages";
 type Props = {
   value: string;
   onChanged: (value: string) => void;
+  externalErrors?: string[];
 };
 
 const PhoneNumberInput = (props: Props) => {
-  const { value, onChanged } = props;
-  const { state, verify, addErrorMessage } = useFormElementState();
+  const { value, onChanged, externalErrors } = props;
+  const { state, verify, addErrorMessage, setExternalErrors } =
+    useFormElementState();
   const validate = React.useCallback(() => {
     if (!value || value.length == 0) {
       addErrorMessage("電話番号を入力してください");
@@ -23,6 +25,12 @@ const PhoneNumberInput = (props: Props) => {
     }
     verify();
   }, [value, verify, addErrorMessage]);
+  React.useEffect(() => {
+    if (externalErrors && externalErrors.length > 0) {
+      setExternalErrors(externalErrors);
+    }
+  }, [externalErrors]);
+
   return (
     <Box m={2}>
       <TextField

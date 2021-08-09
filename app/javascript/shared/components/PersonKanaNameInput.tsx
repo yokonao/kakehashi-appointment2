@@ -8,7 +8,7 @@ import ErrorMessages from "./ErrorMessages";
 type Props = {
   value: PersonKanaName;
   onChanged: (personName: PersonKanaName) => void;
-  externalErrors: string[];
+  externalErrors?: string[];
 };
 
 function validateKana(target: string) {
