@@ -1,6 +1,6 @@
 import * as React from "react";
 import { MenuSerializer } from "../../serializers/MenuSerializer";
-import Form from "../form/Form";
+import Form from "../form/form";
 
 type Props = {
   menus: MenuSerializer[];
