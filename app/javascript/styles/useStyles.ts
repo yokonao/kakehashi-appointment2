@@ -4,13 +4,14 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
-      backgroundColor: "#f8f8f8",
+      backgroundColor: "#fff8e6",
     },
     footer: {
       height: 300,
     },
     form: {
       backgroundColor: "#ffffff",
+      borderRadius: 30,
     },
     backdrop: {
       zIndex: theme.zIndex.drawer + 1,
