@@ -38,7 +38,7 @@ type FormValue = {
   phoneNumber: string;
   email: string;
   karteInformation: KarteInformation;
-  reason: string;
+  reasons: string;
   freeComment: string;
 };
 
@@ -57,7 +57,7 @@ const initialValues: FormValue = {
     isFirstVisit: true,
     clinicalNumber: "",
   },
-  reason: "",
+  reasons: "",
   freeComment: "",
 };
 
@@ -131,7 +131,7 @@ function createPostParameters(value: FormValue): CreateAppointmentParameters {
     clinical_number: value.karteInformation.clinicalNumber,
     email: value.email,
     phone_number: value.phoneNumber,
-    reason: value.reason,
+    reason: value.reasons,
     free_comment: value.freeComment,
     menu_id: value.menu ? value.menu.id.toString() : "",
   };
