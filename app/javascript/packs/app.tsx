@@ -3,6 +3,7 @@ import { createBrowserHistory } from "history";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Switch, Route, Router } from "react-router";
+import { Redirect } from "react-router-dom";
 import { MenusContextProvider } from "../features/hooks/useMenusContext";
 import InternalMedicineFormContainer from "../features/internalMedicine/InternalMedicineFormContainer";
 import KampoFormContainer from "../features/kampo/KampoFormContainer";
@@ -27,11 +28,13 @@ const App = (): JSX.Element => {
           <MenusContextProvider>
             <Header />
             <Switch>
-              <Route
-                path="/form/internal_medicine"
-                component={InternalMedicineFormContainer}
-              />
-              <Route path="/form/kampo" component={KampoFormContainer} />
+              <Route path="/form/internal_medicine">
+                <InternalMedicineFormContainer />
+              </Route>
+              <Route path="/form/kampo">
+                <KampoFormContainer />
+              </Route>
+              <Redirect to="/form/internal_medicine" />
             </Switch>
             <div className={classes.footer} />
           </MenusContextProvider>
