@@ -69,8 +69,8 @@ const Form = () => {
           );
           return (
             <>
-              <Box py={2} my={2}>
-                <Typography variant="h4" color="inherit">
+              <Box py={2} my={2} textAlign="center">
+                <Typography variant="h4" color="primary">
                   内科外来予約
                 </Typography>
               </Box>

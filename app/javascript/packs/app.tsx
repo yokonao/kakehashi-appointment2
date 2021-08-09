@@ -1,3 +1,4 @@
+import { createTheme, ThemeProvider } from "@material-ui/core";
 import { createBrowserHistory } from "history";
 import React from "react";
 import ReactDOM from "react-dom";
@@ -7,17 +8,13 @@ import InternalMedicineFormContainer from "../features/internalMedicine/Internal
 import Header from "../shared/components/Header";
 import useStyles from "../styles/useStyles";
 
-// // 追記
-// const theme = createTheme({
-//   // palette: {
-//   //   primary: {
-//   //     main: teal[500],
-//   //   },
-//   //   secondary: {
-//   //     main: "#00bcd4",
-//   //   },
-//   // },
-// });
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#997009",
+    },
+  },
+});
 
 const history = createBrowserHistory();
 const App = (): JSX.Element => {
@@ -25,16 +22,18 @@ const App = (): JSX.Element => {
   return (
     <div className={classes.root}>
       <Router history={history}>
-        <MenusContextProvider>
-          <Header />
-          <Switch>
-            <Route
-              path="/form"
-              component={InternalMedicineFormContainer}
-            ></Route>
-          </Switch>
-          <div className={classes.footer} />
-        </MenusContextProvider>
+        <ThemeProvider theme={theme}>
+          <MenusContextProvider>
+            <Header />
+            <Switch>
+              <Route
+                path="/form"
+                component={InternalMedicineFormContainer}
+              ></Route>
+            </Switch>
+            <div className={classes.footer} />
+          </MenusContextProvider>
+        </ThemeProvider>
       </Router>
     </div>
   );
