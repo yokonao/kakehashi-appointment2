@@ -19,7 +19,7 @@ export async function createAppointment(
   params: CreateAppointmentParameters
 ): Promise<string[]> {
   try {
-    const res = await client.post("/api/v1/appointment/create", params);
+    const res = await client.post("/api/v1/appointments/create", params);
     console.log(res);
   } catch (err) {
     console.log(err);
