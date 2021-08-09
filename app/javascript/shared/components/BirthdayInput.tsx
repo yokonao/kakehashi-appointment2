@@ -21,18 +21,19 @@ const BirthdayInput = (props: Props) => {
   const validate = React.useCallback(() => {
     if (value.length == 0) {
       addErrorMessage("生年月日を入力してください");
-      return;
+      return false;
     }
     if (!/^[0-9]{8}$/.test(value)) {
       addErrorMessage("数字8桁で入力してください");
-      return;
+      return false;
     }
     const date = parse(value, "yyyyMMdd", new Date());
     if (date.toString() === "Invalid Date") {
       addErrorMessage("無効な日付です");
-      return;
+      return false;
     }
     verify();
+    return true;
   }, [value, verify, addErrorMessage]);
   React.useEffect(() => {
     if (externalErrors && externalErrors.length > 0) {
@@ -48,8 +49,7 @@ const BirthdayInput = (props: Props) => {
           setValue(e.target.value);
         }}
         onBlur={() => {
-          validate();
-          if (state.isValid) onChanged(parse(value, "yyyyMMdd", new Date()));
+          if (validate()) onChanged(parse(value, "yyyyMMdd", new Date()));
         }}
         type="tel"
         placeholder="19850603"
