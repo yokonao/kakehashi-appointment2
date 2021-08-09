@@ -11,7 +11,12 @@ const ErrorMessages = (props: Props) => {
     <Box>
       {messages.map((e) => {
         return (
-          <Box color="red" display="flex" alignItems="center">
+          <Box
+            key={"error-message-" + e}
+            color="red"
+            display="flex"
+            alignItems="center"
+          >
             <Icon>error</Icon>
             <span> {e}</span>
           </Box>

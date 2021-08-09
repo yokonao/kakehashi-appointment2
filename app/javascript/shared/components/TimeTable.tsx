@@ -20,13 +20,14 @@ import {
   getOpeningTime,
 } from "../../domain/BusinessRule";
 import useFormElementState from "../../features/hooks/useFormElementState";
-import { MenuSerializer } from "../../features/hooks/useMenusContext";
+import { MenuSerializer } from "../../serializers/MenuSerializer";
 import CheckMark from "./CheckMark";
 import ErrorMessages from "./ErrorMessages";
 
 type TimeTableProps = {
   value?: MenuSerializer;
   menus: MenuSerializer[];
+  externalErrors?: string[];
   baseDate: Date;
   onSelect: (menu?: MenuSerializer) => void;
 };
@@ -58,8 +59,9 @@ function createBusinessTimesEveryThirtyMinutes(base: Date): Date[] {
 }
 
 const TimeTable = React.memo((props: TimeTableProps) => {
-  const { value, onSelect } = props;
-  const { state, verify, addErrorMessage } = useFormElementState();
+  const { value, onSelect, externalErrors } = props;
+  const { state, verify, addErrorMessage, setExternalErrors } =
+    useFormElementState();
   const validate = React.useCallback(() => {
     if (!value) {
       addErrorMessage("予約日時を選択してください");
@@ -67,6 +69,11 @@ const TimeTable = React.memo((props: TimeTableProps) => {
     }
     verify();
   }, [value, verify, addErrorMessage]);
+  React.useEffect(() => {
+    if (externalErrors && externalErrors.length > 0) {
+      addErrorMessage(externalErrors[0]);
+    }
+  }, [externalErrors]);
   return (
     <Box m={2}>
       <Box mb={2}>
@@ -82,9 +89,7 @@ const TimeTable = React.memo((props: TimeTableProps) => {
             readOnly: true,
             endAdornment: state.isValid && <CheckMark />,
           }}
-          error={
-            state.errorMessages.length > 0 || state.externalErrors.length > 0
-          }
+          error={state.errorMessages.length > 0}
         />
       </Box>
       <ErrorMessages messages={state.errorMessages} />

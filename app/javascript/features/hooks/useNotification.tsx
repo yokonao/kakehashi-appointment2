@@ -133,7 +133,12 @@ export const NotificationContextProvider: React.FC<Props> = ({ children }) => {
   return (
     <NotificationContext.Provider value={value}>
       {state.notifications.map((e) => {
-        return <NotificationBar notification={e} />;
+        return (
+          <NotificationBar
+            key={"notification-" + e.id.toString()}
+            notification={e}
+          />
+        );
       })}
       {children}
     </NotificationContext.Provider>

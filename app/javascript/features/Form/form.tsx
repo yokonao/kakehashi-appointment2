@@ -9,7 +9,6 @@ import {
   Typography,
 } from "@material-ui/core";
 import TimeTable from "../../shared/components/TimeTable";
-import { useMenusContext } from "../hooks/useMenusContext";
 import { Field, FieldProps, Formik } from "formik";
 import { PersonName } from "../../domain/personName";
 import PersonNameField from "../../shared/components/PersonNameInput";
@@ -26,7 +25,7 @@ import PersonKanaNameInput from "../../shared/components/PersonKanaNameInput";
 import BirthdayInput from "../../shared/components/BirthdayInput";
 import { MenuSerializer } from "../../serializers/MenuSerializer";
 
-const initialValues: {
+type FormValue = {
   personName: PersonName;
   personKanaName: PersonKanaName;
   menu?: MenuSerializer;
@@ -36,7 +35,9 @@ const initialValues: {
   karteInformation: KarteInformation;
   reason?: string;
   freeComment?: string;
-} = {
+};
+
+const initialValues: FormValue = {
   personName: {
     firstName: "",
     lastName: "",
@@ -56,6 +57,59 @@ type Props = {
   title: string;
 };
 
+function validate(value: FormValue): {
+  isValid: boolean;
+  errors: { [field: string]: string[] };
+} {
+  let errors: { [field: string]: string[] } = {};
+  if (!value.menu) {
+    errors["menu"] = ["予約日時を選択してください"];
+  }
+  if (
+    value.personName.firstName.length == 0 ||
+    value.personName.lastName.length == 0
+  ) {
+    errors["personName"] = ["氏名を入力してください"];
+  }
+  if (
+    value.personKanaName.firstKanaName.length == 0 ||
+    value.personKanaName.lastKanaName.length == 0 ||
+    !/^[ァ-ヶー－]+$/.test(value.personKanaName.firstKanaName) ||
+    !/^[ァ-ヶー－]+$/.test(value.personKanaName.lastKanaName)
+  ) {
+    errors["personKanaName"] = ["氏名をカタカナで入力してください"];
+  }
+  if (!value.birthday) {
+    errors["birthday"] = ["生年月日を数字8ケタで入力してください"];
+  }
+  if (!value.phoneNumber || value.phoneNumber.length == 0) {
+    errors["phoneNumber"] = ["電話番号を入力してください"];
+  } else if (!/^[0-9]{10,11}$/.test(value.phoneNumber)) {
+    errors["phoneNumber"] = [
+      "不正な電話番号です。ハイフン無し数字のみで入力してください",
+    ];
+  }
+  if (!value.email || value.email.length == 0) {
+    errors["email"] = ["メールアドレスを入力してください"];
+  } else if (
+    !/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+      value.email
+    )
+  ) {
+    errors["email"] = ["不正なメールアドレスです"];
+  }
+
+  // [Note] カルテ情報はあえてバリデーションをかけない
+  // 再診だが診察券番号がわからない人を想定している
+
+  const isValid =
+    Object.keys(errors)
+      .map((key) => errors[key])
+      .reduce((a, b) => [...a, ...b]).length == 0;
+
+  return { isValid: isValid, errors: errors };
+}
+
 const Form = (props: Props) => {
   const { menus, isLoading, title } = props;
   const classes = useStyles();
@@ -64,15 +118,23 @@ const Form = (props: Props) => {
     <Container className={classes.form} maxWidth="md">
       <Formik
         initialValues={initialValues}
-        onSubmit={async (values) => {
+        onSubmit={async (values, { setStatus }) => {
           console.log(values);
+          console.log(validate(values));
+          const res = validate(values);
+          if (res.isValid) {
+            // TODO api通信
+          } else {
+            setStatus(res.errors);
+          }
         }}
       >
-        {({ setFieldValue, submitForm }) => {
+        {({ status, setFieldValue, submitForm }) => {
           const onSelectMenu = React.useCallback(
             (menu: MenuSerializer) => setFieldValue("menu", menu),
             [setFieldValue]
           );
+          const errorFields = status as { [field: string]: string[] };
           return (
             <>
               <Box py={2} my={2} textAlign="center">
@@ -87,6 +149,9 @@ const Form = (props: Props) => {
                     <TimeTable
                       value={field.value}
                       menus={menus}
+                      externalErrors={
+                        errorFields ? errorFields[field.name] : undefined
+                      }
                       baseDate={today}
                       onSelect={onSelectMenu}
                     />

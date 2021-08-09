@@ -52,9 +52,7 @@ const BirthdayInput = (props: Props) => {
         InputProps={{
           endAdornment: state.isValid && <CheckMark />,
         }}
-        error={
-          state.errorMessages.length > 0 || state.externalErrors.length > 0
-        }
+        error={state.errorMessages.length > 0}
       />
       <ErrorMessages messages={state.errorMessages} />
     </Box>

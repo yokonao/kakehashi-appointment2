@@ -3,13 +3,11 @@ import * as React from "react";
 type State = {
   isValid: boolean;
   errorMessages: string[];
-  externalErrors: string[];
 };
 
 const initialState: State = {
   isValid: false,
   errorMessages: [],
-  externalErrors: [],
 };
 
 type Action =
@@ -31,7 +29,6 @@ const reducer: React.Reducer<State, Action> = (
 ) => {
   switch (action.type) {
     case "VERIFY":
-      if (state.externalErrors.length > 0) return state;
       return { isValid: true, errorMessages: [], externalErrors: [] };
     case "ADD_ERROR_MESSAGE":
       return {
