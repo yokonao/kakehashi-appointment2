@@ -93,7 +93,7 @@ const Form = (props: Props) => {
                   );
                 }}
               </Field>
-              <InstructionText text="2. 氏名・生年月日を入力してください" />
+              <InstructionText text="2. 氏名を漢字とカタカナで入力してください" />
               <Field name="personName">
                 {({ field }: FieldProps<PersonName>) => {
                   return (
@@ -118,7 +118,7 @@ const Form = (props: Props) => {
                   );
                 }}
               </Field>
-              <InstructionText text="生年月日を数字8ケタで入力してください" />
+              <InstructionText text="3. 生年月日を数字8ケタで入力してください" />
               <Field name="birthday">
                 {({ field }: FieldProps<Date>) => {
                   return (
