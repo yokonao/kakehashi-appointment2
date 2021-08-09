@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import TimeTable from "../../shared/components/TimeTable";
-import { MenuSerializer, useMenusContext } from "../hooks/useMenusContext";
+import { useMenusContext } from "../hooks/useMenusContext";
 import { Field, FieldProps, Formik } from "formik";
 import { PersonName } from "../../domain/personName";
 import PersonNameField from "../../shared/components/PersonNameInput";
@@ -24,6 +24,7 @@ import { KarteInformation } from "../../domain/KarteInformation";
 import { PersonKanaName } from "../../domain/PersonKanaName";
 import PersonKanaNameInput from "../../shared/components/PersonKanaNameInput";
 import BirthdayInput from "../../shared/components/BirthdayInput";
+import { MenuSerializer } from "../../serializers/MenuSerializer";
 
 const initialValues: {
   personName: PersonName;
@@ -47,13 +48,13 @@ const initialValues: {
   birthday: new Date(1990, 0, 1),
   karteInformation: {
     isFirstVisit: true,
-  }
+  },
 };
 
 const Form = () => {
   const classes = useStyles();
   const today = React.useMemo<Date>(() => new Date(), []);
-  const { menus, isLoading } = useMenusContext();
+  const { internalMedicineMenus: menus, isLoading } = useMenusContext();
   return (
     <Container className={classes.form} maxWidth="md">
       <Formik

@@ -6,12 +6,14 @@ import {
 import client from "../../shared/api/client";
 
 type State = {
-  menus: MenuSerializer[];
+  internalMedicineMenus: MenuSerializer[];
+  kampoMenus: MenuSerializer[];
   isLoading: boolean;
 };
 
 const initialState: State = {
-  menus: [],
+  internalMedicineMenus: [],
+  kampoMenus: [],
   isLoading: true,
 };
 
@@ -23,7 +25,11 @@ type Context = State & Dispatcher;
 
 type Action =
   | {
-      type: "SET_MENUS";
+      type: "SET_INTERNAL_MEDICINE_MENUS";
+      payload: MenuSerializer[];
+    }
+  | {
+      type: "SET_KAMPO_MENUS";
       payload: MenuSerializer[];
     }
   | {
@@ -33,8 +39,10 @@ type Action =
 
 const reducer: React.Reducer<State, Action> = (state, action) => {
   switch (action.type) {
-    case "SET_MENUS":
-      return { ...state, menus: action.payload };
+    case "SET_INTERNAL_MEDICINE_MENUS":
+      return { ...state, internalMedicineMenus: action.payload };
+    case "SET_KAMPO_MENUS":
+      return { ...state, kampoMenus: action.payload };
     case "SET_IS_LOADING":
       return { ...state, isLoading: action.payload };
     default:
@@ -51,8 +59,16 @@ type Props = {
 export const MenusContextProvider: React.FC<Props> = ({ children }) => {
   const [state, dispatch] = React.useReducer(reducer, initialState);
   const setMenus = React.useCallback(
-    (menus: MenuSerializer[]) =>
-      dispatch({ type: "SET_MENUS", payload: menus }),
+    (menus: MenuSerializer[]) => {
+      dispatch({
+        type: "SET_INTERNAL_MEDICINE_MENUS",
+        payload: menus.filter((e) => e.department === "内科"),
+      });
+      dispatch({
+        type: "SET_KAMPO_MENUS",
+        payload: menus.filter((e) => e.department === "漢方"),
+      });
+    },
     [dispatch]
   );
   const value = React.useMemo(
@@ -67,10 +83,13 @@ export const MenusContextProvider: React.FC<Props> = ({ children }) => {
       .get<MenuSerializer[]>("/api/v1/menus/index")
       .then((res) => {
         const menus = res.data.map((e) => castToMenuSerializer(e));
-        dispatch({ type: "SET_MENUS", payload: menus });
+        setMenus(menus);
         dispatch({ type: "SET_IS_LOADING", payload: false });
       })
-      .catch((e) => console.log(e));
+      .catch((e) => {
+        console.log(e);
+        dispatch({ type: "SET_IS_LOADING", payload: false });
+      });
   }, []);
   return (
     <MenusContext.Provider value={value}>{children}</MenusContext.Provider>
