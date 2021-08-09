@@ -5,6 +5,7 @@ import ReactDOM from "react-dom";
 import { Switch, Route, Router } from "react-router";
 import { MenusContextProvider } from "../features/hooks/useMenusContext";
 import InternalMedicineFormContainer from "../features/internalMedicine/InternalMedicineFormContainer";
+import KampoFormContainer from "../features/kampo/KampoFormContainer";
 import Header from "../shared/components/Header";
 import useStyles from "../styles/useStyles";
 
@@ -27,9 +28,10 @@ const App = (): JSX.Element => {
             <Header />
             <Switch>
               <Route
-                path="/form"
+                path="/form/internal_medicine"
                 component={InternalMedicineFormContainer}
-              ></Route>
+              />
+              <Route path="/form/kampo" component={KampoFormContainer} />
             </Switch>
             <div className={classes.footer} />
           </MenusContextProvider>
