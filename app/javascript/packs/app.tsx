@@ -4,7 +4,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Switch, Route, Router } from "react-router";
 import { Redirect } from "react-router-dom";
-import { MenusContextProvider } from "../features/hooks/useMenusContext";
+import {
+  MenusContextProvider,
+  useMenusContext,
+} from "../features/hooks/useMenusContext";
 import InternalMedicineFormContainer from "../features/internalMedicine/InternalMedicineFormContainer";
 import KampoFormContainer from "../features/kampo/KampoFormContainer";
 import Header from "../shared/components/Header";
@@ -21,6 +24,7 @@ const theme = createTheme({
 const history = createBrowserHistory();
 const App = (): JSX.Element => {
   const classes = useStyles();
+  const { internalMedicineMenus, kampoMenus, isLoading } = useMenusContext();
   return (
     <div className={classes.root}>
       <Router history={history}>
@@ -29,10 +33,13 @@ const App = (): JSX.Element => {
             <Header />
             <Switch>
               <Route path="/form/internal_medicine">
-                <InternalMedicineFormContainer />
+                <InternalMedicineFormContainer
+                  menus={internalMedicineMenus}
+                  isLoading={isLoading}
+                />
               </Route>
               <Route path="/form/kampo">
-                <KampoFormContainer />
+                <KampoFormContainer menus={kampoMenus} isLoading={isLoading} />
               </Route>
               <Redirect to="/form/internal_medicine" />
             </Switch>
