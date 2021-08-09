@@ -24,20 +24,27 @@ import { PersonKanaName } from "../../domain/PersonKanaName";
 import PersonKanaNameInput from "../../shared/components/PersonKanaNameInput";
 import BirthdayInput from "../../shared/components/BirthdayInput";
 import { MenuSerializer } from "../../serializers/MenuSerializer";
+import { format } from "date-fns";
+import {
+  createAppointment,
+  CreateAppointmentParameters,
+} from "../../shared/api/createAppointment";
 
 type FormValue = {
   personName: PersonName;
   personKanaName: PersonKanaName;
   menu?: MenuSerializer;
   birthday?: Date;
-  phoneNumber?: string;
-  email?: string;
+  phoneNumber: string;
+  email: string;
   karteInformation: KarteInformation;
-  reason?: string;
-  freeComment?: string;
+  reason: string;
+  freeComment: string;
 };
 
 const initialValues: FormValue = {
+  phoneNumber: "",
+  email: "",
   personName: {
     firstName: "",
     lastName: "",
@@ -48,7 +55,10 @@ const initialValues: FormValue = {
   },
   karteInformation: {
     isFirstVisit: true,
+    clinicalNumber: "",
   },
+  reason: "",
+  freeComment: "",
 };
 
 type Props = {
@@ -82,14 +92,14 @@ function validate(value: FormValue): {
   if (!value.birthday) {
     errors["birthday"] = ["生年月日を数字8ケタで入力してください"];
   }
-  if (!value.phoneNumber || value.phoneNumber.length == 0) {
+  if (value.phoneNumber.length == 0) {
     errors["phoneNumber"] = ["電話番号を入力してください"];
   } else if (!/^[0-9]{10,11}$/.test(value.phoneNumber)) {
     errors["phoneNumber"] = [
       "不正な電話番号です。ハイフン無し数字のみで入力してください",
     ];
   }
-  if (!value.email || value.email.length == 0) {
+  if (value.email.length == 0) {
     errors["email"] = ["メールアドレスを入力してください"];
   } else if (
     !/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
@@ -110,6 +120,23 @@ function validate(value: FormValue): {
   return { isValid: isValid, errors: errors };
 }
 
+function createPostParameters(value: FormValue): CreateAppointmentParameters {
+  return {
+    first_name: value.personName.firstName,
+    last_name: value.personName.lastName,
+    first_kana_name: value.personKanaName.firstKanaName,
+    last_kana_name: value.personKanaName.lastKanaName,
+    birthday: value.birthday ? format(value.birthday, "yyyy-MM-dd") : "",
+    is_first_visit: value.karteInformation.isFirstVisit.toString(),
+    clinical_number: value.karteInformation.clinicalNumber,
+    email: value.email,
+    phone_number: value.phoneNumber,
+    reason: value.reason,
+    free_comment: value.freeComment,
+    menu_id: value.menu ? value.menu.id.toString() : "",
+  };
+}
+
 const Form = (props: Props) => {
   const { menus, isLoading, title } = props;
   const classes = useStyles();
@@ -123,7 +150,9 @@ const Form = (props: Props) => {
           console.log(validate(values));
           const res = validate(values);
           if (res.isValid) {
-            // TODO api通信
+            const params = createPostParameters(values);
+            console.log(params);
+            await createAppointment(params);
           } else {
             setStatus(res.errors);
           }
