@@ -28,9 +28,10 @@ const ConsultationReasonSelector = (props: Props) => {
                 value={reason}
                 checked={state[reason]}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  setState({ ...state, [reason]: e.target.checked });
+                  const newState = { ...state, [reason]: e.target.checked }
+                  setState(newState);
                   onChanged(
-                    Object.entries(state)
+                    Object.entries(newState)
                       .map(([key, value]) => ({ key, value }))
                       .filter((e) => e.value)
                       .map((e) => e.key)
