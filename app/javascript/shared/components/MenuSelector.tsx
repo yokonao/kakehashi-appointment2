@@ -1,4 +1,4 @@
-import { Box, Button, ButtonGroup, Grid, TextField } from "@material-ui/core";
+import { Box, Button, ButtonGroup, Grid, TextField, Theme, useMediaQuery } from "@material-ui/core";
 import { addDays, format, subDays } from "date-fns";
 import * as React from "react";
 import useFormElementState from "../../features/hooks/useFormElementState";
@@ -15,12 +15,15 @@ type Props = {
 };
 
 const MenuSelector = React.memo((props: Props) => {
+  const isMobile = useMediaQuery((theme: Theme) =>
+    theme.breakpoints.down("xs")
+  );
   const { value, menus, onSelect, externalErrors } = props;
   const tomorrow = React.useMemo(() => addDays(new Date(), 1), []);
   const [baseDate, setBaseDate] = React.useState<Date>(tomorrow);
   const minDate = React.useMemo(() => tomorrow, [tomorrow]);
   const maxDate = React.useMemo(() => addDays(tomorrow, 14), [tomorrow]); // 予約を取れるのは2週間先まで
-  const daysPerPage = React.useMemo(() => 14, []);
+  const daysPerPage = React.useMemo(() => isMobile ? 7:14, [isMobile]);
   const enabledPrevButton = React.useMemo(
     () => baseDate.getTime() > minDate.getTime(),
     [baseDate, minDate]
