@@ -30,6 +30,7 @@ import {
   CreateAppointmentParameters,
 } from "../../shared/api/createAppointment";
 import MenuSelector from "../../shared/components/MenuSelector";
+import { useNotification } from "../hooks/useNotification";
 
 type FormValue = {
   personName: PersonName;
@@ -141,7 +142,7 @@ function createPostParameters(value: FormValue): CreateAppointmentParameters {
 const Form = (props: Props) => {
   const { menus, isLoading, title } = props;
   const classes = useStyles();
-  const today = React.useMemo<Date>(() => new Date(), []);
+  const { addError } = useNotification();
   return (
     <Container className={classes.form} maxWidth="md">
       <Formik
@@ -153,6 +154,8 @@ const Form = (props: Props) => {
             await createAppointment(params);
           } else {
             setStatus(res.errors);
+            window.scrollTo(0, 0)
+            addError("予約フォーム送信に失敗しました。エラーを確認してください")
           }
         }}
       >
