@@ -82,8 +82,6 @@ export const MenusContextProvider: React.FC<Props> = ({ children }) => {
       if (res.error.length > 0) {
         addError(res.error);
       }
-      addError("通信に失敗しました")
-      // addInfo("通信に成功しました")
       setMenus(res.result);
       dispatch({ type: "SET_IS_LOADING", payload: false });
     });
