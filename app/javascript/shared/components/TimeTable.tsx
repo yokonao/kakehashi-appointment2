@@ -25,12 +25,14 @@ type TimeTableProps = {
   value?: MenuSerializer;
   menus: MenuSerializer[];
   externalErrors?: string[];
-  baseDate: Date;
+  date: Date;
   onSelect: (menu?: MenuSerializer) => void;
 };
 
 const TimeTable = React.memo((props: TimeTableProps) => {
-  const { value, menus, baseDate, onSelect, externalErrors } = props;
+  const { value, menus, date, onSelect, externalErrors } = props;
+  const [baseDate, setBaseDate] = React.useState<Date>(new Date());
+  React.useEffect(() => setBaseDate(date), [date]);
   const { state, verify, addErrorMessage, setExternalErrors } =
     useFormElementState();
   const validate = React.useCallback(() => {

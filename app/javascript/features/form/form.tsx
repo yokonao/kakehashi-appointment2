@@ -178,7 +178,7 @@ const Form = (props: Props) => {
                       externalErrors={
                         errorFields ? errorFields[field.name] : undefined
                       }
-                      baseDate={today}
+                      date={today}
                       onSelect={onSelectMenu}
                     />
                   );
