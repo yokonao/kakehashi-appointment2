@@ -1,27 +1,13 @@
-import {
-  Box,
-  Button,
-  Icon,
-  IconButton,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  TextField,
-} from "@material-ui/core";
-import { format } from "date-fns";
+import { Box, Button, ButtonGroup, TextField } from "@material-ui/core";
+import { addDays, format, subDays } from "date-fns";
 import * as React from "react";
-import {
-  createBusinessTimesEveryThirtyMinutes,
-  createDaysOnTheTime,
-} from "../../domain/BusinessRule";
 import useFormElementState from "../../features/hooks/useFormElementState";
 import { MenuSerializer } from "../../serializers/MenuSerializer";
 import CheckMark from "./CheckMark";
 import ErrorMessages from "./ErrorMessages";
+import TimeTable from "./TimeTable";
 
-type TimeTableProps = {
+type Props = {
   value?: MenuSerializer;
   menus: MenuSerializer[];
   externalErrors?: string[];
@@ -29,7 +15,7 @@ type TimeTableProps = {
   onSelect: (menu?: MenuSerializer) => void;
 };
 
-const MenuSelector = React.memo((props: TimeTableProps) => {
+const MenuSelector = React.memo((props: Props) => {
   const { value, menus, date, onSelect, externalErrors } = props;
   const [baseDate, setBaseDate] = React.useState<Date>(new Date());
   React.useEffect(() => setBaseDate(date), [date]);
@@ -79,68 +65,18 @@ const MenuSelector = React.memo((props: TimeTableProps) => {
         </Button>
       ) : (
         <Box>
-          {/* <ButtonGroup size="small" aria-label="small outlined button group">
-            <Button>前</Button>
-            <Button>次</Button>
-          </ButtonGroup> */}
-          <Table size="small" stickyHeader aria-label="sticky table">
-            <TableHead>
-              <TableRow>
-                <TableCell />
-                {createDaysOnTheTime(baseDate, 14).map((date) => (
-                  <TableCell
-                    key={"header-date-" + format(date, "MM月dd日hh時mm分")}
-                    align="center"
-                    padding="none"
-                  >
-                    {format(date, "M/d")}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {createBusinessTimesEveryThirtyMinutes(baseDate).map((e) => (
-                <TableRow key={"table-row-" + e.toString()}>
-                  <TableCell
-                    key={"header-time-" + format(e, "HH:mm")}
-                    align="center"
-                    padding="none"
-                  >
-                    {format(e, "HH:mm")}
-                  </TableCell>
-                  {createDaysOnTheTime(e, 14).map((date) => {
-                    const menu = menus.find(
-                      (menu) => menu.start_at.getTime() === date.getTime()
-                    );
-                    return (
-                      <TableCell
-                        key={"menu-" + date.toString()}
-                        align="center"
-                        padding="none"
-                        size="small"
-                      >
-                        {menu ? (
-                          <IconButton
-                            color={menu.isFilled ? "default" : "primary"}
-                            onClick={() => {
-                              onSelect(menu);
-                              verify();
-                            }}
-                            size="small"
-                            disabled={menu.isFilled}
-                          >
-                            <Icon>event_note</Icon>
-                          </IconButton>
-                        ) : (
-                          "-"
-                        )}
-                      </TableCell>
-                    );
-                  })}
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+          <ButtonGroup size="small">
+            <Button onClick={()=>setBaseDate(subDays(baseDate, 14))}>前</Button>
+            <Button onClick={()=>setBaseDate(addDays(baseDate, 14))}>次</Button>
+          </ButtonGroup>
+          <TimeTable
+            baseDate={baseDate}
+            menus={menus}
+            onSelect={(menu: MenuSerializer) => {
+              onSelect(menu);
+              verify();
+            }}
+          />
         </Box>
       )}
     </Box>
