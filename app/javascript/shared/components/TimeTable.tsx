@@ -17,6 +17,7 @@ import {
   createDaysOnTheTime,
 } from "../../domain/BusinessRule";
 import { MenuSerializer } from "../../serializers/MenuSerializer";
+import { ja } from "date-fns/locale";
 
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
@@ -41,20 +42,51 @@ type TimeTableProps = {
 
 const TimeTable = (props: TimeTableProps) => {
   const { menus, baseDate, onSelect, days } = props;
+  const headers = createDaysOnTheTime(baseDate, days).map((date, i) => {
+    return {
+      month: (
+        <StyledTableCell
+          key={"header-month-" + format(date, "MM月dd日hh時mm分")}
+          align="center"
+          padding="none"
+        >
+          {i === 0 || date.getDate() === 1 ? format(date, "M") : ""}
+        </StyledTableCell>
+      ),
+      day: (
+        <StyledTableCell
+          key={"header-date-" + format(date, "MM月dd日hh時mm分")}
+          align="center"
+          padding="none"
+        >
+          {format(date, "d")}
+        </StyledTableCell>
+      ),
+      dayOfWeek: (
+        <StyledTableCell
+          key={"header-week-of-day-" + format(date, "MM月dd日hh時mm分")}
+          align="center"
+          padding="none"
+        >
+          {ja.localize?.day(date.getDay(), { width: "short" })}
+        </StyledTableCell>
+      ),
+    };
+  });
   return (
     <Table size="small" stickyHeader aria-label="sticky table">
       <TableHead>
         <TableRow>
           <StyledTableCell />
-          {createDaysOnTheTime(baseDate, days).map((date) => (
-            <StyledTableCell
-              key={"header-date-" + format(date, "MM月dd日hh時mm分")}
-              align="center"
-              padding="none"
-            >
-              {format(date, "M/d")}
-            </StyledTableCell>
-          ))}
+          {headers.map((e) => e.month)}
+        </TableRow>
+        <TableRow>
+          <StyledTableCell />
+          {headers.map((e) => e.day)}
+        </TableRow>
+        <TableRow>
+          <StyledTableCell />
+          {headers.map((e) => e.dayOfWeek)}
         </TableRow>
       </TableHead>
       <TableBody>
