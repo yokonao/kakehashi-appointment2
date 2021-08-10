@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  ButtonGroup,
   Icon,
   IconButton,
   InputAdornment,
@@ -105,64 +106,70 @@ const TimeTable = React.memo((props: TimeTableProps) => {
           日時を再度選択する
         </Button>
       ) : (
-        <Table size="small" stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              <TableCell />
-              {createTwoWeeks(baseDate).map((date) => (
-                <TableCell
-                  key={"header-date-" + format(date, "MM月dd日hh時mm分")}
-                  align="center"
-                  padding="none"
-                >
-                  {format(date, "MM/dd")}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {createBusinessTimesEveryThirtyMinutes(baseDate).map((e) => (
-              <TableRow key={"table-row-" + e.toString()}>
-                <TableCell
-                  key={"header-time-" + format(e, "HH:mm")}
-                  align="center"
-                  padding="none"
-                >
-                  {format(e, "HH:mm")}
-                </TableCell>
-                {createTwoWeeks(e).map((date) => {
-                  const menu = menus.find(
-                    (menu) => menu.start_at.getTime() === date.getTime()
-                  );
-                  return (
-                    <TableCell
-                      key={"menu-" + date.toString()}
-                      align="center"
-                      padding="none"
-                      size="small"
-                    >
-                      {menu ? (
-                        <IconButton
-                          color={menu.isFilled ? "default" : "primary"}
-                          onClick={() => {
-                            onSelect(menu);
-                            verify();
-                          }}
-                          size="small"
-                          disabled={menu.isFilled}
-                        >
-                          <Icon>event_note</Icon>
-                        </IconButton>
-                      ) : (
-                        "-"
-                      )}
-                    </TableCell>
-                  );
-                })}
+        <Box>
+          {/* <ButtonGroup size="small" aria-label="small outlined button group">
+            <Button>前</Button>
+            <Button>次</Button>
+          </ButtonGroup> */}
+          <Table size="small" stickyHeader aria-label="sticky table">
+            <TableHead>
+              <TableRow>
+                <TableCell />
+                {createTwoWeeks(baseDate).map((date) => (
+                  <TableCell
+                    key={"header-date-" + format(date, "MM月dd日hh時mm分")}
+                    align="center"
+                    padding="none"
+                  >
+                    {format(date, "MM/dd")}
+                  </TableCell>
+                ))}
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHead>
+            <TableBody>
+              {createBusinessTimesEveryThirtyMinutes(baseDate).map((e) => (
+                <TableRow key={"table-row-" + e.toString()}>
+                  <TableCell
+                    key={"header-time-" + format(e, "HH:mm")}
+                    align="center"
+                    padding="none"
+                  >
+                    {format(e, "HH:mm")}
+                  </TableCell>
+                  {createTwoWeeks(e).map((date) => {
+                    const menu = menus.find(
+                      (menu) => menu.start_at.getTime() === date.getTime()
+                    );
+                    return (
+                      <TableCell
+                        key={"menu-" + date.toString()}
+                        align="center"
+                        padding="none"
+                        size="small"
+                      >
+                        {menu ? (
+                          <IconButton
+                            color={menu.isFilled ? "default" : "primary"}
+                            onClick={() => {
+                              onSelect(menu);
+                              verify();
+                            }}
+                            size="small"
+                            disabled={menu.isFilled}
+                          >
+                            <Icon>event_note</Icon>
+                          </IconButton>
+                        ) : (
+                          "-"
+                        )}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Box>
       )}
     </Box>
   );
