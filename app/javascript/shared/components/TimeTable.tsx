@@ -76,6 +76,7 @@ const TimeTable = React.memo((props: TimeTableProps) => {
   }, [externalErrors]);
   console.log(menus);
   console.log(createTwoWeeks(baseDate));
+  console.log(createBusinessTimesEveryThirtyMinutes(baseDate))
   return (
     <Box m={2}>
       <Box mb={2}>
