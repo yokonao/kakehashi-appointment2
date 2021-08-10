@@ -59,7 +59,7 @@ function createBusinessTimesEveryThirtyMinutes(base: Date): Date[] {
 }
 
 const TimeTable = React.memo((props: TimeTableProps) => {
-  const { value, onSelect, externalErrors } = props;
+  const { value, menus, baseDate, onSelect, externalErrors } = props;
   const { state, verify, addErrorMessage, setExternalErrors } =
     useFormElementState();
   const validate = React.useCallback(() => {
@@ -74,6 +74,8 @@ const TimeTable = React.memo((props: TimeTableProps) => {
       setExternalErrors(externalErrors);
     }
   }, [externalErrors]);
+  console.log(menus);
+  console.log(createTwoWeeks(baseDate));
   return (
     <Box m={2}>
       <Box mb={2}>
@@ -109,7 +111,7 @@ const TimeTable = React.memo((props: TimeTableProps) => {
           <TableHead>
             <TableRow>
               <TableCell />
-              {createTwoWeeks(props.baseDate).map((date) => (
+              {createTwoWeeks(baseDate).map((date) => (
                 <TableCell
                   key={"header-date-" + format(date, "MM月dd日hh時mm分")}
                   align="center"
@@ -121,7 +123,7 @@ const TimeTable = React.memo((props: TimeTableProps) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {createBusinessTimesEveryThirtyMinutes(props.baseDate).map((e) => (
+            {createBusinessTimesEveryThirtyMinutes(baseDate).map((e) => (
               <TableRow key={"table-row-" + e.toString()}>
                 <TableCell
                   key={"header-time-" + format(e, "HH:mm")}
@@ -131,7 +133,7 @@ const TimeTable = React.memo((props: TimeTableProps) => {
                   {format(e, "HH:mm")}
                 </TableCell>
                 {createTwoWeeks(e).map((date) => {
-                  const menu = props.menus.find(
+                  const menu = menus.find(
                     (menu) => menu.start_at.getTime() === date.getTime()
                   );
                   return (
