@@ -80,7 +80,6 @@ export const MenusContextProvider: React.FC<Props> = ({ children }) => {
   React.useEffect(() => {
     getAllMenus().then((res) => {
       if (res.error.length > 0) {
-        console.log(res.error);
         addError(res.error);
       }
       addError("通信に失敗しました")

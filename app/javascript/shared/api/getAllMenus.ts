@@ -14,7 +14,6 @@ export async function getAllMenus(): Promise<{
     if (items["errors"] && items["errors"].length > 0) {
       return { result: [], error: items["errors"] };
     }
-    console.log(items)
     const menus: MenuSerializer[] = items.map((e: any) =>
       castToMenuSerializer(e)
     );

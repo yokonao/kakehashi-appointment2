@@ -146,12 +146,9 @@ const Form = (props: Props) => {
       <Formik
         initialValues={initialValues}
         onSubmit={async (values, { setStatus }) => {
-          console.log(values);
-          console.log(validate(values));
           const res = validate(values);
           if (res.isValid) {
             const params = createPostParameters(values);
-            console.log(params);
             await createAppointment(params);
           } else {
             setStatus(res.errors);
