@@ -17,7 +17,7 @@ export type CreateAppointmentParameters = {
 
 type Result = {
   success: boolean;
-  errors?: { [field: string]: string };
+  errors?: { [field: string]: string[] };
 };
 
 export async function createAppointment(
@@ -30,14 +30,17 @@ export async function createAppointment(
     if (json["errors"]) {
       return {
         success: false,
-        errors: { notification: "予約が成立しませんでした" },
+        errors: {
+          ...json["errors"],
+          notification: ["予約が成立しませんでした"],
+        },
       };
     }
     return { success: true };
   } catch (err) {
     return {
       success: false,
-      errors: { notification: "サーバーとの通信に失敗しました" },
+      errors: { notification: ["サーバーとの通信に失敗しました"] },
     };
   }
 }
