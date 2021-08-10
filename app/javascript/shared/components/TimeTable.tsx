@@ -1,5 +1,6 @@
 import * as React from "react";
 import {
+  createStyles,
   Icon,
   IconButton,
   Table,
@@ -7,6 +8,8 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  Theme,
+  withStyles,
 } from "@material-ui/core";
 import { format } from "date-fns";
 import {
@@ -15,11 +18,25 @@ import {
 } from "../../domain/BusinessRule";
 import { MenuSerializer } from "../../serializers/MenuSerializer";
 
+const StyledTableCell = withStyles((theme: Theme) =>
+  createStyles({
+    head: {
+      backgroundColor: theme.palette.primary.main,
+      color: theme.palette.common.white,
+    },
+    body: {
+      fontSize: 14,
+      border: "0.5px dotted",
+      borderColor: theme.palette.primary.main,
+    },
+  })
+)(TableCell);
+
 type TimeTableProps = {
   menus: MenuSerializer[];
   baseDate: Date;
   onSelect: (menu: MenuSerializer) => void;
-  days: number
+  days: number;
 };
 
 const TimeTable = (props: TimeTableProps) => {
@@ -28,34 +45,34 @@ const TimeTable = (props: TimeTableProps) => {
     <Table size="small" stickyHeader aria-label="sticky table">
       <TableHead>
         <TableRow>
-          <TableCell />
+          <StyledTableCell />
           {createDaysOnTheTime(baseDate, days).map((date) => (
-            <TableCell
+            <StyledTableCell
               key={"header-date-" + format(date, "MM月dd日hh時mm分")}
               align="center"
               padding="none"
             >
               {format(date, "M/d")}
-            </TableCell>
+            </StyledTableCell>
           ))}
         </TableRow>
       </TableHead>
       <TableBody>
         {createBusinessTimesEveryThirtyMinutes(baseDate).map((e) => (
           <TableRow key={"table-row-" + e.toString()}>
-            <TableCell
+            <StyledTableCell
               key={"header-time-" + format(e, "HH:mm")}
               align="center"
               padding="none"
             >
               {format(e, "HH:mm")}
-            </TableCell>
+            </StyledTableCell>
             {createDaysOnTheTime(e, days).map((date) => {
               const menu = menus.find(
                 (menu) => menu.start_at.getTime() === date.getTime()
               );
               return (
-                <TableCell
+                <StyledTableCell
                   key={"menu-" + date.toString()}
                   align="center"
                   padding="none"
@@ -75,7 +92,7 @@ const TimeTable = (props: TimeTableProps) => {
                   ) : (
                     "-"
                   )}
-                </TableCell>
+                </StyledTableCell>
               );
             })}
           </TableRow>
