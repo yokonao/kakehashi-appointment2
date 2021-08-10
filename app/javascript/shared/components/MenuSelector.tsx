@@ -29,7 +29,7 @@ type TimeTableProps = {
   onSelect: (menu?: MenuSerializer) => void;
 };
 
-const TimeTable = React.memo((props: TimeTableProps) => {
+const MenuSelector = React.memo((props: TimeTableProps) => {
   const { value, menus, date, onSelect, externalErrors } = props;
   const [baseDate, setBaseDate] = React.useState<Date>(new Date());
   React.useEffect(() => setBaseDate(date), [date]);
@@ -147,4 +147,4 @@ const TimeTable = React.memo((props: TimeTableProps) => {
   );
 });
 
-export default TimeTable;
+export default MenuSelector;

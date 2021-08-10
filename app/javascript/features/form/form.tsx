@@ -8,7 +8,7 @@ import {
   Icon,
   Typography,
 } from "@material-ui/core";
-import TimeTable from "../../shared/components/TimeTable";
+import TimeTable from "../../shared/components/MenuSelector";
 import { Field, FieldProps, Formik } from "formik";
 import { PersonName } from "../../domain/personName";
 import PersonNameField from "../../shared/components/PersonNameInput";
@@ -29,6 +29,7 @@ import {
   createAppointment,
   CreateAppointmentParameters,
 } from "../../shared/api/createAppointment";
+import MenuSelector from "../../shared/components/MenuSelector";
 
 type FormValue = {
   personName: PersonName;
@@ -172,7 +173,7 @@ const Form = (props: Props) => {
               <Field name="menu">
                 {({ field }: FieldProps<MenuSerializer>) => {
                   return (
-                    <TimeTable
+                    <MenuSelector
                       value={field.value}
                       menus={menus}
                       externalErrors={
