@@ -142,20 +142,32 @@ function createPostParameters(value: FormValue): CreateAppointmentParameters {
 const Form = (props: Props) => {
   const { menus, isLoading, title } = props;
   const classes = useStyles();
-  const { addError } = useNotification();
+  const { addError, addInfo } = useNotification();
   return (
     <Container className={classes.form} maxWidth="md">
       <Formik
         initialValues={initialValues}
         onSubmit={async (values, { setStatus }) => {
-          const res = validate(values);
-          if (res.isValid) {
+          const { isValid, errors: validationErrors } = validate(values);
+          if (isValid) {
             const params = createPostParameters(values);
-            await createAppointment(params);
+            const { success, errors } = await createAppointment(params);
+            if (success) {
+              addInfo("予約が成立しました");
+              window.scrollTo(0, 0);
+            } else {
+              setStatus(errors);
+              window.scrollTo(0, 0);
+              addError(
+                "予約が成立しませんでした。再度お試しいただくか、お電話でお問い合わせください"
+              );
+            }
           } else {
-            setStatus(res.errors);
-            window.scrollTo(0, 0)
-            addError("予約フォーム送信に失敗しました。エラーを確認してください")
+            setStatus(validationErrors);
+            window.scrollTo(0, 0);
+            addError(
+              "予約フォーム送信に失敗しました。エラーを確認してください"
+            );
           }
         }}
       >

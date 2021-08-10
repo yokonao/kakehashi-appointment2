@@ -15,14 +15,29 @@ export type CreateAppointmentParameters = {
   menu_id: string;
 };
 
+type Result = {
+  success: boolean;
+  errors?: { [field: string]: string };
+};
+
 export async function createAppointment(
   params: CreateAppointmentParameters
-): Promise<string[]> {
+): Promise<Result> {
   try {
     const res = await client.post("/api/v1/appointments/create", params);
     console.log(res);
+    const json = JSON.parse(JSON.stringify(res.data));
+    if (json["errors"]) {
+      return {
+        success: false,
+        errors: { notification: "予約が成立しませんでした" },
+      };
+    }
+    return { success: true };
   } catch (err) {
-    console.log(err);
+    return {
+      success: false,
+      errors: { notification: "サーバーとの通信に失敗しました" },
+    };
   }
-  return [];
 }
