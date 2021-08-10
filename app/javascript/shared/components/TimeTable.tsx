@@ -33,9 +33,9 @@ type TimeTableProps = {
   onSelect: (menu?: MenuSerializer) => void;
 };
 
-function createTwoWeeks(baseDate: Date): Date[] {
+function createDaysOnTheTime(baseDate: Date, count: number): Date[] {
   return eachMinuteOfInterval(
-    { start: baseDate, end: addDays(baseDate, 14) },
+    { start: baseDate, end: addDays(baseDate, count) },
     { step: 24 * 60 }
   );
 }
@@ -115,13 +115,13 @@ const TimeTable = React.memo((props: TimeTableProps) => {
             <TableHead>
               <TableRow>
                 <TableCell />
-                {createTwoWeeks(baseDate).map((date) => (
+                {createDaysOnTheTime(baseDate, 14).map((date) => (
                   <TableCell
                     key={"header-date-" + format(date, "MM月dd日hh時mm分")}
                     align="center"
                     padding="none"
                   >
-                    {format(date, "MM/dd")}
+                    {format(date, "M/d")}
                   </TableCell>
                 ))}
               </TableRow>
@@ -136,7 +136,7 @@ const TimeTable = React.memo((props: TimeTableProps) => {
                   >
                     {format(e, "HH:mm")}
                   </TableCell>
-                  {createTwoWeeks(e).map((date) => {
+                  {createDaysOnTheTime(e, 14).map((date) => {
                     const menu = menus.find(
                       (menu) => menu.start_at.getTime() === date.getTime()
                     );
