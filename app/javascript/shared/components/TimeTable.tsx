@@ -27,8 +27,6 @@ const StyledTableCell = withStyles((theme: Theme) =>
     },
     body: {
       fontSize: 14,
-      border: "0.5px dotted",
-      borderColor: theme.palette.primary.main,
     },
   })
 )(TableCell);
