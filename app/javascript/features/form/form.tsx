@@ -5,6 +5,11 @@ import {
   Button,
   CircularProgress,
   Container,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   Icon,
   Typography,
 } from "@material-ui/core";
@@ -31,6 +36,7 @@ import {
 } from "../../shared/api/createAppointment";
 import MenuSelector from "../../shared/components/MenuSelector";
 import { useNotification } from "../hooks/useNotification";
+import { useMenusContext } from "../hooks/useMenusContext";
 
 type FormValue = {
   personName: PersonName;
@@ -143,18 +149,24 @@ const Form = (props: Props) => {
   const { menus, isLoading, title } = props;
   const classes = useStyles();
   const { addError, addInfo } = useNotification();
+  const [isOpenSuccessDialog, setIsOpenSuccessDialog] = React.useState(false);
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
   return (
     <Container className={classes.form} maxWidth="md">
       <Formik
         initialValues={initialValues}
-        onSubmit={async (values, { setStatus }) => {
+        onSubmit={async (values, { setStatus, resetForm }) => {
           const { isValid, errors: validationErrors } = validate(values);
           if (isValid) {
             const params = createPostParameters(values);
+            setIsSubmitting(true);
             const { success, errors } = await createAppointment(params);
+            setIsSubmitting(false);
             if (success) {
               addInfo("予約が成立しました");
               window.scrollTo(0, 0);
+              resetForm();
+              setIsOpenSuccessDialog(true);
             } else {
               setStatus(errors);
               window.scrollTo(0, 0);
@@ -326,9 +338,35 @@ const Form = (props: Props) => {
                   予約
                 </Button>
               </Box>
-              <Backdrop className={classes.backdrop} open={isLoading}>
+              <Backdrop
+                className={classes.backdrop}
+                open={isSubmitting || isLoading}
+              >
                 <CircularProgress color="inherit" />
               </Backdrop>
+              <Dialog open={isOpenSuccessDialog}>
+                <DialogTitle>予約が成立しました</DialogTitle>
+                <DialogContent>
+                  <DialogContentText>
+                    この度は、かけはし糖尿病・甲状腺クリニックをご予約いただきましてありがとうございます。
+                    ご入力いただいたメールアドレスに確認メールを送付しています。
+                  </DialogContentText>
+                  <DialogContentText>
+                    メールが届かない場合はお手数ですが電話にてお問い合わせください。
+                    当日のご来院をお待ちしています。
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button
+                    onClick={() => {
+                      setIsOpenSuccessDialog(false);
+                    }}
+                    color="primary"
+                  >
+                    確認しました
+                  </Button>
+                </DialogActions>
+              </Dialog>
             </>
           );
         }}
