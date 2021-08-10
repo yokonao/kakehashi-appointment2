@@ -72,8 +72,12 @@ const MenuSelector = React.memo((props: Props) => {
       ) : (
         <Box>
           <Grid container justifyContent="space-between">
-            <Button onClick={toPrev} variant="outlined">前へ</Button>
-            <Button onClick={toNext} variant="outlined">次へ</Button>
+            <Button onClick={toPrev} variant="outlined">
+              前へ
+            </Button>
+            <Button onClick={toNext} variant="outlined">
+              次へ
+            </Button>
           </Grid>
           <TimeTable
             baseDate={baseDate}
@@ -82,6 +86,7 @@ const MenuSelector = React.memo((props: Props) => {
               onSelect(menu);
               verify();
             }}
+            days={14}
           />
         </Box>
       )}

@@ -19,16 +19,17 @@ type TimeTableProps = {
   menus: MenuSerializer[];
   baseDate: Date;
   onSelect: (menu: MenuSerializer) => void;
+  days: number
 };
 
 const TimeTable = (props: TimeTableProps) => {
-  const { menus, baseDate, onSelect } = props;
+  const { menus, baseDate, onSelect, days } = props;
   return (
     <Table size="small" stickyHeader aria-label="sticky table">
       <TableHead>
         <TableRow>
           <TableCell />
-          {createDaysOnTheTime(baseDate, 14).map((date) => (
+          {createDaysOnTheTime(baseDate, days).map((date) => (
             <TableCell
               key={"header-date-" + format(date, "MM月dd日hh時mm分")}
               align="center"
@@ -49,7 +50,7 @@ const TimeTable = (props: TimeTableProps) => {
             >
               {format(e, "HH:mm")}
             </TableCell>
-            {createDaysOnTheTime(e, 14).map((date) => {
+            {createDaysOnTheTime(e, days).map((date) => {
               const menu = menus.find(
                 (menu) => menu.start_at.getTime() === date.getTime()
               );
