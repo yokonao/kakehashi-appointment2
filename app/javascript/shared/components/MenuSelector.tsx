@@ -1,4 +1,4 @@
-import { Box, Button, ButtonGroup, TextField } from "@material-ui/core";
+import { Box, Button, ButtonGroup, Grid, TextField } from "@material-ui/core";
 import { addDays, format, subDays } from "date-fns";
 import * as React from "react";
 import useFormElementState from "../../features/hooks/useFormElementState";
@@ -71,10 +71,10 @@ const MenuSelector = React.memo((props: Props) => {
         </Button>
       ) : (
         <Box>
-          <ButtonGroup size="small">
-            <Button onClick={toPrev}>前</Button>
-            <Button onClick={toNext}>次</Button>
-          </ButtonGroup>
+          <Grid container justifyContent="space-between">
+            <Button onClick={toPrev} variant="outlined">前へ</Button>
+            <Button onClick={toNext} variant="outlined">次へ</Button>
+          </Grid>
           <TimeTable
             baseDate={baseDate}
             menus={menus}
