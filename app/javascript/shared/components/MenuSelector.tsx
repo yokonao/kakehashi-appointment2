@@ -30,12 +30,12 @@ const MenuSelector = React.memo((props: Props) => {
     [baseDate, daysPerPage, maxDate]
   );
   const toNext = React.useCallback(
-    () => setBaseDate(addDays(baseDate, 14)),
-    [baseDate, setBaseDate]
+    () => setBaseDate(addDays(baseDate, daysPerPage)),
+    [baseDate, setBaseDate, daysPerPage]
   );
   const toPrev = React.useCallback(
-    () => setBaseDate(subDays(baseDate, 14)),
-    [baseDate, setBaseDate]
+    () => setBaseDate(subDays(baseDate, daysPerPage)),
+    [baseDate, setBaseDate, daysPerPage]
   );
   const { state, verify, addErrorMessage, setExternalErrors } =
     useFormElementState();
@@ -106,7 +106,7 @@ const MenuSelector = React.memo((props: Props) => {
               onSelect(menu);
               verify();
             }}
-            days={14}
+            days={daysPerPage}
           />
         </Box>
       )}
