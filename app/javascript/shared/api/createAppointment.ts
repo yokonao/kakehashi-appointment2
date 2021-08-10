@@ -25,7 +25,6 @@ export async function createAppointment(
 ): Promise<Result> {
   try {
     const res = await client.post("/api/v1/appointments/create", params);
-    console.log(res);
     const json = JSON.parse(JSON.stringify(res.data));
     if (json["errors"]) {
       return {
