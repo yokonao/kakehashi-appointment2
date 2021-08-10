@@ -196,7 +196,7 @@ const Form = (props: Props) => {
                   {title}
                 </Typography>
               </Box>
-              <InstructionText text="1. 予約日時を選択してください" />
+              <InstructionText text="1. 予約日時" />
               <Field name="menu">
                 {({ field }: FieldProps<MenuSerializer>) => {
                   return (
@@ -211,7 +211,7 @@ const Form = (props: Props) => {
                   );
                 }}
               </Field>
-              <InstructionText text="2. 氏名を漢字とカタカナで入力してください" />
+              <InstructionText text="2. 氏名（漢字・カタカナ）" />
               <Field name="personName">
                 {({ field }: FieldProps<PersonName>) => {
                   return (
@@ -242,7 +242,7 @@ const Form = (props: Props) => {
                   );
                 }}
               </Field>
-              <InstructionText text="3. 生年月日を数字8ケタで入力してください" />
+              <InstructionText text="3. 生年月日・電話番号・メールアドレス" />
               <Field name="birthday">
                 {({ field }: FieldProps<Date>) => {
                   return (
@@ -258,7 +258,6 @@ const Form = (props: Props) => {
                   );
                 }}
               </Field>
-              <InstructionText text="4. 電話番号・メールアドレスを入力してください" />
               <Field name="phoneNumber">
                 {({ field }: FieldProps<string>) => {
                   return (
@@ -289,7 +288,7 @@ const Form = (props: Props) => {
                   );
                 }}
               </Field>
-              <InstructionText text="5. 当院を初めてご利用になりますか？" />
+              <InstructionText text="4. 当院を初めてご利用になりますか？" />
               <Field name="karteInformation">
                 {({ field }: FieldProps<KarteInformation>) => {
                   return (
@@ -302,7 +301,7 @@ const Form = (props: Props) => {
                   );
                 }}
               </Field>
-              <InstructionText text="6. 受診理由として当てはまるものに全てチェックしてください" />
+              <InstructionText text="5. 受診理由（複数選択可）" />
               <Field name="reasons">
                 {({ field }: FieldProps<string>) => {
                   return (
@@ -314,7 +313,7 @@ const Form = (props: Props) => {
                   );
                 }}
               </Field>
-              <InstructionText text="7. その他（任意）" />
+              <InstructionText text="6. その他（任意）" />
               <Field name="freeComment">
                 {({ field }: FieldProps<string>) => {
                   return (
