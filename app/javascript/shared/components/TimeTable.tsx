@@ -122,7 +122,9 @@ const TimeTable = (props: TimeTableProps) => {
                       <Icon>event_note</Icon>
                     </IconButton>
                   ) : (
-                    "-"
+                    <IconButton color={"default"} size="small" disabled>
+                      <Icon>close</Icon>
+                    </IconButton>
                   )}
                 </StyledTableCell>
               );
