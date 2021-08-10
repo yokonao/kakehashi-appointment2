@@ -16,7 +16,19 @@ type Props = {
 
 const MenuSelector = React.memo((props: Props) => {
   const { value, menus, onSelect, externalErrors } = props;
-  const [baseDate, setBaseDate] = React.useState<Date>(new Date());
+  const tomorrow = React.useMemo(() => addDays(new Date(), 1), []);
+  const [baseDate, setBaseDate] = React.useState<Date>(tomorrow);
+  const minDate = React.useMemo(() => tomorrow, [tomorrow]);
+  const maxDate = React.useMemo(() => addDays(tomorrow, 14), [tomorrow]); // 予約を取れるのは2週間先まで
+  const daysPerPage = React.useMemo(() => 14, []);
+  const enabledPrevButton = React.useMemo(
+    () => baseDate.getTime() > minDate.getTime(),
+    [baseDate, minDate]
+  );
+  const enabledNextButton = React.useMemo(
+    () => addDays(baseDate, daysPerPage).getTime() < maxDate.getTime(),
+    [baseDate, daysPerPage, maxDate]
+  );
   const toNext = React.useCallback(
     () => setBaseDate(addDays(baseDate, 14)),
     [baseDate, setBaseDate]
@@ -72,10 +84,18 @@ const MenuSelector = React.memo((props: Props) => {
       ) : (
         <Box>
           <Grid container justifyContent="space-between">
-            <Button onClick={toPrev} variant="outlined">
+            <Button
+              onClick={toPrev}
+              variant="outlined"
+              disabled={!enabledPrevButton}
+            >
               前へ
             </Button>
-            <Button onClick={toNext} variant="outlined">
+            <Button
+              onClick={toNext}
+              variant="outlined"
+              disabled={!enabledNextButton}
+            >
               次へ
             </Button>
           </Grid>
