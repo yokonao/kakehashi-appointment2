@@ -1,10 +1,8 @@
 import {
   Box,
   Button,
-  ButtonGroup,
   Icon,
   IconButton,
-  InputAdornment,
   Table,
   TableBody,
   TableCell,
@@ -12,13 +10,11 @@ import {
   TableRow,
   TextField,
 } from "@material-ui/core";
-import { format, addDays, eachMinuteOfInterval } from "date-fns";
+import { format } from "date-fns";
 import * as React from "react";
 import {
-  getAfternoonOpeningTime,
-  getLastTime,
-  getMorningLastTime,
-  getOpeningTime,
+  createBusinessTimesEveryThirtyMinutes,
+  createDaysOnTheTime,
 } from "../../domain/BusinessRule";
 import useFormElementState from "../../features/hooks/useFormElementState";
 import { MenuSerializer } from "../../serializers/MenuSerializer";
@@ -32,32 +28,6 @@ type TimeTableProps = {
   baseDate: Date;
   onSelect: (menu?: MenuSerializer) => void;
 };
-
-function createDaysOnTheTime(baseDate: Date, count: number): Date[] {
-  return eachMinuteOfInterval(
-    { start: baseDate, end: addDays(baseDate, count) },
-    { step: 24 * 60 }
-  );
-}
-
-function createBusinessTimesEveryThirtyMinutes(base: Date): Date[] {
-  const interval = 30;
-  return eachMinuteOfInterval(
-    {
-      start: getOpeningTime(base),
-      end: getMorningLastTime(base),
-    },
-    { step: interval }
-  ).concat(
-    eachMinuteOfInterval(
-      {
-        start: getAfternoonOpeningTime(base),
-        end: getLastTime(base),
-      },
-      { step: interval }
-    )
-  );
-}
 
 const TimeTable = React.memo((props: TimeTableProps) => {
   const { value, menus, baseDate, onSelect, externalErrors } = props;

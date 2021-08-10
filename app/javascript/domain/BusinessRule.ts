@@ -1,4 +1,6 @@
-export const getOpeningTime = (date: Date): Date => {
+import { addDays, eachMinuteOfInterval } from "date-fns";
+
+const getOpeningTime = (date: Date): Date => {
   const res = new Date();
   res.setDate(date.getDate());
   res.setHours(9);
@@ -6,7 +8,7 @@ export const getOpeningTime = (date: Date): Date => {
   return res;
 };
 
-export const getMorningLastTime = (date: Date): Date => {
+const getMorningLastTime = (date: Date): Date => {
   const res = new Date();
   res.setDate(date.getDate());
   res.setHours(12);
@@ -14,7 +16,7 @@ export const getMorningLastTime = (date: Date): Date => {
   return res;
 };
 
-export const getAfternoonOpeningTime = (date: Date): Date => {
+const getAfternoonOpeningTime = (date: Date): Date => {
   const res = new Date();
   res.setDate(date.getDate());
   res.setHours(14);
@@ -22,10 +24,36 @@ export const getAfternoonOpeningTime = (date: Date): Date => {
   return res;
 }
 
-export const getLastTime = (date: Date): Date => {
+const getLastTime = (date: Date): Date => {
   const res = new Date();
   res.setDate(date.getDate());
   res.setHours(17);
   res.setMinutes(0);
   return res;
 };
+
+export function createDaysOnTheTime(baseDate: Date, count: number): Date[] {
+  return eachMinuteOfInterval(
+    { start: baseDate, end: addDays(baseDate, count) },
+    { step: 24 * 60 }
+  );
+}
+
+export function createBusinessTimesEveryThirtyMinutes(base: Date): Date[] {
+  const interval = 30;
+  return eachMinuteOfInterval(
+    {
+      start: getOpeningTime(base),
+      end: getMorningLastTime(base),
+    },
+    { step: interval }
+  ).concat(
+    eachMinuteOfInterval(
+      {
+        start: getAfternoonOpeningTime(base),
+        end: getLastTime(base),
+      },
+      { step: interval }
+    )
+  );
+}
