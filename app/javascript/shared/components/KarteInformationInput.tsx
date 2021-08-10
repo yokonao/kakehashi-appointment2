@@ -33,13 +33,11 @@ const KarteInformationInput = (props: Props) => {
         }
       >
         <FormControlLabel
-          tabIndex={0}
           value="yes"
           control={<Radio color="primary" />}
           label="はい"
         />
         <FormControlLabel
-          tabIndex={0}
           value="no"
           control={<Radio color="primary" />}
           label="いいえ（再診の方は5ケタの診察券番号を入力してください）"
