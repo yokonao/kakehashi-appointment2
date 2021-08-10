@@ -1,32 +1,28 @@
 import { addDays, eachMinuteOfInterval } from "date-fns";
 
 const getOpeningTime = (date: Date): Date => {
-  const res = new Date();
-  res.setDate(date.getDate());
+  const res = new Date(date);
   res.setHours(9);
   res.setMinutes(0);
   return res;
 };
 
 const getMorningLastTime = (date: Date): Date => {
-  const res = new Date();
-  res.setDate(date.getDate());
+  const res = new Date(date);
   res.setHours(12);
   res.setMinutes(0);
   return res;
 };
 
 const getAfternoonOpeningTime = (date: Date): Date => {
-  const res = new Date();
-  res.setDate(date.getDate());
+  const res = new Date(date);
   res.setHours(14);
   res.setMinutes(30);
   return res;
-}
+};
 
 const getLastTime = (date: Date): Date => {
-  const res = new Date();
-  res.setDate(date.getDate());
+  const res = new Date(date);
   res.setHours(17);
   res.setMinutes(0);
   return res;

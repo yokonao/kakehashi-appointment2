@@ -11,14 +11,20 @@ type Props = {
   value?: MenuSerializer;
   menus: MenuSerializer[];
   externalErrors?: string[];
-  date: Date;
   onSelect: (menu?: MenuSerializer) => void;
 };
 
 const MenuSelector = React.memo((props: Props) => {
-  const { value, menus, date, onSelect, externalErrors } = props;
+  const { value, menus, onSelect, externalErrors } = props;
   const [baseDate, setBaseDate] = React.useState<Date>(new Date());
-  React.useEffect(() => setBaseDate(date), [date]);
+  const toNext = React.useCallback(
+    () => setBaseDate(addDays(baseDate, 14)),
+    [baseDate, setBaseDate]
+  );
+  const toPrev = React.useCallback(
+    () => setBaseDate(subDays(baseDate, 14)),
+    [baseDate, setBaseDate]
+  );
   const { state, verify, addErrorMessage, setExternalErrors } =
     useFormElementState();
   const validate = React.useCallback(() => {
@@ -66,8 +72,8 @@ const MenuSelector = React.memo((props: Props) => {
       ) : (
         <Box>
           <ButtonGroup size="small">
-            <Button onClick={()=>setBaseDate(subDays(baseDate, 14))}>前</Button>
-            <Button onClick={()=>setBaseDate(addDays(baseDate, 14))}>次</Button>
+            <Button onClick={toPrev}>前</Button>
+            <Button onClick={toNext}>次</Button>
           </ButtonGroup>
           <TimeTable
             baseDate={baseDate}
