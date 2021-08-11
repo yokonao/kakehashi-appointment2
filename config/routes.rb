@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :administrators
   namespace :api do
     namespace :v1 do
       get 'menus/index'
