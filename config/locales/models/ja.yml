@@ -2,6 +2,7 @@ ja:
   activerecord:
     models:
       appointment: 予約
+      administrator: 管理者
     attributes:
       appointment:
         name: 氏名
@@ -9,3 +10,7 @@ ja:
         start_at: 開始時刻
         end_at: 終了時刻
         menu: 予約枠
+      administrator:
+        email: メールアドレス
+        password: パスワード
+        remember_me: ログイン状態を保持する
