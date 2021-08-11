@@ -1,9 +1,15 @@
-import { createTheme, ThemeProvider } from "@material-ui/core";
+import {
+  Button,
+  createTheme,
+  ThemeProvider,
+  Typography,
+} from "@material-ui/core";
 import { createBrowserHistory } from "history";
 import React from "react";
 import ReactDOM from "react-dom";
-import { Router } from "react-router-dom";
+import { Route, Router, Switch } from "react-router-dom";
 import { NotificationContextProvider } from "../features/hooks/useNotification";
+import client from "../shared/api/client";
 import Header from "../shared/components/Header";
 import useStyles from "../styles/useStyles";
 
@@ -24,8 +30,20 @@ const Admin = (): JSX.Element => {
         <ThemeProvider theme={theme}>
           <NotificationContextProvider>
             <Header />
-            {/* <Routes /> */}
-            管理画面
+            <Switch>
+              <Route path="/admin/dashboard">
+                <Typography variant="h1">ダッシュボード</Typography>
+              </Route>
+            </Switch>
+            <Button
+              variant="contained"
+              onClick={async () => {
+                await client.delete("/administrators/sign_out");
+                window.location.href = "/administrators/sign_in";
+              }}
+            >
+              ログアウト
+            </Button>
             <div className={classes.footer} />
           </NotificationContextProvider>
         </ThemeProvider>
