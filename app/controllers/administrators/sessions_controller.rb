@@ -14,9 +14,9 @@ class Administrators::SessionsController < Devise::SessionsController
   # end
 
   # DELETE /resource/sign_out
-  # def destroy
-  #   super
-  # end
+  def destroy
+    Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
+  end
 
   # protected
 
@@ -24,4 +24,9 @@ class Administrators::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
+  private
+
+  def after_sign_in_path_for(_resource)
+    '/admin/dashboard'
+  end
 end
