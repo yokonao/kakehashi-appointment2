@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :administrators
+  devise_for :administrators, controllers: { sessions: 'administrators/sessions' }
   namespace :api do
     namespace :v1 do
       get 'menus/index'
