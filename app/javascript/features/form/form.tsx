@@ -44,7 +44,7 @@ type FormValue = {
   phoneNumber: string;
   email: string;
   karteInformation: KarteInformation;
-  reasons: string;
+  reason: string;
   freeComment: string;
 };
 
@@ -57,7 +57,7 @@ const initialValues: FormValue = {
     isFirstVisit: true,
     clinicalNumber: "",
   },
-  reasons: "",
+  reason: "",
   freeComment: "",
 };
 
@@ -114,8 +114,8 @@ function validate(value: FormValue): {
     }
   }
 
-  if (value.reasons.length === 0) {
-    errors["reasons"] = ["受診理由を最低1つ選択してください"];
+  if (value.reason.length === 0) {
+    errors["reason"] = ["受診理由を最低1つ選択してください"];
   }
   const isValid =
     Object.keys(errors)
@@ -134,7 +134,7 @@ function createPostParameters(value: FormValue): CreateAppointmentParameters {
     clinical_number: value.karteInformation.clinicalNumber,
     email: value.email,
     phone_number: value.phoneNumber,
-    reason: value.reasons,
+    reason: value.reason,
     free_comment: value.freeComment,
     menu_id: value.menu ? value.menu.id.toString() : "",
   };
@@ -300,7 +300,7 @@ const Form = (props: Props) => {
                 }}
               </Field>
               <InstructionText text="5. 受診理由（複数選択可）" />
-              <Field name="reasons">
+              <Field name="reason">
                 {({ field }: FieldProps<string>) => {
                   return (
                     <ConsultationReasonSelector
