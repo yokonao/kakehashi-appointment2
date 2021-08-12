@@ -47,7 +47,7 @@ const PersonKanaNameInput = (props: Props) => {
             onBlur={() => {
               validate();
             }}
-            inputProps={{ maxLength: 20 }}
+            inputProps={{ maxLength: 50 }}
             placeholder="カケハシ　ハナコ"
             helperText="セイ（カタカナ）"
             variant="outlined"

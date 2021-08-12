@@ -41,7 +41,7 @@ const PersonNameInput = (props: Props) => {
             onBlur={() => {
               validate();
             }}
-            inputProps={{ maxLength: 20 }}
+            inputProps={{ maxLength: 50 }}
             placeholder="架橋　花子"
             helperText="姓（漢字）"
             variant="outlined"
