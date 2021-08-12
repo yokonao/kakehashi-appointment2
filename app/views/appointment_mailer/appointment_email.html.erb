@@ -1,5 +1,5 @@
     <h1>予約が成立しました。</h1>
-    <p><%= @appointment.last_name %> <%= @appointment.first_name %> 様</p>
+    <p><%= @appointment.full_name %> 様</p>
     <p>この度は、かけはし糖尿病・甲状腺クリニックをご予約いただきましてありがとうございます。<br>
 ご予約内容は以下の通りで承りました。お間違いないかご確認ください。</p>
 
@@ -7,10 +7,8 @@
     【ご予約内容】<br>
     ■<%= @menu.department %>外来<br>
     ■予約日時：<%= @menu.start_at.strftime("%Y/%m/%d %k:%M") %><br>
-    ■姓：<%= @appointment.last_name %><br>
-    ■名：<%= @appointment.first_name %><br>
-    ■セイ：<%= @appointment.last_kana_name %><br>
-    ■メイ：<%= @appointment.first_kana_name %><br>
+    ■氏名：<%= @appointment.full_name %><br>
+    ■シメイ：<%= @appointment.full_kana_name %><br>
     ■生年月日：<%= @appointment.birthday %><br>
     ■電話番号：<%= @appointment.phone_number %><br>
     ■メールアドレス：<%= @appointment.email %><br>

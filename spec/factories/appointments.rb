@@ -1,9 +1,7 @@
 FactoryBot.define do
   factory :appointment do
-    first_name { 'MyString' }
-    last_name { 'MyString' }
-    first_kana_name { 'カケハシ' }
-    last_kana_name { 'ハナコ' }
+    full_name { '架橋 花子' }
+    full_kana_name { 'カケハシ ハナコ' }
     birthday { '2021-08-01' }
     is_first_visit { false }
     clinical_number { '00099' }

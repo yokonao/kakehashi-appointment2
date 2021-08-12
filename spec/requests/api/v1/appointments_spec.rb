@@ -4,10 +4,8 @@ RSpec.describe 'Api::V1::Appointments', type: :request do
   describe 'POST /create' do
     let!(:menu) { create(:menu) }
     let!(:valid_params) do
-      { first_name: '架橋',
-        last_name: '花子',
-        first_kana_name: 'カケハシ',
-        last_kana_name: 'ハナコ',
+      { full_name: '架橋 花子',
+        full_kana_name: 'カケハシ ハナコ',
         birthday: '1990-01-01',
         is_first_visit: false,
         clinical_number: '00001',

@@ -2,10 +2,8 @@
 
 # Sceme information
 # create_table "appointments", force: :cascade do |t|
-#   t.string "first_name"
-#   t.string "last_name"
-#   t.string "first_kana_name"
-#   t.string "last_kana_name"
+#   t.string "full_name"
+#   t.string "full_kana_name"
 #   t.date "birthday"
 #   t.boolean "is_first_visit"
 #   t.string "clinical_number"
@@ -21,18 +19,14 @@
 # fk menu_id
 
 class Appointment < ApplicationRecord
-  MAX_NAME_LENGTH = 20
+  MAX_NAME_LENGTH = 50
   belongs_to :menu
-  validates :first_name,
-            :last_name,
+  validates :full_name,
             presence: true,
             length: { maximum: MAX_NAME_LENGTH }
-  validates :first_kana_name,
-            if: :first_kana_name?,
-            format: { with: /\A[ァ-ヶー－]+\z/ }
-  validates :last_kana_name,
-            if: :last_kana_name?,
-            format: { with: /\A[ァ-ヶー－]+\z/ }
+  validates :full_kana_name,
+            presence: true,
+            format: { with: /\A[ァ-ヶー－| |　]+\z/ }
   validates :birthday, presence: true
   validates :is_first_visit, inclusion: [true, false]
   validates :clinical_number, presence: { message: '再診の方は診察券番号を入力してください' }, unless: :is_first_visit,
