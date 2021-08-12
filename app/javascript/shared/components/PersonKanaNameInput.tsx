@@ -36,28 +36,24 @@ const PersonKanaNameInput = (props: Props) => {
 
   return (
     <Box m={2}>
-      <Grid container spacing={3}>
-        <Grid item>
-          <CustomTextField
-            required
-            id="full_kana_name"
-            value={value}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              onChanged(e.target.value);
-            }}
-            onBlur={() => {
-              validate();
-            }}
-            inputProps={{ maxLength: 50 }}
-            placeholder="カケハシ　ハナコ"
-            helperText="シメイ（カタカナ）"
-            InputProps={{
-              endAdornment: state.isValid && <CheckMark />,
-            }}
-            error={state.errorMessages.length > 0}
-          />
-        </Grid>
-      </Grid>
+      <CustomTextField
+        required
+        id="full_kana_name"
+        value={value}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+          onChanged(e.target.value);
+        }}
+        onBlur={() => {
+          validate();
+        }}
+        inputProps={{ maxLength: 50 }}
+        placeholder="カケハシ　ハナコ"
+        helperText="シメイ（カタカナ）"
+        InputProps={{
+          endAdornment: state.isValid && <CheckMark />,
+        }}
+        error={state.errorMessages.length > 0}
+      />
       <ErrorMessages messages={state.errorMessages} />
     </Box>
   );

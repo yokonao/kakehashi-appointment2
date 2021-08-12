@@ -29,28 +29,24 @@ const PersonNameInput = (props: Props) => {
   }, [externalErrors]);
   return (
     <Box m={2}>
-      <Grid container spacing={3}>
-        <Grid item>
-          <CustomTextField
-            required
-            id="full_name"
-            value={value}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              onChanged(e.target.value);
-            }}
-            onBlur={() => {
-              validate();
-            }}
-            inputProps={{ maxLength: 50 }}
-            placeholder="架橋　花子"
-            helperText="氏名（漢字）"
-            InputProps={{
-              endAdornment: state.isValid && <CheckMark />,
-            }}
-            error={state.errorMessages.length > 0}
-          />
-        </Grid>
-      </Grid>
+      <CustomTextField
+        required
+        id="full_name"
+        value={value}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+          onChanged(e.target.value);
+        }}
+        onBlur={() => {
+          validate();
+        }}
+        inputProps={{ maxLength: 50 }}
+        placeholder="架橋　花子"
+        helperText="氏名（漢字）"
+        InputProps={{
+          endAdornment: state.isValid && <CheckMark />,
+        }}
+        error={state.errorMessages.length > 0}
+      />
       <ErrorMessages messages={state.errorMessages} />
     </Box>
   );
