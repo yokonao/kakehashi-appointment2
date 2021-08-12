@@ -1,10 +1,14 @@
-import { TextField, TextFieldProps } from "@material-ui/core";
+import { Grid, TextField, TextFieldProps } from "@material-ui/core";
 import * as React from "react";
 
 type Props = TextFieldProps;
 
 const CustomTextField = (props: Props) => {
-  return <TextField variant="outlined" {...props} />;
+  return (
+    <Grid container xs={12} md={8} lg={4}>
+      <TextField variant="outlined" fullWidth {...props} />
+    </Grid>
+  );
 };
 
 export default CustomTextField;
