@@ -46,8 +46,8 @@ const KarteInformationInput = (props: Props) => {
           type="tel"
           placeholder="00028"
           helperText="再診の方は5ケタの診察券番号を入力してください"
-          disabled={value.isFirstVisit}
-        />
+          inputProps={{ maxLength: 5 }}
+          />
       )}
     </Box>
   );
