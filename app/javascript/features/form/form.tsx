@@ -107,7 +107,7 @@ function validate(value: FormValue): {
   if (!value.karteInformation.isFirstVisit) {
     if (
       value.karteInformation.clinicalNumber.length > 0 &&
-      /^[0-9]{5}$/.test(value.karteInformation.clinicalNumber)
+      !/^[0-9]{5}$/.test(value.karteInformation.clinicalNumber)
     ) {
       // 診察券番号が入力済みで数字5ケタでない場合はエラー
       errors["karteInformation"] = ["診察券番号は数字5ケタで入力してください"];
@@ -292,6 +292,9 @@ const Form = (props: Props) => {
                       onChanged={(value: KarteInformation) => {
                         setFieldValue(field.name, value);
                       }}
+                      externalErrors={
+                        errorFields ? errorFields[field.name] : undefined
+                      }
                     />
                   );
                 }}
