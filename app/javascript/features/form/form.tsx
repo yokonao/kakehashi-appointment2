@@ -82,7 +82,7 @@ function validate(value: FormValue): {
     value.fullKanaName.length == 0 ||
     !/^[ァ-ヶー－| |　]+$/.test(value.fullKanaName)
   ) {
-    errors["personKanaName"] = ["氏名をカタカナで入力してください"];
+    errors["fullKanaName"] = ["氏名をカタカナで入力してください"];
   }
   if (!value.birthday) {
     errors["birthday"] = ["生年月日を数字8ケタで入力してください"];
