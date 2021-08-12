@@ -1,4 +1,5 @@
 class AppointmentMailer < ApplicationMailer
+  default from: ENV['CUSTOM_DOMAIN_ADDRESS']
   def appointment_email
     @appointment = params[:appointment]
     @menu = @appointment.menu
