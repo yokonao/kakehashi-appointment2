@@ -1,18 +1,17 @@
 import { Box, Grid, Icon, InputAdornment, TextField } from "@material-ui/core";
 import * as React from "react";
-import { PersonKanaName } from "../../domain/PersonKanaName";
 import useFormElementState from "../../features/hooks/useFormElementState";
 import CheckMark from "./CheckMark";
 import ErrorMessages from "./ErrorMessages";
 
 type Props = {
-  value: PersonKanaName;
-  onChanged: (personName: PersonKanaName) => void;
+  value: string;
+  onChanged: (fullKanaName: string) => void;
   externalErrors?: string[];
 };
 
 function validateKana(target: string) {
-  return target.length > 0 && /^[ァ-ヶー－]+$/.test(target);
+  return target.length > 0 && /^[ァ-ヶー－ |　|]+$/.test(target);
 }
 
 const PersonKanaNameInput = (props: Props) => {
@@ -20,17 +19,14 @@ const PersonKanaNameInput = (props: Props) => {
   const { state, verify, addErrorMessage, setExternalErrors } =
     useFormElementState();
   const validate = React.useCallback(() => {
-    if (validateKana(value.firstKanaName) && validateKana(value.lastKanaName)) {
+    if (validateKana(value)) {
       verify();
-    } else if (
-      value.firstKanaName.length == 0 ||
-      value.lastKanaName.length == 0
-    ) {
+    } else if (value.length == 0) {
       addErrorMessage("氏名をカタカナで入力してください");
     } else {
       addErrorMessage("カタカナで入力してください");
     }
-  }, [value.firstKanaName, value.lastKanaName, verify, addErrorMessage]);
+  }, [value, verify, addErrorMessage]);
   React.useEffect(() => {
     if (externalErrors && externalErrors.length > 0) {
       setExternalErrors(externalErrors);
@@ -44,45 +40,16 @@ const PersonKanaNameInput = (props: Props) => {
           <TextField
             required
             id="last_kana_name"
-            value={value.lastKanaName}
+            value={value}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              const newValue: PersonKanaName = {
-                ...value,
-                lastKanaName: e.target.value,
-              };
-              onChanged(newValue);
-            }}
-            onBlur={() => {
-              if (value.firstKanaName.length > 0) validate();
-            }}
-            inputProps={{ maxLength: 20 }}
-            placeholder="カケハシ"
-            helperText="セイ（カタカナ）"
-            variant="outlined"
-            InputProps={{
-              endAdornment: state.isValid && <CheckMark />,
-            }}
-            error={state.errorMessages.length > 0}
-          />
-        </Grid>
-        <Grid item>
-          <TextField
-            required
-            id="first_kana_name"
-            value={value.firstKanaName}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              const newValue: PersonKanaName = {
-                ...value,
-                firstKanaName: e.target.value,
-              };
-              onChanged(newValue);
+              onChanged(e.target.value);
             }}
             onBlur={() => {
               validate();
             }}
             inputProps={{ maxLength: 20 }}
-            placeholder="ハナコ"
-            helperText="メイ（カタカナ）"
+            placeholder="カケハシ"
+            helperText="セイ（カタカナ）"
             variant="outlined"
             InputProps={{
               endAdornment: state.isValid && <CheckMark />,

@@ -15,7 +15,6 @@ import {
 } from "@material-ui/core";
 import TimeTable from "../../shared/components/MenuSelector";
 import { Field, FieldProps, Formik } from "formik";
-import { PersonName } from "../../domain/personName";
 import PersonNameField from "../../shared/components/PersonNameInput";
 import useStyles from "../../styles/useStyles";
 import PhoneNumberInput from "../../shared/components/PhoneNumberInput";
@@ -25,7 +24,6 @@ import FreeCommentInput from "../../shared/components/FreeCommentInput";
 import InstructionText from "../../shared/components/InstructionText";
 import KarteInformationInput from "../../shared/components/KarteInformationInput";
 import { KarteInformation } from "../../domain/KarteInformation";
-import { PersonKanaName } from "../../domain/PersonKanaName";
 import PersonKanaNameInput from "../../shared/components/PersonKanaNameInput";
 import BirthdayInput from "../../shared/components/BirthdayInput";
 import { MenuSerializer } from "../../serializers/MenuSerializer";
@@ -39,8 +37,8 @@ import { useNotification } from "../hooks/useNotification";
 import { useMenusContext } from "../hooks/useMenusContext";
 
 type FormValue = {
-  personName: PersonName;
-  personKanaName: PersonKanaName;
+  fullName: string;
+  fullKanaName: string;
   menu?: MenuSerializer;
   birthday?: Date;
   phoneNumber: string;
@@ -53,14 +51,8 @@ type FormValue = {
 const initialValues: FormValue = {
   phoneNumber: "",
   email: "",
-  personName: {
-    firstName: "",
-    lastName: "",
-  },
-  personKanaName: {
-    firstKanaName: "",
-    lastKanaName: "",
-  },
+  fullName: "",
+  fullKanaName: "",
   karteInformation: {
     isFirstVisit: true,
     clinicalNumber: "",
@@ -83,17 +75,12 @@ function validate(value: FormValue): {
   if (!value.menu) {
     errors["menu"] = ["予約日時を選択してください"];
   }
-  if (
-    value.personName.firstName.length == 0 ||
-    value.personName.lastName.length == 0
-  ) {
-    errors["personName"] = ["氏名を入力してください"];
+  if (value.fullName.length == 0) {
+    errors["fullName"] = ["氏名を入力してください"];
   }
   if (
-    value.personKanaName.firstKanaName.length == 0 ||
-    value.personKanaName.lastKanaName.length == 0 ||
-    !/^[ァ-ヶー－]+$/.test(value.personKanaName.firstKanaName) ||
-    !/^[ァ-ヶー－]+$/.test(value.personKanaName.lastKanaName)
+    value.fullKanaName.length == 0 ||
+    !/^[ァ-ヶー－| |　]+$/.test(value.fullKanaName)
   ) {
     errors["personKanaName"] = ["氏名をカタカナで入力してください"];
   }
@@ -130,10 +117,8 @@ function validate(value: FormValue): {
 
 function createPostParameters(value: FormValue): CreateAppointmentParameters {
   return {
-    first_name: value.personName.firstName,
-    last_name: value.personName.lastName,
-    first_kana_name: value.personKanaName.firstKanaName,
-    last_kana_name: value.personKanaName.lastKanaName,
+    full_name: value.fullName,
+    full_kana_name: value.fullKanaName,
     birthday: value.birthday ? format(value.birthday, "yyyy-MM-dd") : "",
     is_first_visit: value.karteInformation.isFirstVisit.toString(),
     clinical_number: value.karteInformation.clinicalNumber,
@@ -212,8 +197,8 @@ const Form = (props: Props) => {
                 }}
               </Field>
               <InstructionText text="2. 氏名（漢字・カタカナ）" />
-              <Field name="personName">
-                {({ field }: FieldProps<PersonName>) => {
+              <Field name="fullName">
+                {({ field }: FieldProps<string>) => {
                   return (
                     <PersonNameField
                       value={field.value}
@@ -227,8 +212,8 @@ const Form = (props: Props) => {
                   );
                 }}
               </Field>
-              <Field name="personKanaName">
-                {({ field }: FieldProps<PersonKanaName>) => {
+              <Field name="fullKanaName">
+                {({ field }: FieldProps<string>) => {
                   return (
                     <PersonKanaNameInput
                       value={field.value}

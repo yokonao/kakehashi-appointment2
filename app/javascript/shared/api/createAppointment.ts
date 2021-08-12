@@ -1,10 +1,8 @@
 import client from "./client";
 
 export type CreateAppointmentParameters = {
-  first_name: string;
-  last_name: string;
-  first_kana_name: string;
-  last_kana_name: string;
+  full_name: string;
+  full_kana_name: string;
   birthday: string;
   is_first_visit: string;
   clinical_number: string;
