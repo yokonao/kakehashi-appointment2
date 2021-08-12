@@ -4,6 +4,7 @@ class Api::V1::AppointmentsController < ApplicationController
     if appointment.valid?
       appointment.save!
       AppointmentMailer.with(appointment: appointment).appointment_email.deliver_later
+      AppointmentMailer.with(appointment: appointment).notification_email.deliver_later
       render json: appointment
     else
       render json: { "errors": appointment.errors.as_json(full_messages: true) }
