@@ -1,5 +1,4 @@
-import { Box, Grid, Icon, InputAdornment, TextField } from "@material-ui/core";
-import { validateYupSchema } from "formik";
+import { Box, Grid, TextField } from "@material-ui/core";
 import * as React from "react";
 import useFormElementState from "../../features/hooks/useFormElementState";
 import CheckMark from "./CheckMark";
