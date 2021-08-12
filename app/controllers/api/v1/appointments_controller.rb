@@ -11,7 +11,7 @@ class Api::V1::AppointmentsController < ApplicationController
   end
 
   def appointment_params
-    params.require(:appointment).permit(:first_name, :last_name, :first_kana_name, :last_kana_name, :birthday, :is_first_visit,
-                                        :clinical_number, :email, :phone_number, :reason, :free_comment, :menu_id)
+    params.require(:appointment).permit(:full_name, :full_kana_name, :birthday, :is_first_visit, :clinical_number,
+                                        :email, :phone_number, :reason, :free_comment, :menu_id)
   end
 end

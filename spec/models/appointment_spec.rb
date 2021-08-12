@@ -14,25 +14,20 @@ RSpec.describe Appointment, type: :model do
   end
 
   context 'when an attribute is empty' do
-    it 'is invalid when appointment does not have first name' do
-      appointment = build(:valid_appointment, first_name: nil)
+    it 'is invalid when appointment does not have full name' do
+      appointment = build(:valid_appointment, full_name: nil)
       expect(appointment.valid?).to eq false
-      expect(appointment.errors[:first_name]).to include('を入力してください')
+      expect(appointment.errors[:full_name]).to include('を入力してください')
     end
 
-    it 'is invalid when appointment does not have last name' do
-      appointment = build(:valid_appointment, last_name: nil)
+    it 'is invalid when appointment does not have full kana name' do
+      appointment = build(:valid_appointment, full_kana_name: nil)
       expect(appointment.valid?).to eq false
-      expect(appointment.errors[:last_name]).to include('を入力してください')
+      expect(appointment.errors[:full_kana_name]).to include('を入力してください')
     end
 
-    it 'is valid when appointment does not have first kana name' do
-      appointment = build(:valid_appointment, first_kana_name: nil)
-      expect(appointment.valid?).to eq true
-    end
-
-    it 'is valid when appointment does not have last kana name' do
-      appointment = build(:valid_appointment, last_kana_name: nil)
+    it 'is valid when appointment contains full-width space in full kana name' do
+      appointment = build(:valid_appointment, full_name: 'カケハシ　ハナコ')
       expect(appointment.valid?).to eq true
     end
 
@@ -88,60 +83,31 @@ RSpec.describe Appointment, type: :model do
     end
   end
 
-  context 'when the first name is invalid' do
-    it 'has too long first name' do
-      appointment = build(:valid_appointment, first_name: 'longlonglonglonglonglong')
+  context 'when the full name is invalid' do
+    it 'has too long full name' do
+      appointment = build(:valid_appointment, full_name: (0...100).map{ (65 + rand(26)).chr }.join)
       expect(appointment.valid?).to eq false
     end
   end
 
-  context 'when the last name is invalid' do
+  context 'when the full kana name is invalid' do
     it 'has too long last name' do
-      appointment = build(:valid_appointment, last_name: 'longlonglonglonglonglong')
-      expect(appointment.valid?).to eq false
-    end
-  end
-
-  context 'when the fisrt kana name is invalid' do
-    it 'has too long last name' do
-      appointment = build(:valid_appointment, first_kana_name: 'longlonglonglonglonglong')
+      appointment = build(:valid_appointment, full_kana_name: 'longlonglonglonglonglong')
       expect(appointment.valid?).to eq false
     end
 
     it 'has the first kana name contains hiragana character' do
-      appointment = build(:valid_appointment, first_kana_name: 'かけはし')
+      appointment = build(:valid_appointment, full_kana_name: 'かけはし はなこ')
       expect(appointment.valid?).to eq false
     end
 
     it 'has the first kana name contains some symbol' do
-      appointment = build(:valid_appointment, first_kana_name: 'カケハシ@+-')
+      appointment = build(:valid_appointment, full_kana_name: 'カケハシ@+-ハナコ')
       expect(appointment.valid?).to eq false
     end
 
     it 'has the first kana name contains some alphabet' do
-      appointment = build(:valid_appointment, first_kana_name: 'Kakehashi')
-      expect(appointment.valid?).to eq false
-    end
-  end
-
-  context 'when the last kana name is invalid' do
-    it 'has too long last kana name' do
-      appointment = build(:valid_appointment, last_kana_name: 'longlonglonglonglonglong')
-      expect(appointment.valid?).to eq false
-    end
-
-    it 'has the last kana name contains hiragana character' do
-      appointment = build(:valid_appointment, last_kana_name: 'はなこ')
-      expect(appointment.valid?).to eq false
-    end
-
-    it 'has the last kana name contains some symbol' do
-      appointment = build(:valid_appointment, last_kana_name: '%ハナコ)(')
-      expect(appointment.valid?).to eq false
-    end
-
-    it 'has the last kana name contains some alphabet' do
-      appointment = build(:valid_appointment, last_kana_name: 'Hanako')
+      appointment = build(:valid_appointment, full_kana_name: 'Kakehashi Hanako')
       expect(appointment.valid?).to eq false
     end
   end

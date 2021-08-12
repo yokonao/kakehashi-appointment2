@@ -1,14 +1,12 @@
-import { Box, Grid, Icon, InputAdornment, TextField } from "@material-ui/core";
-import { validateYupSchema } from "formik";
+import { Box, Grid, TextField } from "@material-ui/core";
 import * as React from "react";
-import { PersonName } from "../../domain/PersonName";
 import useFormElementState from "../../features/hooks/useFormElementState";
 import CheckMark from "./CheckMark";
 import ErrorMessages from "./ErrorMessages";
 
 type Props = {
-  value: PersonName;
-  onChanged: (personName: PersonName) => void;
+  value: string;
+  onChanged: (fullName: string) => void;
   externalErrors?: string[];
 };
 
@@ -17,7 +15,7 @@ const PersonNameInput = (props: Props) => {
   const { state, verify, addErrorMessage, setExternalErrors } =
     useFormElementState();
   const validate = React.useCallback(() => {
-    if (value.firstName.length == 0 || value.lastName.length == 0) {
+    if (value.length == 0) {
       addErrorMessage("氏名を入力してください");
       return;
     }
@@ -34,46 +32,17 @@ const PersonNameInput = (props: Props) => {
         <Grid item>
           <TextField
             required
-            id="last_name"
-            value={value.lastName}
+            id="full_name"
+            value={value}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              const newValue: PersonName = {
-                ...value,
-                lastName: e.target.value,
-              };
-              onChanged(newValue);
-            }}
-            onBlur={() => {
-              if (value.firstName.length > 0) validate();
-            }}
-            inputProps={{ maxLength: 20 }}
-            placeholder="架橋"
-            helperText="姓（漢字）"
-            variant="outlined"
-            InputProps={{
-              endAdornment: state.isValid && <CheckMark />,
-            }}
-            error={state.errorMessages.length > 0}
-          />
-        </Grid>
-        <Grid item>
-          <TextField
-            required
-            id="first_name"
-            value={value.firstName}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              const newValue: PersonName = {
-                ...value,
-                firstName: e.target.value,
-              };
-              onChanged(newValue);
+              onChanged(e.target.value);
             }}
             onBlur={() => {
               validate();
             }}
-            inputProps={{ maxLength: 20 }}
-            placeholder="花子"
-            helperText="名（漢字）"
+            inputProps={{ maxLength: 50 }}
+            placeholder="架橋　花子"
+            helperText="氏名（漢字）"
             variant="outlined"
             InputProps={{
               endAdornment: state.isValid && <CheckMark />,

@@ -3,10 +3,8 @@
 namespace :appointment do
   desc 'create random appointment'
   task random: :environment do
-    params = { first_name: '架橋',
-               last_name: '花子',
-               first_kana_name: 'カケハシ',
-               last_kana_name: 'ハナコ',
+    params = { full_name: '架橋　花子',
+               full_kana_name: 'カケハシ　ハナコ',
                birthday: '1990-01-01',
                is_first_visit: false,
                clinical_number: '00001',
