@@ -1,6 +1,7 @@
 import { Box, Checkbox, FormControlLabel, FormGroup } from "@material-ui/core";
 import * as React from "react";
 import useFormElementState from "../../features/hooks/useFormElementState";
+import ErrorMessages from "./ErrorMessages";
 
 type Props = {
   onChanged: (value: string) => void;
@@ -17,7 +18,10 @@ const ConsultationReasonSelector = (props: Props) => {
   const { onChanged, externalErrors } = props;
   const initialState = React.useMemo(() => createInitialState(), []);
   const [state, setState] = React.useState<State>(initialState);
-  const { setExternalErrors } = useFormElementState();
+  const {
+    state: { errorMessages },
+    setExternalErrors,
+  } = useFormElementState();
   React.useEffect(() => {
     if (externalErrors && externalErrors.length > 0) {
       setExternalErrors(externalErrors);
@@ -25,6 +29,7 @@ const ConsultationReasonSelector = (props: Props) => {
   }, [externalErrors]);
   return (
     <Box m={2}>
+      <ErrorMessages messages={errorMessages} />
       <FormGroup>
         {Object.entries(initialState).map(([reason, _]) => (
           <FormControlLabel
