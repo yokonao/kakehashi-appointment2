@@ -29,8 +29,6 @@ class Appointment < ApplicationRecord
             format: { with: /\A[ァ-ヶー－| |　]+\z/ }
   validates :birthday, presence: true
   validates :is_first_visit, inclusion: [true, false]
-  validates :clinical_number, presence: { message: '再診の方は診察券番号を入力してください' }, unless: :is_first_visit,
-                              format: { with: /\A[0-9]{5}\z/, message: 'は数字5桁で入力してください' }
   validates :email, presence: true, email: true
   validates :phone_number, presence: true, format: { with: /\A[0-9]{10,11}\z/ }
   validates :reason, presence: true
