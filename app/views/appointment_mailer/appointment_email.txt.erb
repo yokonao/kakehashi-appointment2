@@ -1,0 +1,33 @@
+予約が成立しました。
+
+<%= @appointment.last_name %> <%= @appointment.first_name %> 様
+この度は、かけはし糖尿病・甲状腺クリニックをご予約いただきましてありがとうございます。
+ご予約内容は以下の通りで承りました。お間違いないかご確認ください。
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+【ご予約内容】
+■<%= @menu.department %>外来
+■予約日時：<%= @menu.start_at.strftime("%Y/%m/%d %k:%M") %>
+■姓：<%= @appointment.last_name %>
+■名：<%= @appointment.first_name %>
+■セイ：<%= @appointment.last_kana_name %>
+■メイ：<%= @appointment.first_kana_name %>
+■生年月日：<%= @appointment.birthday %>
+■電話番号：<%= @appointment.phone_number %>
+■メールアドレス：<%= @appointment.email %>
+■診察券番号：<%= @appointment.clinical_number %>
+■受診歴：<% if @appointment.is_first_visit then%>なし<% else %>あり<% end %>
+■受診理由：<%= @appointment.reason %>
+■診察前に伝えておきたいこと：<%= @appointment.free_comment %>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    
+当日は保険証とありましたら医療証・お薬手帳をお持ちになって、予約時間にご来院ください。
+予約のキャンセル・変更はお電話・メールにてご連絡ください。
+それでは当日お待ちしております。
+    
+かけはし糖尿病・甲状腺クリニック
+〒453-0832
+名古屋市中村区乾出町２丁目３５番地
+052−483−3377
+kakehashi.dm@gmail.com
+※このメールにお心当たりのない方は、 本メールを破棄してください。
