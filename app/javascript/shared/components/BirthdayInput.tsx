@@ -53,7 +53,7 @@ const BirthdayInput = (props: Props) => {
         }}
         type="tel"
         placeholder="19850603"
-        helperText="入力例. 1993年1月1日生 → 19930101"
+        helperText="1993年1月1日生 → 19930101"
         variant="outlined"
         inputProps={{ maxLength: 8 }}
         InputProps={{

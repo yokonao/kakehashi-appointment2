@@ -43,17 +43,6 @@ RSpec.describe Appointment, type: :model do
       expect(appointment.errors[:is_first_visit]).to include('は一覧にありません')
     end
 
-    it 'is valid when appointment is the first visit and does not have clinical number' do
-      appointment = build(:valid_appointment, is_first_visit: true, clinical_number: nil, menu_id: menu.id)
-      expect(appointment.valid?).to eq true
-    end
-
-    it 'is valid when appointment is not the first visit and does not have clinical number' do
-      appointment = build(:valid_appointment, is_first_visit: false, clinical_number: nil)
-      expect(appointment.valid?).to eq false
-      expect(appointment.errors[:clinical_number]).to include('再診の方は診察券番号を入力してください')
-    end
-
     it 'is invalid when appointment does not have email' do
       appointment = build(:valid_appointment, email: nil)
       expect(appointment.valid?).to eq false
