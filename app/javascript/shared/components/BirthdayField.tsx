@@ -28,7 +28,7 @@ const BirthdayField = (props: Props) => {
             setErrorMessages([...errorMessages, "8桁の数字を入力してください"]);
             return;
           }
-          const date = parse(input, "yyyyMMdd", new Date())
+          const date = parse(input, "yyyyMMdd", new Date());
           if (isNaN(date.getTime())) {
             setRawValue(input);
             setErrorMessages([...errorMessages, "不正な日付です"]);
@@ -38,7 +38,6 @@ const BirthdayField = (props: Props) => {
           onChanged(date);
         }}
         label="生年月日"
-        variant="outlined"
         error={errorMessages.length > 0}
         disabled={!!value}
       />

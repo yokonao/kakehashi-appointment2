@@ -1,13 +1,7 @@
-import {
-  Box,
-  FormControl,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
-  TextField,
-} from "@material-ui/core";
+import { Box, FormControlLabel, Radio, RadioGroup } from "@material-ui/core";
 import * as React from "react";
 import { KarteInformation } from "../../domain/KarteInformation";
+import CustomTextField from "./CustomTextField";
 
 type Props = {
   value: KarteInformation;
@@ -44,7 +38,7 @@ const KarteInformationInput = (props: Props) => {
         />
       </RadioGroup>
       {!value.isFirstVisit && (
-        <TextField
+        <CustomTextField
           value={value.clinicalNumber}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             onChanged({ ...value, clinicalNumber: e.target.value });
@@ -52,7 +46,6 @@ const KarteInformationInput = (props: Props) => {
           type="tel"
           placeholder="00028"
           helperText="再診の方は5ケタの診察券番号を入力してください"
-          variant="outlined"
           disabled={value.isFirstVisit}
         />
       )}

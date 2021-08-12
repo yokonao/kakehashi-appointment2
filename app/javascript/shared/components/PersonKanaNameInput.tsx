@@ -1,8 +1,9 @@
-import { Box, Grid, Icon, InputAdornment, TextField } from "@material-ui/core";
+import { Box, Grid } from "@material-ui/core";
 import * as React from "react";
 import useFormElementState from "../../features/hooks/useFormElementState";
 import CheckMark from "./CheckMark";
 import ErrorMessages from "./ErrorMessages";
+import CustomTextField from "./CustomTextField";
 
 type Props = {
   value: string;
@@ -37,7 +38,7 @@ const PersonKanaNameInput = (props: Props) => {
     <Box m={2}>
       <Grid container spacing={3}>
         <Grid item>
-          <TextField
+          <CustomTextField
             required
             id="full_kana_name"
             value={value}
@@ -50,7 +51,6 @@ const PersonKanaNameInput = (props: Props) => {
             inputProps={{ maxLength: 50 }}
             placeholder="カケハシ　ハナコ"
             helperText="シメイ（カタカナ）"
-            variant="outlined"
             InputProps={{
               endAdornment: state.isValid && <CheckMark />,
             }}

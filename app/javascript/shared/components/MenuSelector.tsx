@@ -3,7 +3,6 @@ import {
   Button,
   ButtonGroup,
   Grid,
-  TextField,
   Theme,
   useMediaQuery,
 } from "@material-ui/core";
@@ -12,6 +11,7 @@ import * as React from "react";
 import useFormElementState from "../../features/hooks/useFormElementState";
 import { MenuSerializer } from "../../serializers/MenuSerializer";
 import CheckMark from "./CheckMark";
+import CustomTextField from "./CustomTextField";
 import ErrorMessages from "./ErrorMessages";
 import TimeTable from "./TimeTable";
 
@@ -65,8 +65,7 @@ const MenuSelector = React.memo((props: Props) => {
   return (
     <Box m={2}>
       <Box mb={2}>
-        <TextField
-          variant="outlined"
+        <CustomTextField
           value={value ? format(value.start_at, "yyyy年M月d日H時mm分") : ""}
           placeholder="予約日時"
           helperText="下の表から選択してください"
@@ -84,7 +83,6 @@ const MenuSelector = React.memo((props: Props) => {
       {value ? (
         <Button
           color="default"
-          variant="outlined"
           onClick={() => {
             onSelect(undefined);
             addErrorMessage("予約日時を選択してください");
@@ -95,18 +93,10 @@ const MenuSelector = React.memo((props: Props) => {
       ) : (
         <Box>
           <Grid container justifyContent="space-between">
-            <Button
-              onClick={toPrev}
-              variant="outlined"
-              disabled={!enabledPrevButton}
-            >
+            <Button onClick={toPrev} disabled={!enabledPrevButton}>
               前へ
             </Button>
-            <Button
-              onClick={toNext}
-              variant="outlined"
-              disabled={!enabledNextButton}
-            >
+            <Button onClick={toNext} disabled={!enabledNextButton}>
               次へ
             </Button>
           </Grid>

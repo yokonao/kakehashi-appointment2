@@ -1,10 +1,9 @@
-import DateFnsUtils from "@date-io/date-fns";
-import { Box, TextField } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import { parse } from "date-fns";
-
 import * as React from "react";
 import useFormElementState from "../../features/hooks/useFormElementState";
 import CheckMark from "./CheckMark";
+import CustomTextField from "./CustomTextField";
 import ErrorMessages from "./ErrorMessages";
 
 type Props = {
@@ -43,7 +42,7 @@ const BirthdayInput = (props: Props) => {
 
   return (
     <Box m={2}>
-      <TextField
+      <CustomTextField
         value={value}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           setValue(e.target.value);
@@ -54,7 +53,6 @@ const BirthdayInput = (props: Props) => {
         type="tel"
         placeholder="19850603"
         helperText="1993年1月1日生 → 19930101"
-        variant="outlined"
         inputProps={{ maxLength: 8 }}
         InputProps={{
           endAdornment: state.isValid && <CheckMark />,

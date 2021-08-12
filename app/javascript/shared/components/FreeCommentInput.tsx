@@ -1,5 +1,6 @@
-import { Box, TextField } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import * as React from "react";
+import CustomTextField from "./CustomTextField";
 
 type Props = {
   value: string;
@@ -10,7 +11,7 @@ const FreeCommentInput = (props: Props) => {
   const { value, onChanged } = props;
   return (
     <Box m={2}>
-      <TextField
+      <CustomTextField
         value={value}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           onChanged(e.target.value);
@@ -18,7 +19,6 @@ const FreeCommentInput = (props: Props) => {
         type="text"
         placeholder="診察前に伝えておきたいことをご自由にお書きください"
         helperText="自由記入欄"
-        variant="outlined"
         multiline
         rows={10}
         fullWidth

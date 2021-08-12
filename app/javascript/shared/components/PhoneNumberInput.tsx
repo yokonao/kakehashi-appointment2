@@ -1,7 +1,8 @@
-import { Box, TextField } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import * as React from "react";
 import useFormElementState from "../../features/hooks/useFormElementState";
 import CheckMark from "./CheckMark";
+import CustomTextField from "./CustomTextField";
 import ErrorMessages from "./ErrorMessages";
 
 type Props = {
@@ -33,7 +34,7 @@ const PhoneNumberInput = (props: Props) => {
 
   return (
     <Box m={2}>
-      <TextField
+      <CustomTextField
         value={value}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           onChanged(e.target.value);
@@ -45,7 +46,6 @@ const PhoneNumberInput = (props: Props) => {
         type="tel"
         placeholder="0524833377"
         helperText="電話番号（ハイフン無し）"
-        variant="outlined"
         InputProps={{
           endAdornment: state.isValid && <CheckMark />,
         }}
