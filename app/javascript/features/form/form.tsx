@@ -75,11 +75,11 @@ function validate(value: FormValue): {
   if (!value.menu) {
     errors["menu"] = ["予約日時を選択してください"];
   }
-  if (value.fullName.length == 0) {
+  if (value.fullName.length === 0) {
     errors["fullName"] = ["氏名を入力してください"];
   }
   if (
-    value.fullKanaName.length == 0 ||
+    value.fullKanaName.length === 0 ||
     !/^[ァ-ヶー－| |　]+$/.test(value.fullKanaName)
   ) {
     errors["fullKanaName"] = ["氏名をカタカナで入力してください"];
@@ -87,14 +87,14 @@ function validate(value: FormValue): {
   if (!value.birthday) {
     errors["birthday"] = ["生年月日を数字8ケタで入力してください"];
   }
-  if (value.phoneNumber.length == 0) {
+  if (value.phoneNumber.length === 0) {
     errors["phoneNumber"] = ["電話番号を入力してください"];
   } else if (!/^[0-9]{10,11}$/.test(value.phoneNumber)) {
     errors["phoneNumber"] = [
       "不正な電話番号です。ハイフン無し数字のみで入力してください",
     ];
   }
-  if (value.email.length == 0) {
+  if (value.email.length === 0) {
     errors["email"] = ["メールアドレスを入力してください"];
   } else if (
     !/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
@@ -112,6 +112,10 @@ function validate(value: FormValue): {
       // 診察券番号が入力済みで数字5ケタでない場合はエラー
       errors["karteInformation"] = ["診察券番号は数字5ケタで入力してください"];
     }
+  }
+
+  if (value.reasons.length === 0) {
+    errors["reasons"] = ["受診理由を最低1つ選択してください"];
   }
   const isValid =
     Object.keys(errors)
