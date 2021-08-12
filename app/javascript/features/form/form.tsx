@@ -104,9 +104,15 @@ function validate(value: FormValue): {
     errors["email"] = ["不正なメールアドレスです"];
   }
 
-  // [Note] カルテ情報はあえてバリデーションをかけない
-  // 再診だが診察券番号がわからない人を想定している
-
+  if (!value.karteInformation.isFirstVisit) {
+    if (
+      value.karteInformation.clinicalNumber.length > 0 &&
+      /^[0-9]{5}$/.test(value.karteInformation.clinicalNumber)
+    ) {
+      // 診察券番号が入力済みで数字5ケタでない場合はエラー
+      errors["karteInformation"] = ["診察券番号は数字5ケタで入力してください"];
+    }
+  }
   const isValid =
     Object.keys(errors)
       .map((key) => errors[key])
