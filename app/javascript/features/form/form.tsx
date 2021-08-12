@@ -309,6 +309,9 @@ const Form = (props: Props) => {
                       onChanged={(value: string) => {
                         setFieldValue(field.name, value);
                       }}
+                      externalErrors={
+                        errorFields ? errorFields[field.name] : undefined
+                      }
                     />
                   );
                 }}
