@@ -131,7 +131,9 @@ function createPostParameters(value: FormValue): CreateAppointmentParameters {
     full_kana_name: value.fullKanaName,
     birthday: value.birthday ? format(value.birthday, "yyyy-MM-dd") : "",
     is_first_visit: value.karteInformation.isFirstVisit.toString(),
-    clinical_number: value.karteInformation.clinicalNumber,
+    clinical_number: value.karteInformation.isFirstVisit
+      ? ""
+      : value.karteInformation.clinicalNumber,
     email: value.email,
     phone_number: value.phoneNumber,
     reason: value.reason,
