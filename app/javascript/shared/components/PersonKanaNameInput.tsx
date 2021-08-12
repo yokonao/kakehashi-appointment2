@@ -39,7 +39,7 @@ const PersonKanaNameInput = (props: Props) => {
         <Grid item>
           <TextField
             required
-            id="last_kana_name"
+            id="full_kana_name"
             value={value}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               onChanged(e.target.value);
@@ -48,7 +48,7 @@ const PersonKanaNameInput = (props: Props) => {
               validate();
             }}
             inputProps={{ maxLength: 20 }}
-            placeholder="カケハシ"
+            placeholder="カケハシ　ハナコ"
             helperText="セイ（カタカナ）"
             variant="outlined"
             InputProps={{
