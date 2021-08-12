@@ -3,6 +3,17 @@ import {
   createTheme,
   ThemeProvider,
   Typography,
+  Drawer,
+  Toolbar,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Divider,
+  makeStyles,
+  createStyles,
+  Theme,
+  AppBar
 } from "@material-ui/core";
 import { createBrowserHistory } from "history";
 import React from "react";
@@ -11,39 +22,93 @@ import { Route, Router, Switch } from "react-router-dom";
 import { NotificationContextProvider } from "../features/hooks/useNotification";
 import client from "../shared/api/client";
 import Header from "../shared/components/Header";
-import useStyles from "../styles/useStyles";
+import { Logo } from "../shared/components/Logo";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#99720f",
-    },
-  },
+      main: "#99720f"
+    }
+  }
 });
+
+const drawerWidth = 240;
+
+const useAdminStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      display: "flex"
+    },
+    appBar: {
+      zIndex: theme.zIndex.drawer + 1
+    },
+    drawer: {
+      width: drawerWidth,
+      flexShrink: 0
+    },
+    drawerPaper: {
+      width: drawerWidth
+    },
+    drawerContainer: {
+      overflow: "auto"
+    },
+    content: {
+      flexGrow: 1,
+      paddingLeft: theme.spacing(3),
+      paddingTop: theme.spacing(8)
+    },
+    footer: {
+      height: 300
+    }
+  })
+);
 
 const history = createBrowserHistory();
 const Admin = (): JSX.Element => {
-  const classes = useStyles();
+  const classes = useAdminStyles();
   return (
     <div className={classes.root}>
       <Router history={history}>
         <ThemeProvider theme={theme}>
           <NotificationContextProvider>
-            <Header />
-            <Switch>
-              <Route path="/admin/dashboard">
-                <Typography variant="h1">ダッシュボード</Typography>
-              </Route>
-            </Switch>
-            <Button
-              variant="contained"
-              onClick={async () => {
-                await client.delete("/administrators/sign_out");
-                window.location.href = "/administrators/sign_in";
+            <AppBar position="fixed" color="default" className={classes.appBar}>
+              <Toolbar>
+                <Logo isMobile={false} />
+                <Typography color="primary" variant="h6">
+                  かけはし糖尿病・甲状腺クリニック
+                </Typography>
+              </Toolbar>
+            </AppBar>
+            <Drawer
+              className={classes.drawer}
+              variant="permanent"
+              classes={{
+                paper: classes.drawerPaper
               }}
             >
-              ログアウト
-            </Button>
+              <Toolbar />
+              <div className={classes.drawerContainer}>
+                <List>
+                  {["All mail", "Trash", "Spam"].map((text, index) => (
+                    <ListItem button key={text}>
+                      <ListItemText primary={text} />
+                    </ListItem>
+                  ))}
+                </List>
+              </div>
+            </Drawer>
+            <main className={classes.content}>
+              <Typography variant="h1">ダッシュボード</Typography>
+              <Button
+                variant="contained"
+                onClick={async () => {
+                  await client.delete("/administrators/sign_out");
+                  window.location.href = "/administrators/sign_in";
+                }}
+              >
+                ログアウト
+              </Button>
+            </main>
             <div className={classes.footer} />
           </NotificationContextProvider>
         </ThemeProvider>
