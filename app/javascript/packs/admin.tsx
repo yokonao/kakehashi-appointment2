@@ -1,13 +1,4 @@
-import {
-  Button,
-  ThemeProvider,
-  Typography,
-  Drawer,
-  Toolbar,
-  List,
-  ListItem,
-  ListItemText,
-} from "@material-ui/core";
+import { Button, ThemeProvider, Typography } from "@material-ui/core";
 import { createBrowserHistory } from "history";
 import React from "react";
 import ReactDOM from "react-dom";
@@ -17,6 +8,8 @@ import { adminTheme } from "../features/admin/styles/adminTheme";
 import { useAdminStyles } from "../features/admin/styles/useAdminStyles";
 import { NotificationContextProvider } from "../features/hooks/useNotification";
 import client from "../shared/api/client";
+import AdminDrawer from "../features/admin/components/AdminDrawer";
+import Routes from "../features/admin/Routes";
 
 const history = createBrowserHistory();
 const Admin = (): JSX.Element => {
@@ -27,26 +20,9 @@ const Admin = (): JSX.Element => {
         <ThemeProvider theme={adminTheme}>
           <NotificationContextProvider>
             <AdminHeader />
-            <Drawer
-              className={classes.drawer}
-              variant="permanent"
-              classes={{
-                paper: classes.drawerPaper,
-              }}
-            >
-              <Toolbar />
-              <div className={classes.drawerContainer}>
-                <List>
-                  {["All mail", "Trash", "Spam"].map((text, index) => (
-                    <ListItem button key={text}>
-                      <ListItemText primary={text} />
-                    </ListItem>
-                  ))}
-                </List>
-              </div>
-            </Drawer>
+            <AdminDrawer />
             <main className={classes.content}>
-              <Typography variant="h1">ダッシュボード</Typography>
+              <Routes />
               <Button
                 variant="contained"
                 onClick={async () => {
