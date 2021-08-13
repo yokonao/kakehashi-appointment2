@@ -20,8 +20,8 @@ RSpec.describe 'Api::V1::Menus', type: :request do
         expect(json.length).to eq 62
       end
     end
-    context 'when the date is given' do
-      let(:params) { { date: '2021-09-06' } }
+    context 'when the min and maxdate is given' do
+      let(:params) { { min_date: '2021-09-06', max_date: '2021-09-06' } }
       it 'returns menus of one day' do
         expect(subject).to have_http_status(:ok)
         # 2021年9月6日は月曜日で午前診療+午後診療で13枠
@@ -30,10 +30,10 @@ RSpec.describe 'Api::V1::Menus', type: :request do
     end
     context 'when all menu is already filled on the day' do
       let(:day) { '2021-09-11' }
-      let(:params) { { date: day } }
+      let(:params) { { min_date: day, max_date: day } }
       before do
         Menu.where(start_at: Time.parse(day)...(Time.parse(day) + 1.days)).each do |menu|
-          create(:appointment, menu_id:menu.id)
+          create(:appointment, menu_id: menu.id)
         end
       end
       it 'returns menus filled' do
@@ -41,6 +41,16 @@ RSpec.describe 'Api::V1::Menus', type: :request do
         # 2021年9月11日は土曜日で午前診療で6枠
         expect(json.length).to eq 6
         expect(json[0]['filled']).to eq true
+      end
+    end
+
+    context 'when the date range is given' do
+      # 9月6日は月曜、9月8日は水曜
+      let(:params) { { min_date: '2021-09-06', max_date: '2021-09-08' } }
+      it 'return menus in between the range' do
+        expect(subject).to have_http_status(:ok)
+        # 一日13枠×3日
+        expect(json.length).to eq 39
       end
     end
   end
