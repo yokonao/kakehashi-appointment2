@@ -8,7 +8,7 @@ kekehashi.dm+yoyaku@gmail.com
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 【ご予約内容】
 ■<%= @menu.department %>外来
-■予約日時：<%= @menu.start_at.strftime("%Y/%m/%d（%a） %k:%M") %>
+■予約日時：<%= I18n.l @menu.start_at, format: :full_date %>
 ■氏名：<%= @appointment.full_name %>
 ■シメイ：<%= @appointment.full_kana_name %>
 ■生年月日：<%= @appointment.birthday %>
