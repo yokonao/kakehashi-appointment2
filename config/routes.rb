@@ -5,6 +5,11 @@ Rails.application.routes.draw do
       get 'menus/index'
       post 'appointments/create'
     end
+    namespace :admin do
+      get 'menus/index'
+      delete 'menus/:id', to: 'menus#destroy'
+      delete 'menus', to: 'menus#destroy_all'
+    end
   end
   get '/admin/*admin_path', to: 'admin#show'
   get '/*react_path', to: 'react#show'
