@@ -1,6 +1,6 @@
 import * as React from "react";
 import { MenuSerializer } from "../../serializers/MenuSerializer";
-import { getAllMenus } from "../../shared/api/getAllMenus";
+import { getReservableMenus } from "../../shared/api/getAllMenus";
 import { useNotification } from "./useNotification";
 
 type State = {
@@ -78,7 +78,7 @@ export const MenusContextProvider: React.FC<Props> = ({ children }) => {
     [state, setMenus]
   );
   React.useEffect(() => {
-    getAllMenus().then((res) => {
+    getReservableMenus().then((res) => {
       if (res.error.length > 0) {
         addError(res.error);
       }
