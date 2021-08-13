@@ -1,4 +1,7 @@
 ja:
+  time:
+    formats:
+      full_date: "%Y年%m月%d日 (%a) %H:%M"
   activerecord:
     models:
       appointment: 予約
