@@ -1,67 +1,22 @@
 import {
   Button,
-  createTheme,
   ThemeProvider,
   Typography,
   Drawer,
   Toolbar,
   List,
   ListItem,
-  ListItemIcon,
   ListItemText,
-  Divider,
-  makeStyles,
-  createStyles,
-  Theme,
-  AppBar
 } from "@material-ui/core";
 import { createBrowserHistory } from "history";
 import React from "react";
 import ReactDOM from "react-dom";
-import { Route, Router, Switch } from "react-router-dom";
+import { Router } from "react-router-dom";
+import AdminHeader from "../features/admin/components/AdminHeader";
+import { adminTheme } from "../features/admin/styles/adminTheme";
+import { useAdminStyles } from "../features/admin/styles/useAdminStyles";
 import { NotificationContextProvider } from "../features/hooks/useNotification";
 import client from "../shared/api/client";
-import Header from "../shared/components/Header";
-import { Logo } from "../shared/components/Logo";
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#99720f"
-    }
-  }
-});
-
-const drawerWidth = 240;
-
-const useAdminStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      display: "flex"
-    },
-    appBar: {
-      zIndex: theme.zIndex.drawer + 1
-    },
-    drawer: {
-      width: drawerWidth,
-      flexShrink: 0
-    },
-    drawerPaper: {
-      width: drawerWidth
-    },
-    drawerContainer: {
-      overflow: "auto"
-    },
-    content: {
-      flexGrow: 1,
-      paddingLeft: theme.spacing(3),
-      paddingTop: theme.spacing(8)
-    },
-    footer: {
-      height: 300
-    }
-  })
-);
 
 const history = createBrowserHistory();
 const Admin = (): JSX.Element => {
@@ -69,21 +24,14 @@ const Admin = (): JSX.Element => {
   return (
     <div className={classes.root}>
       <Router history={history}>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={adminTheme}>
           <NotificationContextProvider>
-            <AppBar position="fixed" color="default" className={classes.appBar}>
-              <Toolbar>
-                <Logo isMobile={false} />
-                <Typography color="primary" variant="h6">
-                  かけはし糖尿病・甲状腺クリニック
-                </Typography>
-              </Toolbar>
-            </AppBar>
+            <AdminHeader />
             <Drawer
               className={classes.drawer}
               variant="permanent"
               classes={{
-                paper: classes.drawerPaper
+                paper: classes.drawerPaper,
               }}
             >
               <Toolbar />
