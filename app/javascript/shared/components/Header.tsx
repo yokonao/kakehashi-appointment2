@@ -14,12 +14,6 @@ const Header = () => {
         <Typography color="primary" variant="h6">
           かけはし糖尿病・甲状腺クリニック
         </Typography>
-        {/* <Box m={2}>
-          <Link to="/form/internal_medicine">内科</Link>
-        </Box>
-        <Box m={2}>
-          <Link to="/form/kampo">漢方</Link>
-        </Box> */}
       </Toolbar>
     </AppBar>
   );
