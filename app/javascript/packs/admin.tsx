@@ -7,22 +7,16 @@ import {
   Toolbar,
   List,
   ListItem,
-  ListItemIcon,
   ListItemText,
-  Divider,
-  makeStyles,
-  createStyles,
-  Theme,
   AppBar
 } from "@material-ui/core";
 import { createBrowserHistory } from "history";
 import React from "react";
 import ReactDOM from "react-dom";
-import { Route, Router, Switch } from "react-router-dom";
+import { Router } from "react-router-dom";
 import { useAdminStyles } from "../features/admin/styles/useAdminStyles";
 import { NotificationContextProvider } from "../features/hooks/useNotification";
 import client from "../shared/api/client";
-import Header from "../shared/components/Header";
 import { Logo } from "../shared/components/Logo";
 
 const theme = createTheme({
