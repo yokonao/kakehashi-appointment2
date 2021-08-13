@@ -5,8 +5,8 @@ type Props = TextFieldProps;
 
 const CustomTextField = (props: Props) => {
   return (
-    <Grid container xs={12} md={8} lg={4}>
-      <TextField variant="outlined" fullWidth {...props} />
+    <Grid item xs={12} md={8} lg={4}>
+        <TextField variant="outlined" fullWidth {...props} />
     </Grid>
   );
 };
