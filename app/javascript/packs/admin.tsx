@@ -19,6 +19,7 @@ import { createBrowserHistory } from "history";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Route, Router, Switch } from "react-router-dom";
+import { useAdminStyles } from "../features/admin/styles/useAdminStyles";
 import { NotificationContextProvider } from "../features/hooks/useNotification";
 import client from "../shared/api/client";
 import Header from "../shared/components/Header";
@@ -31,37 +32,6 @@ const theme = createTheme({
     }
   }
 });
-
-const drawerWidth = 240;
-
-const useAdminStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      display: "flex"
-    },
-    appBar: {
-      zIndex: theme.zIndex.drawer + 1
-    },
-    drawer: {
-      width: drawerWidth,
-      flexShrink: 0
-    },
-    drawerPaper: {
-      width: drawerWidth
-    },
-    drawerContainer: {
-      overflow: "auto"
-    },
-    content: {
-      flexGrow: 1,
-      paddingLeft: theme.spacing(3),
-      paddingTop: theme.spacing(8)
-    },
-    footer: {
-      height: 300
-    }
-  })
-);
 
 const history = createBrowserHistory();
 const Admin = (): JSX.Element => {
