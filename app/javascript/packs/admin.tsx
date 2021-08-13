@@ -14,18 +14,12 @@ import { createBrowserHistory } from "history";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Router } from "react-router-dom";
+import { adminTheme } from "../features/admin/styles/adminTheme";
 import { useAdminStyles } from "../features/admin/styles/useAdminStyles";
 import { NotificationContextProvider } from "../features/hooks/useNotification";
 import client from "../shared/api/client";
 import { Logo } from "../shared/components/Logo";
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#99720f"
-    }
-  }
-});
 
 const history = createBrowserHistory();
 const Admin = (): JSX.Element => {
@@ -33,7 +27,7 @@ const Admin = (): JSX.Element => {
   return (
     <div className={classes.root}>
       <Router history={history}>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={adminTheme}>
           <NotificationContextProvider>
             <AppBar position="fixed" color="default" className={classes.appBar}>
               <Toolbar>
