@@ -1,6 +1,5 @@
 import {
   Button,
-  createTheme,
   ThemeProvider,
   Typography,
   Drawer,
@@ -8,18 +7,16 @@ import {
   List,
   ListItem,
   ListItemText,
-  AppBar
 } from "@material-ui/core";
 import { createBrowserHistory } from "history";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Router } from "react-router-dom";
+import AdminHeader from "../features/admin/components/AdminHeader";
 import { adminTheme } from "../features/admin/styles/adminTheme";
 import { useAdminStyles } from "../features/admin/styles/useAdminStyles";
 import { NotificationContextProvider } from "../features/hooks/useNotification";
 import client from "../shared/api/client";
-import { Logo } from "../shared/components/Logo";
-
 
 const history = createBrowserHistory();
 const Admin = (): JSX.Element => {
@@ -29,19 +26,12 @@ const Admin = (): JSX.Element => {
       <Router history={history}>
         <ThemeProvider theme={adminTheme}>
           <NotificationContextProvider>
-            <AppBar position="fixed" color="default" className={classes.appBar}>
-              <Toolbar>
-                <Logo isMobile={false} />
-                <Typography color="primary" variant="h6">
-                  かけはし糖尿病・甲状腺クリニック
-                </Typography>
-              </Toolbar>
-            </AppBar>
+            <AdminHeader />
             <Drawer
               className={classes.drawer}
               variant="permanent"
               classes={{
-                paper: classes.drawerPaper
+                paper: classes.drawerPaper,
               }}
             >
               <Toolbar />
