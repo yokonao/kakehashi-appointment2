@@ -34,4 +34,62 @@ RSpec.describe 'Api::Admin::Menus', type: :request do
       end
     end
   end
+
+  describe 'DELETE /menus/:id' do
+    let(:administrator) { create(:administrator) }
+    let!(:menu) { create(:menu) }
+
+    subject do
+      delete api_admin_path(id), as: :json
+      response
+    end
+    let(:json) { JSON.parse(response.body) }
+    context 'when not logged in' do
+      let(:id) { menu.id }
+      it 'returns 401' do
+        expect(subject).to have_http_status(:unauthorized)
+      end
+    end
+    context 'when logged in' do
+      before do
+        sign_in administrator
+      end
+      let(:id) { menu.id }
+      it 'deletes the menu' do
+        expect { subject }.to change { Menu.count }.by(-1)
+        expect(subject).to have_http_status(:ok)
+      end
+
+      let!(:appointment) { create(:appointment, menu_id: menu.id) }
+      it 'destroys the appointment associated with the deleted menu' do
+        expect { subject }.to change { Appointment.count }.by(-1)
+        expect(subject).to have_http_status(:ok)
+      end
+    end
+  end
+  describe 'DELETE /menus' do
+    let(:base_day) { Date.parse('2021-09-05') }
+    let(:administrator) { create(:administrator) }
+
+    subject do
+      delete api_admin_menus_path, as: :json
+      response
+    end
+    let(:json) { JSON.parse(response.body) }
+    context 'when not logged in' do
+      it 'returns 401' do
+        expect(subject).to have_http_status(:unauthorized)
+      end
+    end
+    context 'when logged in' do
+      before do
+        sign_in administrator
+      end
+      it 'deletes all menu' do
+        menu_count = Menu.count
+        expect { subject }.to change { Menu.count }.by(menu_count)
+        expect(subject).to have_http_status(:ok)
+      end
+    end
+  end
 end
