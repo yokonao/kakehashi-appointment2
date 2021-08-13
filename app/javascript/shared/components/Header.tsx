@@ -1,7 +1,6 @@
 import * as React from "react";
-import { AppBar, Box, Theme, Toolbar, Typography, useMediaQuery } from "@material-ui/core";
-import { Logo, LogoName } from "./Logo";
-import { Link } from "react-router-dom";
+import { AppBar, Theme, Toolbar, Typography, useMediaQuery } from "@material-ui/core";
+import { Logo } from "./Logo";
 
 const Header = () => {
   const isMobile = useMediaQuery((theme: Theme) =>
