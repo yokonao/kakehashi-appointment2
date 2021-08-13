@@ -5,6 +5,9 @@ Rails.application.routes.draw do
       get 'menus/index'
       post 'appointments/create'
     end
+    namespace :admin do
+      get 'menus/index'
+    end
   end
   get '/admin/*admin_path', to: 'admin#show'
   get '/*react_path', to: 'react#show'
