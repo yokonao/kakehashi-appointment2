@@ -9,6 +9,7 @@ import { useAdminStyles } from "../features/admin/styles/useAdminStyles";
 import { NotificationContextProvider } from "../features/hooks/useNotification";
 import client from "../shared/api/client";
 import AdminDrawer from "../features/admin/components/AdminDrawer";
+import Routes from "../features/admin/Routes";
 
 const history = createBrowserHistory();
 const Admin = (): JSX.Element => {
@@ -21,7 +22,7 @@ const Admin = (): JSX.Element => {
             <AdminHeader />
             <AdminDrawer />
             <main className={classes.content}>
-              <Typography variant="h1">ダッシュボード</Typography>
+              <Routes />
               <Button
                 variant="contained"
                 onClick={async () => {
