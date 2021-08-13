@@ -362,6 +362,7 @@ const Form = (props: Props) => {
                   <Button
                     onClick={() => {
                       setIsOpenSuccessDialog(false);
+                      window.open("/form/internal_medicine", "_self")
                     }}
                     color="primary"
                   >
