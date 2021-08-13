@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  ButtonGroup,
   Grid,
   Theme,
   useMediaQuery,
@@ -50,13 +49,6 @@ const MenuSelector = React.memo((props: Props) => {
   );
   const { state, verify, addErrorMessage, setExternalErrors } =
     useFormElementState();
-  const validate = React.useCallback(() => {
-    if (!value) {
-      addErrorMessage("予約日時を選択してください");
-      return;
-    }
-    verify();
-  }, [value, verify, addErrorMessage]);
   React.useEffect(() => {
     if (externalErrors && externalErrors.length > 0) {
       setExternalErrors(externalErrors);
@@ -69,9 +61,6 @@ const MenuSelector = React.memo((props: Props) => {
           value={value ? format(value.start_at, "yyyy年M月d日H時mm分") : ""}
           placeholder="予約日時"
           helperText="下の表から選択してください"
-          onBlur={() => {
-            validate();
-          }}
           InputProps={{
             readOnly: true,
             endAdornment: state.isValid && <CheckMark />,
