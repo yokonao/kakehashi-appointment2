@@ -1,10 +1,4 @@
-import {
-  Box,
-  Button,
-  Grid,
-  Theme,
-  useMediaQuery,
-} from "@material-ui/core";
+import { Box, Button, Grid, Theme, useMediaQuery } from "@material-ui/core";
 import { addDays, format, subDays } from "date-fns";
 import * as React from "react";
 import useFormElementState from "../../features/hooks/useFormElementState";
@@ -55,7 +49,7 @@ const MenuSelector = React.memo((props: Props) => {
     }
   }, [externalErrors]);
   return (
-    <Box m={2}>
+    <Box m={isMobile ? 0 : 2}>
       <Box mb={2}>
         <CustomTextField
           value={value ? format(value.start_at, "yyyy年M月d日H時mm分") : ""}
