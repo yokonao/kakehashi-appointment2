@@ -1,9 +1,14 @@
 # frozen_string_literal: true
 
 namespace :menu do
+  desc 'execute daily for creating and deleting menus'
+  task daily: :environment do
+    Rake::Task['menu:prepare'].invoke(30, 30)
+    Rake::Task['menu:purge'].invoke
+  end
+
   desc 'Create menus for specified duration'
   task :prepare, %w[min max] => :environment do |_, args|
-    p args
     before_count = Menu.count
     (args.min[1].to_i..args.max[1].to_i).each do |df|
       CreateDailyAppointmentMenuService.new(Date.today + df.days).execute
