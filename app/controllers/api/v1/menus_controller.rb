@@ -1,6 +1,6 @@
 class Api::V1::MenusController < ApplicationController
   def index
-    @menus = Menu.all.order(start_at: :asc)
+    @menus = Menu.all.preload(:appointment).order(start_at: :asc)
     min_date = date_params[:min_date]
     max_date = date_params[:max_date]
     @menus = @menus.where(start_at: Time.parse(min_date)..) if min_date
