@@ -3,7 +3,7 @@ import { createBrowserHistory } from "history";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Router } from "react-router-dom";
-import Routes from "../features/form/routes";
+import Routes from "../features/form/Routes";
 import { MenusContextProvider } from "../features/form/hooks/useMenusContext";
 import { NotificationContextProvider } from "../features/form/hooks/useNotification";
 import Header from "../shared/components/Header";
