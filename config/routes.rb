@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     end
     namespace :admin do
       get 'menus/index'
-      delete 'menus/:id', to: 'menus#destroy'
+      delete 'menus/:id', to: 'menus#destroy', as: 'menu_destroy'
       delete 'menus', to: 'menus#destroy_all'
       get 'appointments/index'
       delete 'appointments/:id', to: 'appointments#destroy', as: 'appointment_destroy'

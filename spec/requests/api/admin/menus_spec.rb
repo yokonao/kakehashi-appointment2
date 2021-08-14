@@ -40,7 +40,7 @@ RSpec.describe 'Api::Admin::Menus', type: :request do
     let!(:menu) { create(:menu) }
 
     subject do
-      delete api_admin_path(id), as: :json
+      delete api_admin_menu_destroy_path(id), as: :json
       response
     end
     let(:json) { JSON.parse(response.body) }
