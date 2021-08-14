@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       delete 'menus/:id', to: 'menus#destroy'
       delete 'menus', to: 'menus#destroy_all'
       get 'appointments/index'
-      delete 'appointments/:id', to: 'appointments#destroy'
+      delete 'appointments/:id', to: 'appointments#destroy', as: 'appointment_destroy'
     end
   end
   get '/admin/*admin_path', to: 'admin#show'
