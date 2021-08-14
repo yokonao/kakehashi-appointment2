@@ -8,9 +8,9 @@ namespace :menu do
   end
 
   desc 'Create menus for specified duration'
-  task :prepare, %w[min max] => :environment do |_, args|
+  task :prepare, %w[min_num max_num] => :environment do |_, args|
     before_count = Menu.count
-    (args.min[1].to_i..args.max[1].to_i).each do |df|
+    (args.min_num.to_i..args.max_num.to_i).each do |df|
       CreateDailyAppointmentMenuService.new(Date.today + df.days).execute
     end
     diff_count = Menu.count - before_count
