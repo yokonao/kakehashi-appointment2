@@ -11,5 +11,7 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe Api::Admin::AppointmentsHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it 'is not used' do
+    expect(true).to eq true
+  end
 end
