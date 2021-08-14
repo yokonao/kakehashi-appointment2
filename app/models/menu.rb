@@ -19,6 +19,9 @@ class Menu < ApplicationRecord
   before_validation :set_end_time
   validates :department, presence: true, inclusion: %w[内科 漢方]
 
+  # 当日より前の予約が取られていない予約枠はゴミとみなす
+  scope :garbage, -> { left_joins(:appointment).where(start_at: ..Time.now.beginning_of_day, appointment: { id: nil }) }
+
   def set_end_time
     self.end_at = start_at + 30.minutes if start_at
   end
