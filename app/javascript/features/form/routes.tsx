@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
-import { useMenusContext } from "../hooks/useMenusContext";
-import InternalMedicineFormContainer from "../internalMedicine/InternalMedicineFormContainer";
-import KampoFormContainer from "../kampo/KampoFormContainer";
+import { useMenusContext } from "./hooks/useMenusContext";
+import InternalMedicineFormContainer from "./components/InternalMedicineFormContainer";
+import KampoFormContainer from "./components/KampoFormContainer";
 
 const Routes = () => {
   const { internalMedicineMenus, kampoMenus, isLoading } = useMenusContext();

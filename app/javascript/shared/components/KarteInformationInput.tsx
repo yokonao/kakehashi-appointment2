@@ -1,7 +1,7 @@
 import { Box, FormControlLabel, Radio, RadioGroup } from "@material-ui/core";
 import * as React from "react";
 import { KarteInformation } from "../../domain/KarteInformation";
-import useFormElementState from "../../features/hooks/useFormElementState";
+import useFormElementState from "../../features/form/hooks/useFormElementState";
 import CheckMark from "./CheckMark";
 import CustomTextField from "./CustomTextField";
 import ErrorMessages from "./ErrorMessages";

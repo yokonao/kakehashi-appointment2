@@ -3,7 +3,7 @@ import {
   castToMenuSerializer,
   MenuSerializer,
 } from "../../serializers/MenuSerializer";
-import { MAX_NUMBER_OF_DAYS_RESERVABLE } from "../utils/const";
+import { MAX_NUMBER_OF_DAYS_RESERVABLE } from "../const";
 import client from "./client";
 
 export async function getAllMenus(): Promise<{

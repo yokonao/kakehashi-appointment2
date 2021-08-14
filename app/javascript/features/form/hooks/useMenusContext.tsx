@@ -1,6 +1,6 @@
 import * as React from "react";
-import { MenuSerializer } from "../../serializers/MenuSerializer";
-import { getReservableMenus } from "../../shared/api/getAllMenus";
+import { MenuSerializer } from "../../../serializers/MenuSerializer";
+import { getReservableMenus } from "../../../shared/api/getAllMenus";
 import { useNotification } from "./useNotification";
 
 type State = {

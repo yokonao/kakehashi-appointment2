@@ -6,7 +6,7 @@ import { Router } from "react-router-dom";
 import AdminHeader from "../features/admin/components/AdminHeader";
 import { adminTheme } from "../features/admin/styles/adminTheme";
 import { useAdminStyles } from "../features/admin/styles/useAdminStyles";
-import { NotificationContextProvider } from "../features/hooks/useNotification";
+import { NotificationContextProvider } from "../features/form/hooks/useNotification";
 import client from "../shared/api/client";
 import AdminDrawer from "../features/admin/components/AdminDrawer";
 import Routes from "../features/admin/Routes";

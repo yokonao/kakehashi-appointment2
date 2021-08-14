@@ -13,26 +13,26 @@ import {
   Icon,
   Typography,
 } from "@material-ui/core";
-import TimeTable from "../../shared/components/MenuSelector";
+import TimeTable from "../../../shared/components/MenuSelector";
 import { Field, FieldProps, Formik } from "formik";
-import PersonNameField from "../../shared/components/PersonNameInput";
-import useStyles from "../../styles/useStyles";
-import PhoneNumberInput from "../../shared/components/PhoneNumberInput";
-import EmailInput from "../../shared/components/EmailInput";
-import ConsultationReasonSelector from "../../shared/components/ConsultationReasonSelector";
-import FreeCommentInput from "../../shared/components/FreeCommentInput";
-import InstructionText from "../../shared/components/InstructionText";
-import KarteInformationInput from "../../shared/components/KarteInformationInput";
-import { KarteInformation } from "../../domain/KarteInformation";
-import PersonKanaNameInput from "../../shared/components/PersonKanaNameInput";
-import BirthdayInput from "../../shared/components/BirthdayInput";
-import { MenuSerializer } from "../../serializers/MenuSerializer";
+import PersonNameField from "../../../shared/components/PersonNameInput";
+import useStyles from "../../../styles/useStyles";
+import PhoneNumberInput from "../../../shared/components/PhoneNumberInput";
+import EmailInput from "../../../shared/components/EmailInput";
+import ConsultationReasonSelector from "../../../shared/components/ConsultationReasonSelector";
+import FreeCommentInput from "../../../shared/components/FreeCommentInput";
+import InstructionText from "../../../shared/components/InstructionText";
+import KarteInformationInput from "../../../shared/components/KarteInformationInput";
+import { KarteInformation } from "../../../domain/KarteInformation";
+import PersonKanaNameInput from "../../../shared/components/PersonKanaNameInput";
+import BirthdayInput from "../../../shared/components/BirthdayInput";
+import { MenuSerializer } from "../../../serializers/MenuSerializer";
 import { format } from "date-fns";
 import {
   createAppointment,
   CreateAppointmentParameters,
-} from "../../shared/api/createAppointment";
-import MenuSelector from "../../shared/components/MenuSelector";
+} from "../../../shared/api/createAppointment";
+import MenuSelector from "../../../shared/components/MenuSelector";
 import { useNotification } from "../hooks/useNotification";
 import { useMenusContext } from "../hooks/useMenusContext";
 
