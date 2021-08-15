@@ -6,6 +6,7 @@ import {
   ListItem,
   ListItemText,
   List,
+  Typography,
 } from "@material-ui/core";
 import client from "../../../shared/api/client";
 
@@ -24,7 +25,7 @@ const AdminDrawer = () => {
         <List>
           {["予約枠", "予約一覧"].map((text, index) => (
             <ListItem button key={text}>
-              <ListItemText primary={text} />
+            <Typography color="primary">{text}</Typography>
             </ListItem>
           ))}
           <ListItem
@@ -35,7 +36,7 @@ const AdminDrawer = () => {
               window.location.href = "/administrators/sign_in";
             }}
           >
-            <ListItemText primary={"ログアウト"} />
+            <Typography color="primary">ログアウト</Typography>
           </ListItem>
         </List>
       </div>
