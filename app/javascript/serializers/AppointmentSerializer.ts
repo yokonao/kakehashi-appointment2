@@ -9,10 +9,12 @@ export type AppointmentSerializer = {
   phone_number: string;
   reason: string;
   free_comment: string;
-  menu_id: number;
+  start_at: Date;
 };
 
-export const castToAppointmentSerializer = (data: any): AppointmentSerializer => {
+export const castToAppointmentSerializer = (
+  data: any
+): AppointmentSerializer => {
   return {
     id: data.id,
     full_name: data.full_name,
@@ -24,6 +26,6 @@ export const castToAppointmentSerializer = (data: any): AppointmentSerializer =>
     phone_number: data.phone_number,
     reason: data.reason,
     free_comment: data.free_comment,
-    menu_id: data.menu_id,
+    start_at: new Date(data.start_at),
   };
 };

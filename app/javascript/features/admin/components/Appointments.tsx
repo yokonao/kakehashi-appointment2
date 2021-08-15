@@ -7,13 +7,15 @@ import {
   TableRow,
 } from "@material-ui/core";
 import { format } from "date-fns";
+import { ja } from "date-fns/locale";
 import * as React from "react";
 import { AppointmentSerializer } from "../../../serializers/AppointmentSerializer";
+import { MenuAdminSerializer } from "../../../serializers/MenuAdminSerializer";
 import { MenuSerializer } from "../../../serializers/MenuSerializer";
 
 type Props = {
   appointments: AppointmentSerializer[];
-  menus: MenuSerializer[];
+  menus: MenuAdminSerializer[];
 };
 
 const headers = ["患者名", "生年月日", "診療歴", "予約日時"];
@@ -26,22 +28,18 @@ const Appointments = (props: Props) => {
         <TableHead>
           <TableRow>
             {headers.map((e) => {
-              return <TableCell>{e}</TableCell>;
+              return (
+                <TableCell key={"appointment-table-header-" + e}>{e}</TableCell>
+              );
             })}
           </TableRow>
         </TableHead>
         <TableBody>
           {appointments.map((appointment) => {
-            const menu = menus.find((menu) => menu.id === appointment.menu_id);
-            if (!menu) {
-              return (
-                <TableRow>
-                  <TableCell>エラー：対応する予約枠が見つかりません</TableCell>
-                </TableRow>
-              );
-            }
             return (
-              <TableRow>
+              <TableRow
+                key={"appointment-table-row-" + appointment.id.toString()}
+              >
                 <TableCell>{appointment.full_name}</TableCell>
                 <TableCell>
                   {format(appointment.birthday, "yyyy/M/d")}
@@ -49,7 +47,11 @@ const Appointments = (props: Props) => {
                 <TableCell>
                   {appointment.is_first_visit ? "初診" : "再診"}
                 </TableCell>
-                <TableCell>{format(menu.start_at, "yyyy/M/d H:mm")}</TableCell>
+                <TableCell>
+                  {format(appointment.start_at, "yyyy/M/d （E） H:mm", {
+                    locale: ja,
+                  })}
+                </TableCell>
               </TableRow>
             );
           })}

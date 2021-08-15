@@ -1,10 +1,10 @@
 import * as React from "react";
 import { AppointmentSerializer } from "../../../serializers/AppointmentSerializer";
-import { MenuSerializer } from "../../../serializers/MenuSerializer";
+import { MenuAdminSerializer } from "../../../serializers/MenuAdminSerializer";
 import { AdminApiClient } from "../api/AdminApiClient";
 
 type State = {
-  menus: MenuSerializer[];
+  menus: MenuAdminSerializer[];
   appointments: AppointmentSerializer[];
   isLoading: boolean;
 };
@@ -24,7 +24,7 @@ type Context = State & Dispatcher;
 type Action =
   | {
       type: "SET_MENUS";
-      payload: MenuSerializer[];
+      payload: MenuAdminSerializer[];
     }
   | {
       type: "SET_APPOINTMENTS";

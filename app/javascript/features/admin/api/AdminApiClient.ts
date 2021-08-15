@@ -2,16 +2,13 @@ import {
   AppointmentSerializer,
   castToAppointmentSerializer,
 } from "../../../serializers/AppointmentSerializer";
-import {
-  castToMenuSerializer,
-  MenuSerializer,
-} from "../../../serializers/MenuSerializer";
+import { castToMenuAdminSerializer, MenuAdminSerializer } from "../../../serializers/MenuAdminSerializer";
 import client from "../../../shared/api/client";
 
 export class AdminApiClient {
   static async getMenus(): Promise<{
     success: boolean;
-    data: MenuSerializer[];
+    data: MenuAdminSerializer[];
   }> {
     try {
       const res = await client.get("/api/admin/menus/index");
@@ -19,8 +16,8 @@ export class AdminApiClient {
       if (json["errors"]) {
         return { success: false, data: [] };
       }
-      const menus: MenuSerializer[] = json.map((e: any) =>
-        castToMenuSerializer(e)
+      const menus: MenuAdminSerializer[] = json.map((e: any) =>
+        castToMenuAdminSerializer(e)
       );
       return { success: true, data: menus };
     } catch (err) {
