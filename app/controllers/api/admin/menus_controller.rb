@@ -2,8 +2,8 @@ class Api::Admin::MenusController < ApplicationController
   before_action :authenticate_administrator!
 
   def index
-    @menus = Menu.all.order(start_at: :asc)
-    render json: @menus
+    @menus = Menu.all.preload(:appointment).order(start_at: :asc)
+    render json: @menus, each_serializer: MenuAdminSerializer
   end
 
   def destroy

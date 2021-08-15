@@ -32,6 +32,22 @@ RSpec.describe 'Api::Admin::Menus', type: :request do
           expect(json.length).to eq 62
         end
       end
+
+      context 'when all menu is already filled on the day' do
+        # let(:day) { '2021-09-11' }
+        let(:params) { nil }
+        before do
+          Menu.all.each do |menu|
+            create(:appointment, menu_id: menu.id)
+          end
+        end
+        it 'contains appointment id' do
+          expect(subject).to have_http_status(:ok)
+          ## 2021年9月11日は土曜日で午前診療で6枠
+          expect(json.length).to eq 62
+          expect(json[0]['appointment_id']).not_to eq nil
+        end
+      end
     end
   end
 

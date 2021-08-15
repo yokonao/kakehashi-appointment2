@@ -28,6 +28,12 @@ RSpec.describe 'Api::Admin::Appointments', type: :request do
         expect(subject).to have_http_status(:ok)
         expect(json.length).to eq 2
       end
+
+      it 'contains start time' do
+        expect(subject).to have_http_status(:ok)
+        expect(json[0]['id']).to eq appointment2.id
+        expect(Time.parse(json[0]['start_at'])).to eq menu2.start_at
+      end
     end
   end
 
