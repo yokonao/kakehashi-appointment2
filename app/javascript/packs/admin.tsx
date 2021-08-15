@@ -11,6 +11,7 @@ import client from "../shared/api/client";
 import AdminDrawer from "../features/admin/components/AdminDrawer";
 import Routes from "../features/admin/Routes";
 import { AdminContextProvider } from "../features/admin/hooks/useAdminContext";
+import LoadingIndicator from "../features/admin/components/LoadingIndicator";
 
 const history = createBrowserHistory();
 const Admin = (): JSX.Element => {
@@ -25,6 +26,7 @@ const Admin = (): JSX.Element => {
               <AdminDrawer />
               <main className={classes.content}>
                 <Routes />
+                <LoadingIndicator />
               </main>
             </AdminContextProvider>
           </NotificationContextProvider>
