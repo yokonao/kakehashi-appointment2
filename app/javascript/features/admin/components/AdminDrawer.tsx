@@ -9,6 +9,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import client from "../../../shared/api/client";
+import { Link } from "react-router-dom";
 
 const AdminDrawer = () => {
   const classes = useAdminStyles();
@@ -23,11 +24,12 @@ const AdminDrawer = () => {
       <Toolbar />
       <div className={classes.drawerContainer}>
         <List>
-          {["予約枠", "予約一覧"].map((text, index) => (
-            <ListItem button key={text}>
-            <Typography color="primary">{text}</Typography>
-            </ListItem>
-          ))}
+          <ListItem button key="予約枠" component={Link} to="/admin/menus">
+            <Typography color="primary">予約枠</Typography>
+          </ListItem>
+          <ListItem button key="予約一覧" component={Link} to="/admin/appointments">
+            <Typography color="primary">予約一覧</Typography>
+          </ListItem>
           <ListItem
             button
             key={"ログアウト"}
