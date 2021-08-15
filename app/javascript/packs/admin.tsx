@@ -26,7 +26,6 @@ const Admin = (): JSX.Element => {
               <main className={classes.content}>
                 <Routes />
               </main>
-              <div className={classes.footer} />
             </AdminContextProvider>
           </NotificationContextProvider>
         </ThemeProvider>
