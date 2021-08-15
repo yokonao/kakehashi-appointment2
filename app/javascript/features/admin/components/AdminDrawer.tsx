@@ -5,8 +5,9 @@ import {
   Toolbar,
   ListItem,
   ListItemText,
-  List
+  List,
 } from "@material-ui/core";
+import client from "../../../shared/api/client";
 
 const AdminDrawer = () => {
   const classes = useAdminStyles();
@@ -15,7 +16,7 @@ const AdminDrawer = () => {
       className={classes.drawer}
       variant="permanent"
       classes={{
-        paper: classes.drawerPaper
+        paper: classes.drawerPaper,
       }}
     >
       <Toolbar />
@@ -26,6 +27,16 @@ const AdminDrawer = () => {
               <ListItemText primary={text} />
             </ListItem>
           ))}
+          <ListItem
+            button
+            key={"ログアウト"}
+            onClick={async () => {
+              await client.delete("/administrators/sign_out");
+              window.location.href = "/administrators/sign_in";
+            }}
+          >
+            <ListItemText primary={"ログアウト"} />
+          </ListItem>
         </List>
       </div>
     </Drawer>

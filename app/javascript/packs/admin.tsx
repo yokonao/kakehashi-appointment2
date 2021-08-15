@@ -25,15 +25,6 @@ const Admin = (): JSX.Element => {
               <AdminDrawer />
               <main className={classes.content}>
                 <Routes />
-                <Button
-                  variant="contained"
-                  onClick={async () => {
-                    await client.delete("/administrators/sign_out");
-                    window.location.href = "/administrators/sign_in";
-                  }}
-                >
-                  ログアウト
-                </Button>
               </main>
               <div className={classes.footer} />
             </AdminContextProvider>
