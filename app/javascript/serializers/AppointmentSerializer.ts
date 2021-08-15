@@ -12,7 +12,7 @@ export type AppointmentSerializer = {
   menu_id: number;
 };
 
-export const castToMenuSerializer = (data: any): AppointmentSerializer => {
+export const castToAppointmentSerializer = (data: any): AppointmentSerializer => {
   return {
     id: data.id,
     full_name: data.full_name,

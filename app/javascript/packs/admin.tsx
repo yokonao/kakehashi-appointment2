@@ -10,6 +10,7 @@ import { NotificationContextProvider } from "../features/form/hooks/useNotificat
 import client from "../shared/api/client";
 import AdminDrawer from "../features/admin/components/AdminDrawer";
 import Routes from "../features/admin/Routes";
+import { AdminContextProvider } from "../features/admin/hooks/useAdminContext";
 
 const history = createBrowserHistory();
 const Admin = (): JSX.Element => {
@@ -19,21 +20,23 @@ const Admin = (): JSX.Element => {
       <Router history={history}>
         <ThemeProvider theme={adminTheme}>
           <NotificationContextProvider>
-            <AdminHeader />
-            <AdminDrawer />
-            <main className={classes.content}>
-              <Routes />
-              <Button
-                variant="contained"
-                onClick={async () => {
-                  await client.delete("/administrators/sign_out");
-                  window.location.href = "/administrators/sign_in";
-                }}
-              >
-                ログアウト
-              </Button>
-            </main>
-            <div className={classes.footer} />
+            <AdminContextProvider>
+              <AdminHeader />
+              <AdminDrawer />
+              <main className={classes.content}>
+                <Routes />
+                <Button
+                  variant="contained"
+                  onClick={async () => {
+                    await client.delete("/administrators/sign_out");
+                    window.location.href = "/administrators/sign_in";
+                  }}
+                >
+                  ログアウト
+                </Button>
+              </main>
+              <div className={classes.footer} />
+            </AdminContextProvider>
           </NotificationContextProvider>
         </ThemeProvider>
       </Router>

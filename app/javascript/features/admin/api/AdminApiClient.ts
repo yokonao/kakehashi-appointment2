@@ -1,4 +1,7 @@
-import { AppointmentSerializer } from "../../../serializers/AppointmentSerializer";
+import {
+  AppointmentSerializer,
+  castToAppointmentSerializer,
+} from "../../../serializers/AppointmentSerializer";
 import {
   castToMenuSerializer,
   MenuSerializer,
@@ -36,7 +39,7 @@ export class AdminApiClient {
         return { success: false, data: [] };
       }
       const appointments: AppointmentSerializer[] = json.map((e: any) =>
-        castToMenuSerializer(e)
+        castToAppointmentSerializer(e)
       );
       return { success: true, data: appointments };
     } catch (err) {
