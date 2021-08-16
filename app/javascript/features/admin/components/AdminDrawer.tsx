@@ -27,9 +27,7 @@ const AdminDrawer = () => {
       <div className={classes.drawerContainer}>
         <List>
           <ListItem button key="予約枠" component={Link} to="/admin/menus">
-            <span className="materialIconsOutlined">
-              <Icon color="primary">today</Icon>
-            </span>
+            <Icon color="primary">today</Icon>
             <Typography color="primary">予約枠</Typography>
           </ListItem>
           <ListItem
@@ -38,9 +36,7 @@ const AdminDrawer = () => {
             component={Link}
             to="/admin/appointments"
           >
-            <span className="materialIconsOutlined">
-              <Icon color="primary">calendar_view_month</Icon>
-            </span>
+            <Icon color="primary">calendar_view_month</Icon>
             <Typography color="primary">予約一覧</Typography>
           </ListItem>
 
@@ -52,9 +48,7 @@ const AdminDrawer = () => {
               window.location.href = "/administrators/sign_in";
             }}
           >
-            <span className="materialIconsOutlined">
-              <Icon color="primary">logout</Icon>
-            </span>
+            <Icon color="primary">logout</Icon>
             <Typography color="primary">ログアウト</Typography>
           </ListItem>
         </List>
