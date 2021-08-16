@@ -100,7 +100,7 @@ const AppointmentDetail = ({
   onClose: () => void;
 }) => {
   return (
-    <Dialog open={true}>
+    <Dialog open={true} onClose={onClose}>
       <DialogTitle>予約</DialogTitle>
       <DialogContent>
         <Typography>予約日時：{data.start_at} </Typography>
