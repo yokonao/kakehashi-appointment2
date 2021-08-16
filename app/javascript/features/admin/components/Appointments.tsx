@@ -1,4 +1,13 @@
-import { Box, Button } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Typography,
+} from "@material-ui/core";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 import * as React from "react";
@@ -11,7 +20,9 @@ type Props = {
   menus: MenuAdminSerializer[];
 };
 
-const columns: GridColDef[] = [
+const createColumns: (onDetail: (id: string) => void) => GridColDef[] = (
+  onDetail
+) => [
   { field: "full_name", headerName: "患者名", width: 200 },
   {
     field: "birthday",
@@ -30,7 +41,13 @@ const columns: GridColDef[] = [
     sortable: false,
     width: 120,
     renderCell: (params) => (
-      <Button variant="contained" color="default">
+      <Button
+        variant="contained"
+        color="default"
+        onClick={() => {
+          onDetail(params.id.toString());
+        }}
+      >
         詳細
       </Button>
     ),
@@ -75,22 +92,70 @@ const castToAppointmentViewModel = (
   };
 };
 
+const AppointmentDetail = ({
+  data,
+  onClose,
+}: {
+  data: AppointmentViewModel;
+  onClose: () => void;
+}) => {
+  return (
+    <Dialog open={true}>
+      <DialogTitle>予約</DialogTitle>
+      <DialogContent>
+        <Typography>予約日時：{data.start_at} </Typography>
+        <Typography>氏名：{data.full_name}</Typography>
+        <Typography>カナ：{data.full_kana_name} </Typography>
+        <Typography>生年月日：{data.birthday} </Typography>
+        <Typography>診療歴：{data.clinical_history} </Typography>
+        <Typography>メールアドレス：{data.email} </Typography>
+        <Typography>電話番号：{data.phone_number} </Typography>
+        <Typography>受診理由：{data.reason} </Typography>
+        <Typography>自由記入欄：{data.free_comment} </Typography>
+      </DialogContent>
+      <DialogActions>
+        <Button
+          onClick={() => {
+            onClose();
+          }}
+          color="primary"
+        >
+          閉じる
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
+
 const Appointments = (props: Props) => {
   const { appointments } = props;
   const rows = React.useMemo(
     () => appointments.map((e) => castToAppointmentViewModel(e)),
     [appointments]
   );
+  const [selectedAppointment, setSelectedAppointment] =
+    React.useState<AppointmentViewModel | null>(null);
   return (
     <Box m={2}>
       <div style={{ width: "100%" }}>
         <DataGrid
           rows={rows}
-          columns={columns}
+          columns={createColumns((id) => {
+            const appointment = rows.find((e) => e.id.toString() === id);
+            appointment && setSelectedAppointment(appointment);
+          })}
           pageSize={20}
           autoHeight
-        ></DataGrid>
+        />
       </div>
+      {selectedAppointment && (
+        <AppointmentDetail
+          data={selectedAppointment}
+          onClose={() => {
+            setSelectedAppointment(null);
+          }}
+        />
+      )}
     </Box>
   );
 };
