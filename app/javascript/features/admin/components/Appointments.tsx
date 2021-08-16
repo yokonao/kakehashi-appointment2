@@ -144,7 +144,7 @@ const Appointments = (props: Props) => {
             const appointment = rows.find((e) => e.id.toString() === id);
             appointment && setSelectedAppointment(appointment);
           })}
-          pageSize={20}
+          pageSize={10}
           autoHeight
         />
       </div>
