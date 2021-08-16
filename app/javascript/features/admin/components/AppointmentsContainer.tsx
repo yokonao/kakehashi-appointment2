@@ -1,16 +1,17 @@
 import DateFnsUtils from "@date-io/date-fns";
-import {
-  Calendar,
-  DatePicker,
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider,
-} from "@material-ui/pickers";
+import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import * as React from "react";
 import { useAdminContext } from "../hooks/useAdminContext";
 import Appointments from "./Appointments";
 import jaLocale from "date-fns/locale/ja";
-import CustomTextField from "../../../shared/components/CustomTextField";
-import { Box, TextField, Typography } from "@material-ui/core";
+import {
+  Box,
+  Grid,
+  Icon,
+  InputAdornment,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 
 type DisplayCondition = {
   minDate: Date | null;
@@ -24,45 +25,48 @@ const AppointmentsContainer = () => {
   return (
     <>
       <MuiPickersUtilsProvider utils={DateFnsUtils} locale={jaLocale}>
-        <Box display="flex" alignItems="center">
-          <DatePicker
-            inputVariant="outlined"
-            size="small"
-            variant="inline"
-            invalidLabel=""
-            value={displayCondition.minDate}
-            onChange={(date: Date) => {
-              setDisplayCondition({ ...displayCondition, minDate: date });
-            }}
-            clearable
-            autoOk
-            minDate={new Date("2021-07-02")}
-            maxDate={
-              displayCondition.maxDate === null
-                ? undefined
-                : displayCondition.maxDate
-            }
-          />
-          <span> から </span>
-          <DatePicker
-            inputVariant="outlined"
-            size="small"
-            variant="inline"
-            invalidLabel=""
-            value={displayCondition.maxDate}
-            onChange={(date: Date) => {
-              setDisplayCondition({ ...displayCondition, maxDate: date });
-            }}
-            clearable
-            autoOk
-            minDate={
-              displayCondition.minDate === null
-                ? new Date("2021-07-02")
-                : displayCondition.minDate
-            }
-          />
-          <span>まで</span>
-        </Box>
+        <Grid item xs={4}>
+          <Box display="flex" alignItems="center">
+            <DatePicker
+              inputVariant="outlined"
+              size="small"
+              variant="inline"
+              invalidLabel=""
+              value={displayCondition.minDate}
+              onChange={(date: Date) => {
+                setDisplayCondition({ ...displayCondition, minDate: date });
+              }}
+              clearable
+              autoOk
+              minDate={new Date("2021-07-02")}
+              maxDate={
+                displayCondition.maxDate === null
+                  ? undefined
+                  : displayCondition.maxDate
+              }
+              format="yyyy/MM/dd"
+            />
+            <Box mx={2}>〜</Box>
+            <DatePicker
+              inputVariant="outlined"
+              size="small"
+              variant="inline"
+              invalidLabel=""
+              value={displayCondition.maxDate}
+              onChange={(date: Date) => {
+                setDisplayCondition({ ...displayCondition, maxDate: date });
+              }}
+              clearable
+              autoOk
+              minDate={
+                displayCondition.minDate === null
+                  ? new Date("2021-07-02")
+                  : displayCondition.minDate
+              }
+              format="yyyy/MM/dd"
+            />
+          </Box>
+        </Grid>
       </MuiPickersUtilsProvider>
       <Appointments appointments={appointments} menus={menus} />
     </>
