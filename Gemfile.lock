@@ -101,6 +101,10 @@ GEM
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
     ffi (1.15.3)
+    forgery (0.3.12)
+      nokogiri (~> 1.4)
+    forgery_ja (0.2.2)
+      forgery (~> 0.3.8)
     globalid (0.5.1)
       activesupport (>= 5.0)
     i18n (1.8.10)
@@ -269,6 +273,7 @@ DEPENDENCIES
   capybara (>= 3.26)
   devise
   factory_bot_rails
+  forgery_ja
   jbuilder (~> 2.7)
   listen (~> 3.3)
   pg (~> 1.1)
