@@ -28,7 +28,7 @@ const AdminDrawer = () => {
         <List>
           <ListItem button key="予約枠" component={Link} to="/admin/menus">
             <span className="materialIconsOutlined">
-              <Icon>today</Icon>
+              <Icon color="primary">today</Icon>
             </span>
             <Typography color="primary">予約枠</Typography>
           </ListItem>
@@ -39,7 +39,7 @@ const AdminDrawer = () => {
             to="/admin/appointments"
           >
             <span className="materialIconsOutlined">
-              <Icon>calendar_view_month</Icon>
+              <Icon color="primary">calendar_view_month</Icon>
             </span>
             <Typography color="primary">予約一覧</Typography>
           </ListItem>
@@ -53,7 +53,7 @@ const AdminDrawer = () => {
             }}
           >
             <span className="materialIconsOutlined">
-              <Icon>logout</Icon>
+              <Icon color="primary">logout</Icon>
             </span>
             <Typography color="primary">ログアウト</Typography>
           </ListItem>
