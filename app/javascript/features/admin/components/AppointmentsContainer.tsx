@@ -36,7 +36,7 @@ const AppointmentsContainer = () => {
               onChange={(date: Date) => {
                 setDisplayCondition({ ...displayCondition, minDate: date });
               }}
-              clearable
+
               autoOk
               minDate={new Date("2021-07-02")}
               maxDate={
@@ -56,7 +56,7 @@ const AppointmentsContainer = () => {
               onChange={(date: Date) => {
                 setDisplayCondition({ ...displayCondition, maxDate: date });
               }}
-              clearable
+
               autoOk
               minDate={
                 displayCondition.minDate === null
