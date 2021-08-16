@@ -1,62 +1,96 @@
-import {
-  Box,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-} from "@material-ui/core";
+import { Box, Button } from "@material-ui/core";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 import * as React from "react";
 import { AppointmentSerializer } from "../../../serializers/AppointmentSerializer";
 import { MenuAdminSerializer } from "../../../serializers/MenuAdminSerializer";
-import { MenuSerializer } from "../../../serializers/MenuSerializer";
+import { DataGrid, GridColDef } from "@material-ui/data-grid";
 
 type Props = {
   appointments: AppointmentSerializer[];
   menus: MenuAdminSerializer[];
 };
 
-const headers = ["患者名", "生年月日", "診療歴", "予約日時"];
+const columns: GridColDef[] = [
+  { field: "full_name", headerName: "患者名", width: 200 },
+  {
+    field: "birthday",
+    headerName: "生年月日",
+    width: 150,
+  },
+  { field: "clinical_history", headerName: "診療歴", width: 150 },
+  {
+    field: "start_at",
+    headerName: "予約日時",
+    width: 200,
+  },
+  {
+    field: "detail_button",
+    headerName: "詳細",
+    sortable: false,
+    width: 120,
+    renderCell: (params) => (
+      <Button variant="contained" color="default">
+        詳細
+      </Button>
+    ),
+  },
+  {
+    field: "delete_button",
+    headerName: "削除",
+    sortable: false,
+    width: 120,
+    renderCell: (params) => (
+      <Button variant="contained" color="secondary">
+        削除
+      </Button>
+    ),
+  },
+];
+
+type AppointmentViewModel = {
+  id: number;
+  full_name: string;
+  full_kana_name: string;
+  birthday: string;
+  clinical_history: string;
+  clinical_number: string;
+  email: string;
+  phone_number: string;
+  reason: string;
+  free_comment: string;
+  start_at: string;
+};
+
+const castToAppointmentViewModel = (
+  serializer: AppointmentSerializer
+): AppointmentViewModel => {
+  return {
+    ...serializer,
+    birthday: format(serializer.birthday, "yyyy/M/d"),
+    clinical_history: serializer.is_first_visit ? "初診" : "再診",
+    start_at: format(serializer.start_at, "yyyy/M/d （E） H:mm", {
+      locale: ja,
+    }),
+  };
+};
 
 const Appointments = (props: Props) => {
-  const { appointments, menus } = props;
+  const { appointments } = props;
+  const rows = React.useMemo(
+    () => appointments.map((e) => castToAppointmentViewModel(e)),
+    [appointments]
+  );
   return (
     <Box m={2}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            {headers.map((e) => {
-              return (
-                <TableCell key={"appointment-table-header-" + e}>{e}</TableCell>
-              );
-            })}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {appointments.map((appointment) => {
-            return (
-              <TableRow
-                key={"appointment-table-row-" + appointment.id.toString()}
-              >
-                <TableCell>{appointment.full_name}</TableCell>
-                <TableCell>
-                  {format(appointment.birthday, "yyyy/M/d")}
-                </TableCell>
-                <TableCell>
-                  {appointment.is_first_visit ? "初診" : "再診"}
-                </TableCell>
-                <TableCell>
-                  {format(appointment.start_at, "yyyy/M/d （E） H:mm", {
-                    locale: ja,
-                  })}
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
+      <div style={{ width: "100%" }}>
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          pageSize={20}
+          autoHeight
+        ></DataGrid>
+      </div>
     </Box>
   );
 };
