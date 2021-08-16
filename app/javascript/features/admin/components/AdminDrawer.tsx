@@ -7,9 +7,11 @@ import {
   ListItemText,
   List,
   Typography,
+  Icon
 } from "@material-ui/core";
 import client from "../../../shared/api/client";
 import { Link } from "react-router-dom";
+import { AccessAlarm, ThreeDRotation } from "@material-ui/icons";
 
 const AdminDrawer = () => {
   const classes = useAdminStyles();
@@ -18,18 +20,30 @@ const AdminDrawer = () => {
       className={classes.drawer}
       variant="permanent"
       classes={{
-        paper: classes.drawerPaper,
+        paper: classes.drawerPaper
       }}
     >
       <Toolbar />
       <div className={classes.drawerContainer}>
         <List>
           <ListItem button key="予約枠" component={Link} to="/admin/menus">
+            <span className="materialIconsOutlined">
+              <Icon>today</Icon>
+            </span>
             <Typography color="primary">予約枠</Typography>
           </ListItem>
-          <ListItem button key="予約一覧" component={Link} to="/admin/appointments">
+          <ListItem
+            button
+            key="予約一覧"
+            component={Link}
+            to="/admin/appointments"
+          >
+            <span className="materialIconsOutlined">
+              <Icon>calendar_view_month</Icon>
+            </span>
             <Typography color="primary">予約一覧</Typography>
           </ListItem>
+
           <ListItem
             button
             key={"ログアウト"}
@@ -38,6 +52,9 @@ const AdminDrawer = () => {
               window.location.href = "/administrators/sign_in";
             }}
           >
+            <span className="materialIconsOutlined">
+              <Icon>logout</Icon>
+            </span>
             <Typography color="primary">ログアウト</Typography>
           </ListItem>
         </List>
