@@ -9,11 +9,9 @@ const Routes = () => {
   return (
     <Switch>
       <Route path="/admin/menus">
-        <Typography>予約枠</Typography>
         <MenuContainer />
       </Route>
       <Route path="/admin/appointments">
-        <Typography>予約一覧</Typography>
         <AppointmentsContainer />
       </Route>
       <Route path="/admin/*">
