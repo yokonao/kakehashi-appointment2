@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Icon,
   IconButton,
@@ -54,7 +55,7 @@ const WeeklyMenu = (props: Props) => {
   const [baseDate, setBaseDate] = React.useState<Date>(startOfWeek(new Date()));
 
   return (
-    <>
+    <Box mr={10}>
       <table className={classes.table}>
         <thead>
           <tr>
@@ -108,7 +109,7 @@ const WeeklyMenu = (props: Props) => {
           })}
         </tbody>
       </table>
-    </>
+    </Box>
   );
 };
 
