@@ -1,5 +1,13 @@
-import { Box, Button, Icon, IconButton, makeStyles } from "@material-ui/core";
-import { addDays, format, startOfWeek } from "date-fns";
+import {
+  Box,
+  Button,
+  Grid,
+  Icon,
+  IconButton,
+  makeStyles,
+  Typography,
+} from "@material-ui/core";
+import { addDays, addWeeks, format, startOfWeek, subWeeks } from "date-fns";
 import { ja } from "date-fns/locale";
 import * as React from "react";
 import {
@@ -47,9 +55,24 @@ const WeeklyMenu = (props: Props) => {
   const { menus } = props;
   const classes = useWeeklyMenuStyles();
   const [baseDate, setBaseDate] = React.useState<Date>(startOfWeek(new Date()));
+  const toPrev = React.useCallback(() => {
+    setBaseDate(subWeeks(baseDate, 1));
+  }, [baseDate, setBaseDate]);
+  const toNext = React.useCallback(() => {
+    setBaseDate(addWeeks(baseDate, 1));
+  }, [baseDate, setBaseDate]);
 
   return (
     <Box mr={10} mt={2}>
+      <Grid container>
+        <IconButton color={"default"} onClick={toPrev}>
+          <Icon>arrow_back</Icon>
+        </IconButton>
+        <Typography>{format(baseDate, "yyyy/MM/dd")}</Typography>
+        <IconButton color={"default"} onClick={toNext}>
+          <Icon>arrow_forward</Icon>
+        </IconButton>
+      </Grid>
       <table className={classes.table}>
         <thead>
           <tr>
