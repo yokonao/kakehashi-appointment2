@@ -136,7 +136,7 @@ const Appointments = (props: Props) => {
   const [selectedAppointment, setSelectedAppointment] =
     React.useState<AppointmentViewModel | null>(null);
   return (
-    <Box m={2}>
+    <Box>
       <div style={{ width: "100%" }}>
         <DataGrid
           rows={rows}

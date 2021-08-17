@@ -24,8 +24,8 @@ const AppointmentsContainer = () => {
     React.useState<DisplayCondition>({ minDate: null, maxDate: null });
   return (
     <>
-      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={jaLocale}>
-        <Grid item xs={4}>
+      {/* <MuiPickersUtilsProvider utils={DateFnsUtils} locale={jaLocale}> */}
+        {/* <Grid item xs={4}>
           <Box display="flex" alignItems="center">
             <DatePicker
               inputVariant="outlined"
@@ -67,7 +67,7 @@ const AppointmentsContainer = () => {
             />
           </Box>
         </Grid>
-      </MuiPickersUtilsProvider>
+      </MuiPickersUtilsProvider> */}
       <Appointments appointments={appointments} menus={menus} />
     </>
   );
