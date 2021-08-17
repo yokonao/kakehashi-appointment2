@@ -1,10 +1,4 @@
-import {
-  Box,
-  Button,
-  Icon,
-  IconButton,
-  makeStyles,
-} from "@material-ui/core";
+import { Box, Button, Icon, IconButton, makeStyles } from "@material-ui/core";
 import { addDays, format, startOfWeek } from "date-fns";
 import { ja } from "date-fns/locale";
 import * as React from "react";
@@ -20,13 +14,13 @@ const useWeeklyMenuStyles = makeStyles((theme) => ({
     borderSpacing: 0,
     borderCollapse: "collapse",
     width: "100%",
-    border: "solid 0.5px grey",
+    border: "solid 0.5px rgba(224, 224, 224, 1)",
   },
   header: {
-    border: "solid 0.5px grey",
+    border: "solid 0.5px rgba(224, 224, 224, 1)",
   },
   content: {
-    borderLeft: "solid 0.5px grey",
+    borderLeft: "solid 0.5px rgba(224, 224, 224, 1)",
     height: "60px",
   },
   menuCard: {
