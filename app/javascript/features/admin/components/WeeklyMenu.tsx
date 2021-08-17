@@ -55,7 +55,7 @@ const WeeklyMenu = (props: Props) => {
   const [baseDate, setBaseDate] = React.useState<Date>(startOfWeek(new Date()));
 
   return (
-    <Box mr={10}>
+    <Box mr={10} mt={2}>
       <table className={classes.table}>
         <thead>
           <tr>
