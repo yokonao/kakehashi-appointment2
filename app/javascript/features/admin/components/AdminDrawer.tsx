@@ -7,26 +7,32 @@ import {
   ListItemText,
   List,
   Typography,
-  Icon
+  Icon,
 } from "@material-ui/core";
 import client from "../../../shared/api/client";
-import { Link } from "react-router-dom";
-import { AccessAlarm, ThreeDRotation } from "@material-ui/icons";
+import { Link, useLocation } from "react-router-dom";
 
 const AdminDrawer = () => {
   const classes = useAdminStyles();
+  const location = useLocation();
   return (
     <Drawer
       className={classes.drawer}
       variant="permanent"
       classes={{
-        paper: classes.drawerPaper
+        paper: classes.drawerPaper,
       }}
     >
       <Toolbar />
       <div className={classes.drawerContainer}>
         <List>
-          <ListItem button key="予約枠" component={Link} to="/admin/menus">
+          <ListItem
+            button
+            key="予約枠"
+            component={Link}
+            to="/admin/menus"
+            selected={location.pathname === "/admin/menus"}
+          >
             <Icon color="primary">today</Icon>
             <Typography color="primary">予約枠</Typography>
           </ListItem>
@@ -35,6 +41,7 @@ const AdminDrawer = () => {
             key="予約一覧"
             component={Link}
             to="/admin/appointments"
+            selected={location.pathname === "/admin/appointments"}
           >
             <Icon color="primary">calendar_view_month</Icon>
             <Typography color="primary">予約一覧</Typography>
