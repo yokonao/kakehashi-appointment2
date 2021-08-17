@@ -64,7 +64,7 @@ const WeeklyMenu = (props: Props) => {
 
   return (
     <Box mr={10} mt={2}>
-      <Grid container>
+      <Box display="flex" alignItems="center">
         <IconButton color={"default"} onClick={toPrev}>
           <Icon>arrow_back</Icon>
         </IconButton>
@@ -72,7 +72,7 @@ const WeeklyMenu = (props: Props) => {
         <IconButton color={"default"} onClick={toNext}>
           <Icon>arrow_forward</Icon>
         </IconButton>
-      </Grid>
+      </Box>
       <table className={classes.table}>
         <thead>
           <tr>
