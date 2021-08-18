@@ -34,3 +34,5 @@ const ConfirmationDialog = (props: Props) => {
     </Dialog>
   );
 };
+
+export default ConfirmationDialog;
