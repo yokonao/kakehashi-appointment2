@@ -15,7 +15,11 @@ import {
   createDaysOnTheTime,
 } from "../../../domain/BusinessRule";
 import { MenuAdminSerializer } from "../../../serializers/MenuAdminSerializer";
+import { useNotification } from "../../form/hooks/useNotification";
+import { AdminApiClient } from "../api/AdminApiClient";
+import { useAdminContext } from "../hooks/useAdminContext";
 import AppointmentDetailDialog from "./AppointmentDetailDialog";
+import DeleteMenuConfirmationDialog from "./DeleteMenuConfirmationDialog";
 
 const useWeeklyMenuStyles = makeStyles((theme) => ({
   table: {
@@ -55,6 +59,8 @@ type Props = {
 const WeeklyMenu = (props: Props) => {
   const { menus } = props;
   const classes = useWeeklyMenuStyles();
+  const { addInfo } = useNotification();
+  const { fetchData } = useAdminContext();
   const [baseDate, setBaseDate] = React.useState<Date>(startOfWeek(new Date()));
   const toPrev = React.useCallback(() => {
     setBaseDate(subWeeks(baseDate, 1));
@@ -64,6 +70,9 @@ const WeeklyMenu = (props: Props) => {
   }, [baseDate, setBaseDate]);
   const [selectedAppointmentId, setSelectedAppointmentId] =
     React.useState<number>(-1);
+  const [menuToDelete, setMenuToDelete] = React.useState<
+    MenuAdminSerializer | undefined
+  >(undefined);
 
   return (
     <Box mr={10} mt={2}>
@@ -130,6 +139,7 @@ const WeeklyMenu = (props: Props) => {
                                 className={classes.actionButton}
                                 color={"default"}
                                 size="small"
+                                onClick={() => setMenuToDelete(menu)}
                               >
                                 <Icon>delete</Icon>
                               </IconButton>
@@ -151,6 +161,22 @@ const WeeklyMenu = (props: Props) => {
         id={selectedAppointmentId}
         onClose={() => {
           setSelectedAppointmentId(-1);
+        }}
+      />
+      <DeleteMenuConfirmationDialog
+        menu={menuToDelete}
+        onOk={() => {
+          if (!menuToDelete) {
+            return;
+          }
+          AdminApiClient.deleteMenu(menuToDelete.id).then((res) => {
+            addInfo(res.message);
+            fetchData();
+          });
+          setMenuToDelete(undefined);
+        }}
+        onCancel={() => {
+          setMenuToDelete(undefined);
         }}
       />
     </Box>

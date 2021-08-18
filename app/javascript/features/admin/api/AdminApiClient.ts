@@ -50,7 +50,7 @@ export class AdminApiClient {
   static async deleteMenu(id: number): Promise<{ message: string }> {
     try {
       const res = await client.delete(
-        `/api/admin/appointments/${id.toString()}`
+        `/api/admin/menus/${id.toString()}`
       );
       if (res.status !== 200) {
         return { message: "予約枠の削除に失敗しました" };
