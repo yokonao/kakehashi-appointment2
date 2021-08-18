@@ -99,6 +99,7 @@ const WeeklyMenu = (props: Props) => {
                   <span>{format(date, "M/dd（E）", { locale: ja })}</span>
                   <Button
                     color="secondary"
+                    variant="outlined"
                     onClick={() => setDateToDelete(date)}
                   >
                     一括削除
