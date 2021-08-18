@@ -32,7 +32,7 @@ const useWeeklyMenuStyles = makeStyles((theme) => ({
     height: "60px",
   },
   menuCard: {
-    background: "#d1bf93",
+    background: theme.palette.primary.light,
     borderRadius: "5px",
     margin: "0px 10px",
     padding: "10px",
