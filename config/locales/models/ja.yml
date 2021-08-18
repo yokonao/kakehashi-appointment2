@@ -7,6 +7,8 @@ ja:
       appointment: 予約
       administrator: 管理者
     attributes:
+      menu:
+        appointment: 予約
       appointment:
         name: 氏名
         clinical_number: 診察券番号

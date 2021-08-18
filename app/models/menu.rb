@@ -11,7 +11,7 @@
 
 # 予約枠モデル
 class Menu < ApplicationRecord
-  has_many :appointment, dependent: :destroy
+  has_many :appointment, dependent: :restrict_with_error
   validates :start_at, presence: true
   validate :validate_start_time
   validates :end_at, presence: true

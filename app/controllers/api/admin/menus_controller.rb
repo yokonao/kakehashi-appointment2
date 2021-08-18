@@ -8,8 +8,13 @@ class Api::Admin::MenusController < ApplicationController
 
   def destroy
     id = params.permit(:id)[:id]
-    Menu.find(id).destroy
-    render json: { "message": '予約枠を削除しました' }
+    menu = Menu.find(id)
+    menu.destroy
+    if menu.errors.empty?
+      render json: { "message": '予約枠を削除しました' }
+    else
+      render json: { "message": menu.errors.full_messages }, status: :bad_request
+    end
   end
 
   def destroy_all

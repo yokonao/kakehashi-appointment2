@@ -76,10 +76,11 @@ RSpec.describe 'Api::Admin::Menus', type: :request do
         expect(subject).to have_http_status(:ok)
       end
 
-      let!(:appointment) { create(:appointment, menu_id: menu.id) }
       it 'destroys the appointment associated with the deleted menu' do
-        expect { subject }.to change { Appointment.count }.by(-1)
-        expect(subject).to have_http_status(:ok)
+        create(:appointment, menu_id: menu.id)
+        expect { subject }.to change { Appointment.count }.by(0)
+        expect(subject).to have_http_status(:bad_request)
+        expect(json['message']).to include('予約が存在しているので削除できません')
       end
     end
   end
