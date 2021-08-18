@@ -14,6 +14,7 @@ import * as React from "react";
 import { AppointmentSerializer } from "../../../serializers/AppointmentSerializer";
 import { MenuAdminSerializer } from "../../../serializers/MenuAdminSerializer";
 import { DataGrid, GridColDef } from "@material-ui/data-grid";
+import AppointmentDetailDialog from "./AppointmentDetailDialog";
 
 type Props = {
   appointments: AppointmentSerializer[];
@@ -65,7 +66,7 @@ const createColumns: (onDetail: (id: string) => void) => GridColDef[] = (
   },
 ];
 
-type AppointmentViewModel = {
+export type AppointmentViewModel = {
   id: number;
   full_name: string;
   full_kana_name: string;
@@ -92,70 +93,32 @@ const castToAppointmentViewModel = (
   };
 };
 
-const AppointmentDetail = ({
-  data,
-  onClose,
-}: {
-  data: AppointmentViewModel;
-  onClose: () => void;
-}) => {
-  return (
-    <Dialog open={true} onClose={onClose}>
-      <DialogTitle>予約</DialogTitle>
-      <DialogContent>
-        <Typography>予約日時：{data.start_at} </Typography>
-        <Typography>氏名：{data.full_name}</Typography>
-        <Typography>カナ：{data.full_kana_name} </Typography>
-        <Typography>生年月日：{data.birthday} </Typography>
-        <Typography>診療歴：{data.clinical_history} </Typography>
-        <Typography>メールアドレス：{data.email} </Typography>
-        <Typography>電話番号：{data.phone_number} </Typography>
-        <Typography>受診理由：{data.reason} </Typography>
-        <Typography>自由記入欄：{data.free_comment} </Typography>
-      </DialogContent>
-      <DialogActions>
-        <Button
-          onClick={() => {
-            onClose();
-          }}
-          color="primary"
-        >
-          閉じる
-        </Button>
-      </DialogActions>
-    </Dialog>
-  );
-};
-
 const Appointments = (props: Props) => {
   const { appointments } = props;
   const rows = React.useMemo(
     () => appointments.map((e) => castToAppointmentViewModel(e)),
     [appointments]
   );
-  const [selectedAppointment, setSelectedAppointment] =
-    React.useState<AppointmentViewModel | null>(null);
+  const [selectedAppointmentId, setSelectedAppointmentId] =
+    React.useState<number>(-1);
   return (
     <Box>
       <div style={{ width: "100%" }}>
         <DataGrid
           rows={rows}
           columns={createColumns((id) => {
-            const appointment = rows.find((e) => e.id.toString() === id);
-            appointment && setSelectedAppointment(appointment);
+            setSelectedAppointmentId(parseInt(id));
           })}
           pageSize={10}
           autoHeight
         />
       </div>
-      {selectedAppointment && (
-        <AppointmentDetail
-          data={selectedAppointment}
-          onClose={() => {
-            setSelectedAppointment(null);
-          }}
-        />
-      )}
+      <AppointmentDetailDialog
+        id={selectedAppointmentId}
+        onClose={() => {
+          setSelectedAppointmentId(-1);
+        }}
+      />
     </Box>
   );
 };
