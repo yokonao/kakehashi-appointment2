@@ -38,12 +38,11 @@ const useWeeklyMenuStyles = makeStyles((theme) => ({
     padding: "10px",
     height: "90%",
     display: "flex",
-    justifyContent: "start",
+    justifyContent: "center",
     alignItems: "center",
     color: "white",
-    fontSize: "20px",
   },
-  deleteButton: {
+  actionButton: {
     marginLeft: "5px",
   },
 }));
@@ -104,17 +103,32 @@ const WeeklyMenu = (props: Props) => {
                     >
                       {menu ? (
                         <div className={classes.menuCard}>
-                          <span>
-                            {`${format(menu.start_at, "HH:mm")} 〜
+                          {menu.appointment_id ? (
+                            <>
+                              <span>予約済みです</span>
+                              <IconButton
+                                className={classes.actionButton}
+                                color={"default"}
+                                size="small"
+                              >
+                                <Icon>description</Icon>
+                              </IconButton>
+                            </>
+                          ) : (
+                            <>
+                              <span>
+                                {`${format(menu.start_at, "HH:mm")} 〜
                             ${format(menu.end_at, "HH:mm")}`}
-                          </span>
-                          <IconButton
-                            className={classes.deleteButton}
-                            color={"default"}
-                            size="small"
-                          >
-                            <Icon>delete</Icon>
-                          </IconButton>
+                              </span>
+                              <IconButton
+                                className={classes.actionButton}
+                                color={"default"}
+                                size="small"
+                              >
+                                <Icon>delete</Icon>
+                              </IconButton>
+                            </>
+                          )}
                         </div>
                       ) : (
                         <></>
