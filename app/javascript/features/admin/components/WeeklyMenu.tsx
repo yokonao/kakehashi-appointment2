@@ -32,18 +32,19 @@ const useWeeklyMenuStyles = makeStyles((theme) => ({
     height: "60px",
   },
   menuCard: {
-    background: "#e0d4b7",
+    background: "#d1bf93",
     borderRadius: "5px",
     margin: "0px 10px",
-    padding: "2px",
+    padding: "10px",
     height: "90%",
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "start",
     alignItems: "center",
+    color: "white",
+    fontSize: "20px",
   },
   deleteButton: {
-    position: "relative",
-    right: "5px",
+    marginLeft: "5px",
   },
 }));
 
@@ -104,8 +105,8 @@ const WeeklyMenu = (props: Props) => {
                       {menu ? (
                         <div className={classes.menuCard}>
                           <span>
-                            {format(menu.start_at, "H:mm")} ~{" "}
-                            {format(menu.end_at, "H:mm")}
+                            {`${format(menu.start_at, "HH:mm")} 〜
+                            ${format(menu.end_at, "HH:mm")}`}
                           </span>
                           <IconButton
                             className={classes.deleteButton}
