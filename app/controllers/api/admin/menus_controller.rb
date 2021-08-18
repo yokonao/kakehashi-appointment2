@@ -26,7 +26,7 @@ class Api::Admin::MenusController < ApplicationController
     before_count = Menu.count
     menus.destroy_all
     after_count = Menu.count
-    render json: { "message": "#{after_count - before_count}件の予約枠を削除しました" }
+    render json: { "message": "#{before_count - after_count}件の予約枠を削除しました" }
   end
 
   def date_params

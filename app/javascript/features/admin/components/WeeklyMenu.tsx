@@ -19,6 +19,7 @@ import { useNotification } from "../../form/hooks/useNotification";
 import { AdminApiClient } from "../api/AdminApiClient";
 import { useAdminContext } from "../hooks/useAdminContext";
 import AppointmentDetailDialog from "./AppointmentDetailDialog";
+import DeleteAllDayMenusConfirmationDialog from "./DeleteAllDayMenusConfirmationDialog";
 import DeleteMenuConfirmationDialog from "./DeleteMenuConfirmationDialog";
 
 const useWeeklyMenuStyles = makeStyles((theme) => ({
@@ -73,6 +74,9 @@ const WeeklyMenu = (props: Props) => {
   const [menuToDelete, setMenuToDelete] = React.useState<
     MenuAdminSerializer | undefined
   >(undefined);
+  const [dateToDelete, setDateToDelete] = React.useState<Date | undefined>(
+    undefined
+  );
 
   return (
     <Box mr={10} mt={2}>
@@ -89,12 +93,16 @@ const WeeklyMenu = (props: Props) => {
         <thead>
           <tr>
             {[0, 1, 2, 3, 4, 5, 6].map((e) => {
+              const date = addDays(baseDate, e);
               return (
                 <th key={"weekly-menu-header-" + e} className={classes.header}>
-                  <span>
-                    {format(addDays(baseDate, e), "M/dd（E）", { locale: ja })}
-                  </span>
-                  <Button color="secondary">一括削除</Button>
+                  <span>{format(date, "M/dd（E）", { locale: ja })}</span>
+                  <Button
+                    color="secondary"
+                    onClick={() => setDateToDelete(date)}
+                  >
+                    一括削除
+                  </Button>
                 </th>
               );
             })}
@@ -177,6 +185,22 @@ const WeeklyMenu = (props: Props) => {
         }}
         onCancel={() => {
           setMenuToDelete(undefined);
+        }}
+      />
+      <DeleteAllDayMenusConfirmationDialog
+        date={dateToDelete}
+        onOk={() => {
+          if (!dateToDelete) {
+            return;
+          }
+          AdminApiClient.deleteMenusOnTheDay(dateToDelete).then((res) => {
+            addInfo(res.message);
+            fetchData();
+          });
+          setDateToDelete(undefined);
+        }}
+        onCancel={() => {
+          setDateToDelete(undefined);
         }}
       />
     </Box>

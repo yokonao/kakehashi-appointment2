@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import {
   AppointmentSerializer,
   castToAppointmentSerializer,
@@ -54,6 +55,23 @@ export class AdminApiClient {
         return { message: "予約枠の削除に失敗しました" };
       }
       return { message: "予約枠を削除しました" };
+    } catch (err) {
+      return { message: "予約枠の削除に失敗しました" };
+    }
+  }
+
+  static async deleteMenusOnTheDay(date: Date): Promise<{ message: string }> {
+    try {
+      const params = {
+        min_date: format(date, "yyyy-MM-dd"),
+        max_date: format(date, "yyyy-MM-dd"),
+      };
+      const res = await client.delete("/api/admin/menus", { params: params });
+      if (res.status !== 200) {
+        return { message: "予約枠の削除に失敗しました" };
+      }
+      const json = JSON.parse(JSON.stringify(res.data));
+      return { message: json.message };
     } catch (err) {
       return { message: "予約枠の削除に失敗しました" };
     }
