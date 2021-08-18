@@ -88,11 +88,17 @@ RSpec.describe 'Api::Admin::Menus', type: :request do
     let(:base_day) { Date.parse('2021-09-05') }
     let(:administrator) { create(:administrator) }
 
+    before do
+      (1...7).each do |i|
+        CreateDailyAppointmentMenuService.new(base_day + i.days).execute
+      end
+    end
     subject do
-      delete api_admin_menus_path, as: :json
+      delete api_admin_menus_path, as: :json, params: params
       response
     end
     let(:json) { JSON.parse(response.body) }
+    let(:params) { nil }
     context 'when not logged in' do
       it 'returns 401' do
         expect(subject).to have_http_status(:unauthorized)
@@ -102,10 +108,25 @@ RSpec.describe 'Api::Admin::Menus', type: :request do
       before do
         sign_in administrator
       end
+      let(:params) { nil }
       it 'deletes all menu' do
         menu_count = Menu.count
-        expect { subject }.to change { Menu.count }.by(menu_count)
+        expect { subject }.to change { Menu.count }.by(-menu_count)
         expect(subject).to have_http_status(:ok)
+      end
+
+      context 'when specifing the day as min date and max date' do
+        let(:params) do
+          {
+            min_date: '2021-09-09',
+            max_date: '2021-09-09'
+          }
+        end
+        it 'deletes all menus on the day' do
+          # 2021年9月9日は木曜日で午前漢方診療で4枠
+          expect { subject }.to change { Menu.count }.by(-4)
+          expect(subject).to have_http_status(:ok)
+        end
       end
     end
   end

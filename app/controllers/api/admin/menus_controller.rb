@@ -21,7 +21,7 @@ class Api::Admin::MenusController < ApplicationController
     menus = Menu.all.preload(:appointment)
     min_date = date_params[:min_date]
     max_date = date_params[:max_date]
-    menus = menus.where(start_at: Time.parse(min_date)..) if min_date
+    menus = menus.where(start_at: Time.parse(min_date).beginning_of_day..) if min_date
     menus = menus.where(start_at: ..Time.parse(max_date).end_of_day) if max_date
     before_count = Menu.count
     menus.destroy_all
