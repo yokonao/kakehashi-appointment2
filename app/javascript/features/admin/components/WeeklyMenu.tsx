@@ -15,6 +15,7 @@ import {
   createDaysOnTheTime,
 } from "../../../domain/BusinessRule";
 import { MenuAdminSerializer } from "../../../serializers/MenuAdminSerializer";
+import AppointmentDetailDialog from "./AppointmentDetailDialog";
 
 const useWeeklyMenuStyles = makeStyles((theme) => ({
   table: {
@@ -61,6 +62,8 @@ const WeeklyMenu = (props: Props) => {
   const toNext = React.useCallback(() => {
     setBaseDate(addWeeks(baseDate, 1));
   }, [baseDate, setBaseDate]);
+  const [selectedAppointmentId, setSelectedAppointmentId] =
+    React.useState<number>(-1);
 
   return (
     <Box mr={10} mt={2}>
@@ -110,6 +113,9 @@ const WeeklyMenu = (props: Props) => {
                                 className={classes.actionButton}
                                 color={"default"}
                                 size="small"
+                                onClick={() =>
+                                  setSelectedAppointmentId(menu.appointment_id)
+                                }
                               >
                                 <Icon>description</Icon>
                               </IconButton>
@@ -141,6 +147,12 @@ const WeeklyMenu = (props: Props) => {
           })}
         </tbody>
       </table>
+      <AppointmentDetailDialog
+        id={selectedAppointmentId}
+        onClose={() => {
+          setSelectedAppointmentId(-1);
+        }}
+      />
     </Box>
   );
 };
