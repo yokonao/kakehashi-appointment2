@@ -6,5 +6,8 @@ export const adminTheme = createTheme({
       main: "#99720f",
       light: "#d1bf93",
     },
+    secondary: {
+      main: "#dc143c"
+    }
   },
 });
