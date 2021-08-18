@@ -12,7 +12,6 @@
 # 予約枠モデル
 class Menu < ApplicationRecord
   has_many :appointment, dependent: :destroy
-  # validates :start_at, presence: true, uniqueness: true
   validates :start_at, presence: true
   validate :validate_start_time
   validates :end_at, presence: true
