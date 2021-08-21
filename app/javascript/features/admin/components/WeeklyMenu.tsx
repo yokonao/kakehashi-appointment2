@@ -19,6 +19,7 @@ import { useNotification } from "../../form/hooks/useNotification";
 import { AdminApiClient } from "../api/AdminApiClient";
 import { useAdminContext } from "../hooks/useAdminContext";
 import AppointmentDetailDialog from "./AppointmentDetailDialog";
+import CreateMenuConfirmationDialog from "./CreateMenuConfirmationDialog";
 import DeleteAllDayMenusConfirmationDialog from "./DeleteAllDayMenusConfirmationDialog";
 import DeleteMenuConfirmationDialog from "./DeleteMenuConfirmationDialog";
 
@@ -73,6 +74,9 @@ const WeeklyMenu = (props: Props) => {
     MenuAdminSerializer | undefined
   >(undefined);
   const [dateToDelete, setDateToDelete] = React.useState<Date | undefined>(
+    undefined
+  );
+  const [dateToCreate, setDateToCreate] = React.useState<Date | undefined>(
     undefined
   );
 
@@ -174,12 +178,7 @@ const WeeklyMenu = (props: Props) => {
                             color={"default"}
                             size="small"
                             onClick={() => {
-                              AdminApiClient.createMenu(date, "内科").then(
-                                (res) => {
-                                  addInfo(res.message);
-                                  fetchData();
-                                }
-                              );
+                              setDateToCreate(date);
                             }}
                           >
                             <Icon>add</Icon>
@@ -230,6 +229,22 @@ const WeeklyMenu = (props: Props) => {
         }}
         onCancel={() => {
           setDateToDelete(undefined);
+        }}
+      />
+      <CreateMenuConfirmationDialog
+        date={dateToCreate}
+        onOk={(department) => {
+          if (!dateToCreate) {
+            return;
+          }
+          AdminApiClient.createMenu(dateToCreate, department).then((res) => {
+            addInfo(res.message);
+            fetchData();
+          });
+          setDateToCreate(undefined);
+        }}
+        onCancel={() => {
+          setDateToCreate(undefined);
         }}
       />
     </Box>

@@ -54,7 +54,7 @@ export class AdminApiClient {
   ): Promise<{ message: string }> {
     try {
       const params = {
-        start_at: format(startAt, "yyyy-MM-dd hh:mm:ss"),
+        start_at: format(startAt, "yyyy-MM-dd HH:mm:ss"),
         department: department,
       };
       const res = await client.post(`/api/admin/menus/create`, params);
