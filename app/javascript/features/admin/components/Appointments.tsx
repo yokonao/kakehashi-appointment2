@@ -1,13 +1,4 @@
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Typography,
-} from "@material-ui/core";
+import { Box, Button } from "@material-ui/core";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 import * as React from "react";
@@ -58,7 +49,7 @@ const createColumns: (onDetail: (id: string) => void) => GridColDef[] = (
     headerName: "削除",
     sortable: false,
     width: 120,
-    renderCell: (params) => (
+    renderCell: (_) => (
       <Button variant="contained" color="secondary">
         削除
       </Button>
