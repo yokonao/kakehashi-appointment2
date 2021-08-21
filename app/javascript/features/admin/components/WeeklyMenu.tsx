@@ -168,7 +168,23 @@ const WeeklyMenu = (props: Props) => {
                           style={{
                             backgroundColor: "#d3d3d3",
                           }}
-                        />
+                        >
+                          <IconButton
+                            className={classes.actionButton}
+                            color={"default"}
+                            size="small"
+                            onClick={() => {
+                              AdminApiClient.createMenu(date, "内科").then(
+                                (res) => {
+                                  addInfo(res.message);
+                                  fetchData();
+                                }
+                              );
+                            }}
+                          >
+                            <Icon>add</Icon>
+                          </IconButton>
+                        </div>
                       )}
                     </td>
                   );

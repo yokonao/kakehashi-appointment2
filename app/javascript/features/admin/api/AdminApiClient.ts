@@ -48,6 +48,25 @@ export class AdminApiClient {
     }
   }
 
+  static async createMenu(
+    startAt: Date,
+    department: string
+  ): Promise<{ message: string }> {
+    try {
+      const params = {
+        start_at: format(startAt, "yyyy-MM-dd hh:mm:ss"),
+        department: department,
+      };
+      const res = await client.post(`/api/admin/menus/create`, params);
+      if (res.status !== 200) {
+        return { message: "予約枠の作成に失敗しました" };
+      }
+      return { message: "予約枠を作成しました" };
+    } catch (err) {
+      return { message: "予約枠の作成に失敗しました" };
+    }
+  }
+
   static async deleteMenu(id: number): Promise<{ message: string }> {
     try {
       const res = await client.delete(`/api/admin/menus/${id.toString()}`);
