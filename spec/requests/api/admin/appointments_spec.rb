@@ -65,6 +65,13 @@ RSpec.describe 'Api::Admin::Appointments', type: :request do
         expect { subject }.to change { Appointment.count }.by(-1)
         expect(subject).to have_http_status(:ok)
       end
+
+      context 'when specfied id does not exist' do
+        let(:id) { -1 }
+        it 'return 400' do
+          expect(subject).to have_http_status(:bad_request)
+        end
+      end
     end
   end
 end

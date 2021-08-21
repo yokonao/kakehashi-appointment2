@@ -8,7 +8,14 @@ class Api::Admin::AppointmentsController < ApplicationController
 
   def destroy
     id = params.permit(:id)[:id]
-    Appointment.find(id).destroy
-    render json: { "message": '予約を削除しました' }
+    appointment = Appointment.find(id)
+    appointment.destroy
+    if appointment.errors.empty?
+      render json: { "message": '予約枠を削除しました' }
+    else
+      render json: { "message": appointment.errors.full_messages }, status: :bad_request
+    end
+  rescue ActiveRecord::RecordNotFound
+    render json: { "message": '指定された予約が存在しません' }, status: :bad_request
   end
 end
