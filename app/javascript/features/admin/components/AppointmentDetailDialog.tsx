@@ -70,14 +70,14 @@ const AppointmentDetailDialog = ({
       <DialogTitle>予約</DialogTitle>
       <DialogContent>
         <Typography>予約日時：{appointment?.start_at} </Typography>
-        <Typography>氏名：{appointment?.full_name}</Typography>
-        <Typography>カナ：{appointment?.full_kana_name} </Typography>
+        <Typography>氏名漢字：{appointment?.full_name}</Typography>
+        <Typography>氏名カナ：{appointment?.full_kana_name} </Typography>
         <Typography>生年月日：{appointment?.birthday} </Typography>
-        <Typography>診療歴：{appointment?.clinical_history} </Typography>
-        <Typography>メールアドレス：{appointment?.email} </Typography>
+        <Typography>診療履歴：{appointment?.clinical_history} </Typography>
+        <Typography>アドレス：{appointment?.email} </Typography>
         <Typography>電話番号：{appointment?.phone_number} </Typography>
         <Typography>受診理由：{appointment?.reason} </Typography>
-        <Typography>自由記入欄：{appointment?.free_comment} </Typography>
+        <Typography>自由記入：{appointment?.free_comment} </Typography>
       </DialogContent>
       <DialogActions>
         <Button
