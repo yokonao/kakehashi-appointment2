@@ -6,6 +6,16 @@ class Api::Admin::MenusController < ApplicationController
     render json: @menus, each_serializer: MenuAdminSerializer
   end
 
+  def create
+    menu = Menu.new(menu_params)
+    if menu.valid?
+      menu.save!
+      render json: menu
+    else
+      render json: { "errors": menu.errors.as_json(full_messages: true) }, status: :bad_request
+    end
+  end
+
   def destroy
     id = params.permit(:id)[:id]
     menu = Menu.find(id)
@@ -31,5 +41,9 @@ class Api::Admin::MenusController < ApplicationController
 
   def date_params
     params.permit(:min_date, :max_date)
+  end
+
+  def menu_params
+    params.require(:menu).permit(:start_at, :department)
   end
 end

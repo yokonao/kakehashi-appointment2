@@ -51,6 +51,61 @@ RSpec.describe 'Api::Admin::Menus', type: :request do
     end
   end
 
+  describe 'POST /menus/create' do
+    let(:administrator) { create(:administrator) }
+    let!(:valid_params) do
+      {
+        start_at: '2021-07-21 09:00:00',
+        department: '内科'
+      }
+    end
+    subject do
+      post api_admin_menus_create_path, as: :json, params: { menu: params }
+      response
+    end
+    let(:json) { JSON.parse(response.body) }
+    context 'when not logged in' do
+      let(:params) { valid_params }
+      it 'returns 401' do
+        expect(subject).to have_http_status(:unauthorized)
+      end
+    end
+    context 'when logged in' do
+      before do
+        sign_in administrator
+      end
+      context 'when no parameter is given' do
+        let(:params) { nil }
+        it 'raise ActionoController::ParameterMissing error' do
+          expect { subject }.to raise_error(ActionController::ParameterMissing)
+        end
+      end
+      context 'when valid parameters arg given' do
+        let(:params) { valid_params }
+        it 'can create a menu' do
+          expect { subject }.to change { Menu.count }.by(1)
+          expect(subject).to have_http_status(:ok)
+        end
+      end
+      context 'when the start time is not specified' do
+        let(:params) { valid_params.except(:start_at) }
+        it 'returns 400' do
+          expect { subject }.to change { Menu.count }.by(0)
+          expect(subject).to have_http_status(:bad_request)
+          expect(json['errors']['start_at']).to include '開始時刻を入力してください'
+        end
+      end
+      context 'when the department is not specified' do
+        let(:params) { valid_params.except(:department) }
+        it 'returns 400' do
+          expect { subject }.to change { Menu.count }.by(0)
+          expect(subject).to have_http_status(:bad_request)
+          expect(json['errors']['department']).to include '診療科を入力してください'
+        end
+      end
+    end
+  end
+
   describe 'DELETE /menus/:id' do
     let(:administrator) { create(:administrator) }
     let!(:menu) { create(:menu) }

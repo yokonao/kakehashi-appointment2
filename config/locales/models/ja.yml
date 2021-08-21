@@ -8,6 +8,8 @@ ja:
       administrator: 管理者
     attributes:
       menu:
+        start_at: 開始時刻
+        department: 診療科
         appointment: 予約
       appointment:
         name: 氏名
