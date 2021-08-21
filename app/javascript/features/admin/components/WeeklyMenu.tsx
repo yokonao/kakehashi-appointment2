@@ -38,7 +38,6 @@ const useWeeklyMenuStyles = makeStyles((theme) => ({
     height: "60px",
   },
   menuCard: {
-    background: theme.palette.primary.light,
     borderRadius: "5px",
     margin: "0px 10px",
     padding: "10px",
@@ -123,7 +122,14 @@ const WeeklyMenu = (props: Props) => {
                       key={"weekly-menu-content-" + date.toString()}
                     >
                       {menu ? (
-                        <div className={classes.menuCard}>
+                        <div
+                          className={classes.menuCard}
+                          style={{
+                            backgroundColor: menu.appointment_id
+                              ? "#ffa899"
+                              : "#b0c4de",
+                          }}
+                        >
                           {menu.appointment_id ? (
                             <>
                               <span>予約済みです</span>
@@ -156,7 +162,12 @@ const WeeklyMenu = (props: Props) => {
                           )}
                         </div>
                       ) : (
-                        <></>
+                        <div
+                          className={classes.menuCard}
+                          style={{
+                            backgroundColor: "#d3d3d3",
+                          }}
+                        />
                       )}
                     </td>
                   );
