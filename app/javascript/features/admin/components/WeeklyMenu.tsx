@@ -131,7 +131,7 @@ const WeeklyMenu = (props: Props) => {
                         >
                           {menu.appointment_id ? (
                             <>
-                              <span>予約済みです</span>
+                              <span>{"予約あり "}</span>
                               <IconButton
                                 className={classes.actionButton}
                                 color={"default"}
@@ -146,8 +146,10 @@ const WeeklyMenu = (props: Props) => {
                           ) : (
                             <>
                               <span>
-                                {`${format(menu.start_at, "HH:mm")} 〜
-                            ${format(menu.end_at, "HH:mm")}`}
+                                {`${menu.department} ${format(
+                                  menu.start_at,
+                                  "HH:mm"
+                                )}`}
                               </span>
                               <IconButton
                                 className={classes.actionButton}

@@ -24,7 +24,7 @@ const DeleteMenuConfirmationDialog = (props: Props) => {
       okButtonText="削除"
       cancelButtonText="キャンセル"
     >
-      {`予約日時：${format(menu.start_at, "M/dd HH:mm")} 〜
+      {`${format(menu.start_at, "M/dd HH:mm")} 〜
                             ${format(menu.end_at, "M/dd HH:mm")}`}
     </ConfirmationDialog>
   );
