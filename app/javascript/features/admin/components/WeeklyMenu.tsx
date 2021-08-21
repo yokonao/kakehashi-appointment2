@@ -35,7 +35,7 @@ const useWeeklyMenuStyles = makeStyles((theme) => ({
   },
   content: {
     borderLeft: "solid 0.5px rgba(224, 224, 224, 1)",
-    height: "60px",
+    height: "40px",
   },
   menuCard: {
     borderRadius: "5px",
@@ -45,7 +45,6 @@ const useWeeklyMenuStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    color: "white",
   },
   actionButton: {
     marginLeft: "5px",
