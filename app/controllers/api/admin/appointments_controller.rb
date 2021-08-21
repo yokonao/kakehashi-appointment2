@@ -11,7 +11,7 @@ class Api::Admin::AppointmentsController < ApplicationController
     appointment = Appointment.find(id)
     appointment.destroy
     if appointment.errors.empty?
-      render json: { "message": '予約枠を削除しました' }
+      render json: { "message": '予約を削除しました' }
     else
       render json: { "message": appointment.errors.full_messages }, status: :bad_request
     end

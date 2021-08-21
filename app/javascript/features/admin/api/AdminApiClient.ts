@@ -76,4 +76,19 @@ export class AdminApiClient {
       return { message: "予約枠の削除に失敗しました" };
     }
   }
+
+  static async deleteAppointment(id: number): Promise<{ message: string }> {
+    try {
+      const res = await client.delete(
+        `/api/admin/appointments/${id.toString()}`
+      );
+      const json = JSON.parse(JSON.stringify(res.data));
+      if (res.status !== 200) {
+        return { message: json.message };
+      }
+      return { message: json.message };
+    } catch (err) {
+      return { message: "予約枠の削除に失敗しました" };
+    }
+  }
 }

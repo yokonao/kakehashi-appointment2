@@ -6,15 +6,20 @@ import { AppointmentSerializer } from "../../../serializers/AppointmentSerialize
 import { MenuAdminSerializer } from "../../../serializers/MenuAdminSerializer";
 import { DataGrid, GridColDef } from "@material-ui/data-grid";
 import AppointmentDetailDialog from "./AppointmentDetailDialog";
+import DeleteAppointmentConfirmationDialog from "./DeleteAppointmentConfirmationDialog";
+import { useNotification } from "../../form/hooks/useNotification";
+import { useAdminContext } from "../hooks/useAdminContext";
+import { AdminApiClient } from "../api/AdminApiClient";
 
 type Props = {
   appointments: AppointmentSerializer[];
   menus: MenuAdminSerializer[];
 };
 
-const createColumns: (onDetail: (id: string) => void) => GridColDef[] = (
-  onDetail
-) => [
+const createColumns: (
+  onDetail: (id: number) => void,
+  onDelete: (id: number) => void
+) => GridColDef[] = (onDetail, onDelete) => [
   { field: "full_name", headerName: "患者名", width: 200 },
   {
     field: "birthday",
@@ -37,7 +42,8 @@ const createColumns: (onDetail: (id: string) => void) => GridColDef[] = (
         variant="contained"
         color="default"
         onClick={() => {
-          onDetail(params.id.toString());
+          const id = parseInt(params.id.toString());
+          onDetail(id);
         }}
       >
         詳細
@@ -49,8 +55,15 @@ const createColumns: (onDetail: (id: string) => void) => GridColDef[] = (
     headerName: "削除",
     sortable: false,
     width: 120,
-    renderCell: (_) => (
-      <Button variant="contained" color="secondary">
+    renderCell: (params) => (
+      <Button
+        variant="contained"
+        color="secondary"
+        onClick={() => {
+          const id = parseInt(params.id.toString());
+          onDelete(id);
+        }}
+      >
         削除
       </Button>
     ),
@@ -85,6 +98,8 @@ const castToAppointmentViewModel = (
 };
 
 const Appointments = (props: Props) => {
+  const { addInfo } = useNotification();
+  const { fetchData } = useAdminContext();
   const { appointments } = props;
   const rows = React.useMemo(
     () => appointments.map((e) => castToAppointmentViewModel(e)),
@@ -92,14 +107,22 @@ const Appointments = (props: Props) => {
   );
   const [selectedAppointmentId, setSelectedAppointmentId] =
     React.useState<number>(-1);
+  const [selectedAppointmentToDelete, setSelectedAppointmentToDelete] =
+    React.useState<AppointmentSerializer | undefined>(undefined);
   return (
     <Box>
       <div style={{ width: "100%" }}>
         <DataGrid
           rows={rows}
-          columns={createColumns((id) => {
-            setSelectedAppointmentId(parseInt(id));
-          })}
+          columns={createColumns(
+            (id) => {
+              setSelectedAppointmentId(id);
+            },
+            (id) =>
+              setSelectedAppointmentToDelete(
+                appointments.find((e) => e.id === id)
+              )
+          )}
           pageSize={10}
           autoHeight
         />
@@ -108,6 +131,24 @@ const Appointments = (props: Props) => {
         id={selectedAppointmentId}
         onClose={() => {
           setSelectedAppointmentId(-1);
+        }}
+      />
+      <DeleteAppointmentConfirmationDialog
+        appointment={selectedAppointmentToDelete}
+        onOk={() => {
+          if (!selectedAppointmentToDelete) {
+            return;
+          }
+          AdminApiClient.deleteAppointment(selectedAppointmentToDelete.id).then(
+            (res) => {
+              addInfo(res.message);
+              fetchData();
+            }
+          );
+          setSelectedAppointmentToDelete(undefined);
+        }}
+        onCancel={() => {
+          setSelectedAppointmentToDelete(undefined);
         }}
       />
     </Box>

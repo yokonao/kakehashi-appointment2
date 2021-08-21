@@ -12,7 +12,7 @@ import * as React from "react";
 import { AppointmentSerializer } from "../../../serializers/AppointmentSerializer";
 import { useAdminContext } from "../hooks/useAdminContext";
 
-type AppointmentViewModel = {
+export type AppointmentViewModel = {
   id: number;
   full_name: string;
   full_kana_name: string;
@@ -26,7 +26,7 @@ type AppointmentViewModel = {
   start_at: string;
 };
 
-const castToAppointmentViewModel = (
+export const castToAppointmentViewModel = (
   serializer?: AppointmentSerializer
 ): AppointmentViewModel | undefined => {
   if (!serializer) return undefined;
