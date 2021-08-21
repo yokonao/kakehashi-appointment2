@@ -104,7 +104,7 @@ const WeeklyMenu = (props: Props) => {
                     variant="outlined"
                     onClick={() => setDateToDelete(date)}
                   >
-                    一括削除
+                    全削除
                   </Button>
                 </th>
               );
