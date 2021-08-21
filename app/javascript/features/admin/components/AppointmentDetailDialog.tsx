@@ -32,9 +32,22 @@ export const castToAppointmentViewModel = (
   if (!serializer) return undefined;
   return {
     ...serializer,
-    birthday: format(serializer.birthday, "yyyy/M/d"),
+    birthday: format(serializer.birthday, "yyyy/MM/dd"),
     clinical_history: serializer.is_first_visit ? "初診" : "再診",
-    start_at: format(serializer.start_at, "yyyy/M/d （E） H:mm", {
+    start_at: format(serializer.start_at, "yyyy/MM/dd （E） HH:mm", {
+      locale: ja,
+    }),
+  };
+};
+
+export const castToAppointmentViewModelForce = (
+  serializer: AppointmentSerializer
+): AppointmentViewModel => {
+  return {
+    ...serializer,
+    birthday: format(serializer.birthday, "yyyy/MM/dd"),
+    clinical_history: serializer.is_first_visit ? "初診" : "再診",
+    start_at: format(serializer.start_at, "yyyy/MM/dd （E） HH:mm", {
       locale: ja,
     }),
   };

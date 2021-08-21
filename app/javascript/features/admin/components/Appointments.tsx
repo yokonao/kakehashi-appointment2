@@ -1,11 +1,11 @@
 import { Box, Button } from "@material-ui/core";
-import { format } from "date-fns";
-import { ja } from "date-fns/locale";
 import * as React from "react";
 import { AppointmentSerializer } from "../../../serializers/AppointmentSerializer";
 import { MenuAdminSerializer } from "../../../serializers/MenuAdminSerializer";
 import { DataGrid, GridColDef } from "@material-ui/data-grid";
-import AppointmentDetailDialog from "./AppointmentDetailDialog";
+import AppointmentDetailDialog, {
+  castToAppointmentViewModelForce,
+} from "./AppointmentDetailDialog";
 import DeleteAppointmentConfirmationDialog from "./DeleteAppointmentConfirmationDialog";
 import { useNotification } from "../../form/hooks/useNotification";
 import { useAdminContext } from "../hooks/useAdminContext";
@@ -70,39 +70,12 @@ const createColumns: (
   },
 ];
 
-export type AppointmentViewModel = {
-  id: number;
-  full_name: string;
-  full_kana_name: string;
-  birthday: string;
-  clinical_history: string;
-  clinical_number: string;
-  email: string;
-  phone_number: string;
-  reason: string;
-  free_comment: string;
-  start_at: string;
-};
-
-const castToAppointmentViewModel = (
-  serializer: AppointmentSerializer
-): AppointmentViewModel => {
-  return {
-    ...serializer,
-    birthday: format(serializer.birthday, "yyyy/M/d"),
-    clinical_history: serializer.is_first_visit ? "初診" : "再診",
-    start_at: format(serializer.start_at, "yyyy/M/d （E） H:mm", {
-      locale: ja,
-    }),
-  };
-};
-
 const Appointments = (props: Props) => {
   const { addInfo } = useNotification();
   const { fetchData } = useAdminContext();
   const { appointments } = props;
   const rows = React.useMemo(
-    () => appointments.map((e) => castToAppointmentViewModel(e)),
+    () => appointments.map((e) => castToAppointmentViewModelForce(e)),
     [appointments]
   );
   const [selectedAppointmentId, setSelectedAppointmentId] =
