@@ -81,7 +81,7 @@ const WeeklyMenu = (props: Props) => {
   );
 
   return (
-    <Box mr={10} mt={2}>
+    <Box mt={2}>
       <Box display="flex" alignItems="center">
         <IconButton color={"default"} onClick={toPrev}>
           <Icon>arrow_back</Icon>
@@ -130,6 +130,8 @@ const WeeklyMenu = (props: Props) => {
                           style={{
                             backgroundColor: menu.appointment_id
                               ? "#ffa899"
+                              : menu.department === "漢方"
+                              ? "#fffacd"
                               : "#b0c4de",
                           }}
                         >
