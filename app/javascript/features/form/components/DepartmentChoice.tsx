@@ -38,7 +38,7 @@ const DepartmentChoice = () => {
               >
                 内科
               </Button>
-              <span>（木曜・日曜は休診）</span>
+              <span style={{ fontSize: "14px" }}>（木曜・日曜は休診）</span>
             </div>
           </Grid>
           <Grid item xs={6}>
@@ -59,7 +59,7 @@ const DepartmentChoice = () => {
               >
                 漢方
               </Button>
-              <span>（木曜午前のみ診療）</span>
+              <span style={{ fontSize: "14px" }}>（木曜午前のみ診療）</span>
             </div>
           </Grid>
         </Grid>
