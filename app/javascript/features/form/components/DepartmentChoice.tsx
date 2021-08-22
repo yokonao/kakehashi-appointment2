@@ -12,7 +12,7 @@ const DepartmentChoice = () => {
             診療科を選択
           </Typography>
         </Box>
-        <Typography>2週間後までの予約をお取りいただけます</Typography>
+        <Typography>翌日〜２週後までの予約が可能です</Typography>
         <Grid
           container
           spacing={1}
