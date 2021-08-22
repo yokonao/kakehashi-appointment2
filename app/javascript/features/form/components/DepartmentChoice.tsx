@@ -12,33 +12,55 @@ const DepartmentChoice = () => {
             診療科を選択
           </Typography>
         </Box>
-        <Typography>翌日〜２週後までの予約が可能です</Typography>
+        <Box textAlign="center">
+          <Typography>翌日〜２週後までの予約が可能です</Typography>
+        </Box>
         <Grid
           container
           spacing={1}
           style={{ paddingTop: "2rem", paddingBottom: "2rem" }}
         >
           <Grid item xs={6}>
-            <Button
-              color="primary"
-              variant="outlined"
-              fullWidth
-              size="large"
-              onClick={() => history.push("/form/internal_medicine")}
+            <div
+              style={{
+                display: "flex",
+                flexFlow: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
             >
-              内科
-            </Button>
+              <Button
+                color="primary"
+                variant="outlined"
+                fullWidth
+                size="large"
+                onClick={() => history.push("/form/internal_medicine")}
+              >
+                内科
+              </Button>
+              <span>（木曜・日曜は休診）</span>
+            </div>
           </Grid>
           <Grid item xs={6}>
-            <Button
-              color="primary"
-              variant="outlined"
-              fullWidth
-              size="large"
-              onClick={() => history.push("/form/kampo")}
+            <div
+              style={{
+                display: "flex",
+                flexFlow: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
             >
-              漢方
-            </Button>
+              <Button
+                color="primary"
+                variant="outlined"
+                fullWidth
+                size="large"
+                onClick={() => history.push("/form/kampo")}
+              >
+                漢方
+              </Button>
+              <span>（木曜午前のみ診療）</span>
+            </div>
           </Grid>
         </Grid>
       </Container>
