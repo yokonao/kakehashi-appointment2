@@ -13,7 +13,6 @@ import {
   Icon,
   Typography,
 } from "@material-ui/core";
-import TimeTable from "../../../shared/components/MenuSelector";
 import { Field, FieldProps, Formik } from "formik";
 import PersonNameField from "../../../shared/components/PersonNameInput";
 import useStyles from "../../../styles/useStyles";
