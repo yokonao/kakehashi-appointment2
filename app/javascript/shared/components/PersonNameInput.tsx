@@ -41,7 +41,7 @@ const PersonNameInput = (props: Props) => {
         }}
         inputProps={{ maxLength: 50 }}
         placeholder="架橋　花子"
-        helperText="氏名（漢字）"
+        helperText="氏名"
         InputProps={{
           endAdornment: state.isValid && <CheckMark />,
         }}

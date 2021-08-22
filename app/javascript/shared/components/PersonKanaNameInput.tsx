@@ -48,7 +48,7 @@ const PersonKanaNameInput = (props: Props) => {
         }}
         inputProps={{ maxLength: 50 }}
         placeholder="カケハシ　ハナコ"
-        helperText="シメイ（カタカナ）"
+        helperText="カナ"
         InputProps={{
           endAdornment: state.isValid && <CheckMark />,
         }}
