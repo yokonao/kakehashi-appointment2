@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Appointment, type: :system do
+  before { ActionController::Base.allow_forgery_protection = true }
+  after  { ActionController::Base.allow_forgery_protection = false }
+
   context 'when input parameters is valid' do
     it 'makes an appointment for internal medicine', js: true do
       visit '/'
