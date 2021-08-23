@@ -21,7 +21,7 @@ import {
 import MenuSelector from "../../../shared/components/MenuSelector";
 import { useNotification } from "../hooks/useNotification";
 import LoadingForm from "./LoadingIndicator";
-import DialogContainer from "./DialogContainer";
+import SuccessDialog from "./SuccessDialog";
 
 type FormValue = {
   fullName: string;
@@ -331,9 +331,9 @@ const Form = (props: Props) => {
                 </Button>
               </Box>
               <LoadingForm isLoading={isSubmitting || isLoading} />
-              <DialogContainer
-                isOpenSuccessDialog={isOpenSuccessDialog}
-                setIsOpenSuccessDialog={setIsOpenSuccessDialog}
+              <SuccessDialog
+                isOpen={isOpenSuccessDialog}
+                onClose={() => setIsOpenSuccessDialog(false)}
               />
             </>
           );

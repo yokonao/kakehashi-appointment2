@@ -9,15 +9,15 @@ import {
 import React from "react";
 
 type OpenDialog = {
-  isOpenSuccessDialog: boolean;
-  setIsOpenSuccessDialog: React.Dispatch<React.SetStateAction<boolean>>;
+  isOpen: boolean;
+  onClose: () => void;
 };
 
-const DialogContainer = (props: OpenDialog) => {
-  const isOpenSuccessDialog = props.isOpenSuccessDialog;
-  const setIsOpenSuccessDialog = props.setIsOpenSuccessDialog;
+const SuccessDialog = (props: OpenDialog) => {
+  const isOpen = props.isOpen;
+  const onClose = props.onClose;
   return (
-    <Dialog open={isOpenSuccessDialog}>
+    <Dialog open={isOpen}>
       <DialogTitle>予約が成立しました</DialogTitle>
       <DialogContent>
         <DialogContentText>
@@ -32,7 +32,7 @@ const DialogContainer = (props: OpenDialog) => {
       <DialogActions>
         <Button
           onClick={() => {
-            setIsOpenSuccessDialog(false);
+            onClose();
             window.open("/form/internal_medicine", "_self");
           }}
           color="primary"
@@ -44,4 +44,4 @@ const DialogContainer = (props: OpenDialog) => {
   );
 };
 
-export default DialogContainer;
+export default SuccessDialog;
