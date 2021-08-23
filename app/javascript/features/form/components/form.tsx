@@ -32,6 +32,7 @@ import {
 import MenuSelector from "../../../shared/components/MenuSelector";
 import { useNotification } from "../hooks/useNotification";
 import LoadingForm from "./LoadingIndicator";
+import DialogContainer from "./DialogContainer";
 
 type FormValue = {
   fullName: string;
@@ -341,30 +342,10 @@ const Form = (props: Props) => {
                 </Button>
               </Box>
               <LoadingForm isLoading={isSubmitting || isLoading} />
-              <Dialog open={isOpenSuccessDialog}>
-                <DialogTitle>予約が成立しました</DialogTitle>
-                <DialogContent>
-                  <DialogContentText>
-                    この度は、かけはし糖尿病・甲状腺クリニックをご予約いただきましてありがとうございます。
-                    ご入力いただいたメールアドレスに確認メールを送付しています。
-                  </DialogContentText>
-                  <DialogContentText>
-                    メールが届かない場合はお手数ですが電話にてお問い合わせください。
-                    当日のご来院をお待ちしています。
-                  </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                  <Button
-                    onClick={() => {
-                      setIsOpenSuccessDialog(false);
-                      window.open("/form/internal_medicine", "_self");
-                    }}
-                    color="primary"
-                  >
-                    確認しました
-                  </Button>
-                </DialogActions>
-              </Dialog>
+              <DialogContainer
+                isOpenSuccessDialog={isOpenSuccessDialog}
+                setIsOpenSuccessDialog={setIsOpenSuccessDialog}
+              />
             </>
           );
         }}
