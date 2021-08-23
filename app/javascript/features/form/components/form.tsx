@@ -1,9 +1,7 @@
 import * as React from "react";
 import {
-  Backdrop,
   Box,
   Button,
-  CircularProgress,
   Container,
   Dialog,
   DialogActions,
@@ -11,7 +9,7 @@ import {
   DialogContentText,
   DialogTitle,
   Icon,
-  Typography,
+  Typography
 } from "@material-ui/core";
 import { Field, FieldProps, Formik } from "formik";
 import PersonNameField from "../../../shared/components/PersonNameInput";
@@ -29,11 +27,11 @@ import { MenuSerializer } from "../../../serializers/MenuSerializer";
 import { format } from "date-fns";
 import {
   createAppointment,
-  CreateAppointmentParameters,
+  CreateAppointmentParameters
 } from "../../../shared/api/createAppointment";
 import MenuSelector from "../../../shared/components/MenuSelector";
 import { useNotification } from "../hooks/useNotification";
-import { useMenusContext } from "../hooks/useMenusContext";
+import LoadingForm from "./LoadingIndicator";
 
 type FormValue = {
   fullName: string;
@@ -54,10 +52,10 @@ const initialValues: FormValue = {
   fullKanaName: "",
   karteInformation: {
     isFirstVisit: true,
-    clinicalNumber: "",
+    clinicalNumber: ""
   },
   reason: "",
-  freeComment: "",
+  freeComment: ""
 };
 
 type Props = {
@@ -66,7 +64,9 @@ type Props = {
   title: string;
 };
 
-function validate(value: FormValue): {
+function validate(
+  value: FormValue
+): {
   isValid: boolean;
   errors: { [field: string]: string[] };
 } {
@@ -90,7 +90,7 @@ function validate(value: FormValue): {
     errors["phoneNumber"] = ["電話番号を入力してください"];
   } else if (!/^[0-9]{10,11}$/.test(value.phoneNumber)) {
     errors["phoneNumber"] = [
-      "不正な電話番号です。ハイフン無し数字のみで入力してください",
+      "不正な電話番号です。ハイフン無し数字のみで入力してください"
     ];
   }
   if (value.email.length === 0) {
@@ -118,7 +118,7 @@ function validate(value: FormValue): {
   }
   const isValid =
     Object.keys(errors)
-      .map((key) => errors[key])
+      .map(key => errors[key])
       .reduce((a, b) => [...a, ...b], []).length == 0;
 
   return { isValid: isValid, errors: errors };
@@ -137,7 +137,7 @@ function createPostParameters(value: FormValue): CreateAppointmentParameters {
     phone_number: value.phoneNumber,
     reason: value.reason,
     free_comment: value.freeComment,
-    menu_id: value.menu ? value.menu.id.toString() : "",
+    menu_id: value.menu ? value.menu.id.toString() : ""
   };
 }
 
@@ -147,6 +147,7 @@ const Form = (props: Props) => {
   const { addError, addInfo } = useNotification();
   const [isOpenSuccessDialog, setIsOpenSuccessDialog] = React.useState(false);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+
   return (
     <Container className={classes.form} maxWidth="md">
       <Formik
@@ -213,7 +214,7 @@ const Form = (props: Props) => {
                   return (
                     <PersonNameField
                       value={field.value}
-                      onChanged={(personName) =>
+                      onChanged={personName =>
                         setFieldValue(field.name, personName)
                       }
                       externalErrors={
@@ -228,7 +229,7 @@ const Form = (props: Props) => {
                   return (
                     <PersonKanaNameInput
                       value={field.value}
-                      onChanged={(personKanaName) =>
+                      onChanged={personKanaName =>
                         setFieldValue(field.name, personKanaName)
                       }
                       externalErrors={
@@ -339,12 +340,7 @@ const Form = (props: Props) => {
                   予約
                 </Button>
               </Box>
-              <Backdrop
-                className={classes.backdrop}
-                open={isSubmitting || isLoading}
-              >
-                <CircularProgress color="inherit" />
-              </Backdrop>
+              <LoadingForm isLoading={isSubmitting || isLoading} />
               <Dialog open={isOpenSuccessDialog}>
                 <DialogTitle>予約が成立しました</DialogTitle>
                 <DialogContent>
@@ -361,7 +357,7 @@ const Form = (props: Props) => {
                   <Button
                     onClick={() => {
                       setIsOpenSuccessDialog(false);
-                      window.open("/form/internal_medicine", "_self")
+                      window.open("/form/internal_medicine", "_self");
                     }}
                     color="primary"
                   >
