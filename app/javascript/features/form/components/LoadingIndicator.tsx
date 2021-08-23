@@ -1,18 +1,16 @@
 import React from "react";
 import { Backdrop, CircularProgress } from "@material-ui/core";
 import useStyles from "../../../styles/useStyles";
-import { MenuSerializer } from "../../../serializers/MenuSerializer";
 
 type PropsLoading = {
-  menus: MenuSerializer[];
   isLoading: boolean;
-  title: string;
+  isSubmitting: boolean;
 };
 
 const LoadingForm = (props: PropsLoading) => {
   const classes = useStyles();
   const isLoading = props.isLoading;
-  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const isSubmitting = props.isSubmitting;
   return (
     <Backdrop className={classes.backdrop} open={isSubmitting || isLoading}>
       <CircularProgress color="inherit" />

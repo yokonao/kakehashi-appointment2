@@ -1,9 +1,7 @@
 import * as React from "react";
 import {
-  Backdrop,
   Box,
   Button,
-  CircularProgress,
   Container,
   Dialog,
   DialogActions,
@@ -33,10 +31,7 @@ import {
 } from "../../../shared/api/createAppointment";
 import MenuSelector from "../../../shared/components/MenuSelector";
 import { useNotification } from "../hooks/useNotification";
-import { useMenusContext } from "../hooks/useMenusContext";
 import LoadingForm from "./LoadingIndicator";
-import { loadavg } from "os";
-import { string } from "prop-types";
 
 type FormValue = {
   fullName: string;
@@ -344,11 +339,7 @@ const Form = (props: Props) => {
                   予約
                 </Button>
               </Box>
-              <LoadingForm
-                menus={menus}
-                isLoading={isLoading}
-                title={title}
-              ></LoadingForm>
+              <LoadingForm isLoading={isLoading} isSubmitting={isSubmitting} />
               <Dialog open={isOpenSuccessDialog}>
                 <DialogTitle>予約が成立しました</DialogTitle>
                 <DialogContent>
