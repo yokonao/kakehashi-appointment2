@@ -4,15 +4,13 @@ import useStyles from "../../../styles/useStyles";
 
 type PropsLoading = {
   isLoading: boolean;
-  isSubmitting: boolean;
 };
 
 const LoadingForm = (props: PropsLoading) => {
   const classes = useStyles();
   const isLoading = props.isLoading;
-  const isSubmitting = props.isSubmitting;
   return (
-    <Backdrop className={classes.backdrop} open={isSubmitting || isLoading}>
+    <Backdrop className={classes.backdrop} open={isLoading}>
       <CircularProgress color="inherit" />
     </Backdrop>
   );

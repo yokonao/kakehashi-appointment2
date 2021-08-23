@@ -147,6 +147,7 @@ const Form = (props: Props) => {
   const { addError, addInfo } = useNotification();
   const [isOpenSuccessDialog, setIsOpenSuccessDialog] = React.useState(false);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+
   return (
     <Container className={classes.form} maxWidth="md">
       <Formik
@@ -339,7 +340,7 @@ const Form = (props: Props) => {
                   予約
                 </Button>
               </Box>
-              <LoadingForm isLoading={isLoading} isSubmitting={isSubmitting} />
+              <LoadingForm isLoading={isSubmitting || isLoading} />
               <Dialog open={isOpenSuccessDialog}>
                 <DialogTitle>予約が成立しました</DialogTitle>
                 <DialogContent>
