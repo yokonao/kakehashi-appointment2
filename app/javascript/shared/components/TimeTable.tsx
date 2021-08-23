@@ -110,6 +110,7 @@ const TimeTable = (props: TimeTableProps) => {
                 >
                   {menu ? (
                     <IconButton
+                      data-testid="select-menu-button"
                       color={menu.isFilled ? "default" : "primary"}
                       onClick={() => {
                         onSelect(menu);
