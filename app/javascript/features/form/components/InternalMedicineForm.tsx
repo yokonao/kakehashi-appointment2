@@ -20,14 +20,10 @@ import LoadingIndicator from "./LoadingIndicator";
 import SuccessDialog from "./SuccessDialog";
 import { createPostParameters, initialValues } from "../utils/FormValue";
 import { validate } from "../utils/validator";
+import { useMenusContext } from "../hooks/useMenusContext";
 
-type Props = {
-  menus: MenuSerializer[];
-  isLoading: boolean;
-};
-
-const InternalMedicineForm = (props: Props) => {
-  const { menus, isLoading } = props;
+const InternalMedicineForm = () => {
+  const { internalMedicineMenus: menus, isLoading } = useMenusContext();
   const classes = useStyles();
   const { addError, addInfo } = useNotification();
   const [isOpenSuccessDialog, setIsOpenSuccessDialog] = React.useState(false);
