@@ -28,7 +28,15 @@ export const initialValues: FormValue = {
   freeComment: "",
 };
 
-export function createPostParameters(value: FormValue): CreateAppointmentParameters {
+// reasonが独自の固定値になっている
+export const initialValuesKampo: FormValue = {
+  ...initialValues,
+  reason: "漢方希望",
+};
+
+export function createPostParameters(
+  value: FormValue
+): CreateAppointmentParameters {
   if (!value.birthday || !value.menu) {
     throw new Error("フォームの状態が不完全です");
   }

@@ -33,7 +33,29 @@ RSpec.describe Appointment, type: :system do
         click_button '予約'
         sleep 3
       end.to change { Appointment.count }.by(1)
-      sleep 5
+      sleep 1
+    end
+
+    it 'makes an appointment for kampo', js: true do
+      visit '/'
+      expect(page).to have_text('診療科を選択')
+      click_button '漢方'
+      expect(page).to have_text('漢方外来予約')
+      menu_buttons = all('[data-testid=select-menu-button]')
+      expect(menu_buttons.empty?).to be false
+      menu_buttons.sample.click
+      fill_in 'full_name', with: '架橋　太郎'
+      fill_in 'full_kana_name', with: 'カケハシ　タロウ'
+      fill_in 'birthday', with: '19451231'
+      fill_in 'phone-number', with: '0000000000'
+      fill_in 'email', with: 'appointment-spec@example.com'
+      expect(page).to have_checked_field with: 'yes', visible: false
+      fill_in 'free-comment', with: "spec\n漢方外来希望\n"
+      expect do
+        click_button '予約'
+        sleep 3
+      end.to change { Appointment.count }.by(1)
+      sleep 1
     end
   end
 end

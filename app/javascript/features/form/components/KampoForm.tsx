@@ -17,7 +17,7 @@ import MenuSelector from "../../../shared/components/MenuSelector";
 import { useNotification } from "../hooks/useNotification";
 import LoadingIndicator from "./LoadingIndicator";
 import SuccessDialog from "./SuccessDialog";
-import { createPostParameters, initialValues } from "../utils/FormValue";
+import { createPostParameters, initialValuesKampo } from "../utils/FormValue";
 import { validate } from "../utils/validator";
 
 type Props = {
@@ -35,7 +35,7 @@ const KampoForm = (props: Props) => {
   return (
     <Container className={classes.form} maxWidth="md">
       <Formik
-        initialValues={initialValues}
+        initialValues={initialValuesKampo}
         onSubmit={async (values, { setStatus, resetForm }) => {
           const { isValid, errors: validationErrors } = validate(values, false);
           if (isValid) {
