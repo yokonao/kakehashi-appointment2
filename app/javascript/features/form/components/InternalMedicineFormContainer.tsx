@@ -1,6 +1,6 @@
 import * as React from "react";
 import { MenuSerializer } from "../../../serializers/MenuSerializer";
-import Form from "./form";
+import InternalMedicineForm from "./InternalMedicineForm";
 
 type Props = {
   menus: MenuSerializer[];
@@ -9,7 +9,7 @@ type Props = {
 
 const InternalMedicineFormContainer = (props: Props) => {
   const { menus, isLoading } = props;
-  return <Form title="内科外来予約" menus={menus} isLoading={isLoading} />;
+  return <InternalMedicineForm menus={menus} isLoading={isLoading} />;
 };
 
 export default InternalMedicineFormContainer;

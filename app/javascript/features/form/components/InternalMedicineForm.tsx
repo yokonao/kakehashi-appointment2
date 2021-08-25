@@ -13,124 +13,21 @@ import { KarteInformation } from "../../../domain/KarteInformation";
 import PersonKanaNameInput from "../../../shared/components/PersonKanaNameInput";
 import BirthdayInput from "../../../shared/components/BirthdayInput";
 import { MenuSerializer } from "../../../serializers/MenuSerializer";
-import { format } from "date-fns";
-import {
-  createAppointment,
-  CreateAppointmentParameters,
-} from "../../../shared/api/createAppointment";
+import { createAppointment } from "../../../shared/api/createAppointment";
 import MenuSelector from "../../../shared/components/MenuSelector";
 import { useNotification } from "../hooks/useNotification";
 import LoadingIndicator from "./LoadingIndicator";
 import SuccessDialog from "./SuccessDialog";
-
-type FormValue = {
-  fullName: string;
-  fullKanaName: string;
-  menu?: MenuSerializer;
-  birthday?: Date;
-  phoneNumber: string;
-  email: string;
-  karteInformation: KarteInformation;
-  reason: string;
-  freeComment: string;
-};
-
-const initialValues: FormValue = {
-  phoneNumber: "",
-  email: "",
-  fullName: "",
-  fullKanaName: "",
-  karteInformation: {
-    isFirstVisit: true,
-    clinicalNumber: "",
-  },
-  reason: "",
-  freeComment: "",
-};
+import { createPostParameters, initialValues } from "../utils/FormValue";
+import { validate } from "../utils/validator";
 
 type Props = {
   menus: MenuSerializer[];
   isLoading: boolean;
-  title: string;
 };
 
-function validate(value: FormValue): {
-  isValid: boolean;
-  errors: { [field: string]: string[] };
-} {
-  let errors: { [field: string]: string[] } = {};
-  if (!value.menu) {
-    errors["menu"] = ["予約日時を選択してください"];
-  }
-  if (value.fullName.length === 0) {
-    errors["fullName"] = ["氏名を入力してください"];
-  }
-  if (
-    value.fullKanaName.length === 0 ||
-    !/^[ァ-ヶー－| |　]+$/.test(value.fullKanaName)
-  ) {
-    errors["fullKanaName"] = ["氏名をカタカナで入力してください"];
-  }
-  if (!value.birthday) {
-    errors["birthday"] = ["生年月日を数字8ケタで入力してください"];
-  }
-  if (value.phoneNumber.length === 0) {
-    errors["phoneNumber"] = ["電話番号を入力してください"];
-  } else if (!/^[0-9]{10,11}$/.test(value.phoneNumber)) {
-    errors["phoneNumber"] = [
-      "不正な電話番号です。ハイフン無し数字のみで入力してください",
-    ];
-  }
-  if (value.email.length === 0) {
-    errors["email"] = ["メールアドレスを入力してください"];
-  } else if (
-    !/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
-      value.email
-    )
-  ) {
-    errors["email"] = ["不正なメールアドレスです"];
-  }
-
-  if (!value.karteInformation.isFirstVisit) {
-    if (
-      value.karteInformation.clinicalNumber.length > 0 &&
-      !/^[0-9]{5}$/.test(value.karteInformation.clinicalNumber)
-    ) {
-      // 診察券番号が入力済みで数字5ケタでない場合はエラー
-      errors["karteInformation"] = ["診察券番号は数字5ケタで入力してください"];
-    }
-  }
-
-  if (value.reason.length === 0) {
-    errors["reason"] = ["受診理由を最低1つ選択してください"];
-  }
-  const isValid =
-    Object.keys(errors)
-      .map((key) => errors[key])
-      .reduce((a, b) => [...a, ...b], []).length == 0;
-
-  return { isValid: isValid, errors: errors };
-}
-
-function createPostParameters(value: FormValue): CreateAppointmentParameters {
-  return {
-    full_name: value.fullName,
-    full_kana_name: value.fullKanaName,
-    birthday: value.birthday ? format(value.birthday, "yyyy-MM-dd") : "",
-    is_first_visit: value.karteInformation.isFirstVisit.toString(),
-    clinical_number: value.karteInformation.isFirstVisit
-      ? ""
-      : value.karteInformation.clinicalNumber,
-    email: value.email,
-    phone_number: value.phoneNumber,
-    reason: value.reason,
-    free_comment: value.freeComment,
-    menu_id: value.menu ? value.menu.id.toString() : "",
-  };
-}
-
-const Form = (props: Props) => {
-  const { menus, isLoading, title } = props;
+const InternalMedicineForm = (props: Props) => {
+  const { menus, isLoading } = props;
   const classes = useStyles();
   const { addError, addInfo } = useNotification();
   const [isOpenSuccessDialog, setIsOpenSuccessDialog] = React.useState(false);
@@ -141,7 +38,7 @@ const Form = (props: Props) => {
       <Formik
         initialValues={initialValues}
         onSubmit={async (values, { setStatus, resetForm }) => {
-          const { isValid, errors: validationErrors } = validate(values);
+          const { isValid, errors: validationErrors } = validate(values, true);
           if (isValid) {
             const params = createPostParameters(values);
             setIsSubmitting(true);
@@ -178,7 +75,7 @@ const Form = (props: Props) => {
             <>
               <Box py={2} my={2} textAlign="center">
                 <Typography variant="h4" color="primary">
-                  {title}
+                  内科外来予約
                 </Typography>
               </Box>
               <InstructionText text="1. 予約日時" />
@@ -341,4 +238,4 @@ const Form = (props: Props) => {
   );
 };
 
-export default Form;
+export default InternalMedicineForm;

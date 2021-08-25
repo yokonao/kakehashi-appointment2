@@ -23,11 +23,10 @@ import { validate } from "../utils/validator";
 type Props = {
   menus: MenuSerializer[];
   isLoading: boolean;
-  title: string;
 };
 
 const KampoForm = (props: Props) => {
-  const { menus, isLoading, title } = props;
+  const { menus, isLoading } = props;
   const classes = useStyles();
   const { addError, addInfo } = useNotification();
   const [isOpenSuccessDialog, setIsOpenSuccessDialog] = React.useState(false);
@@ -75,7 +74,7 @@ const KampoForm = (props: Props) => {
             <>
               <Box py={2} my={2} textAlign="center">
                 <Typography variant="h4" color="primary">
-                  {title}
+                  漢方外来予約
                 </Typography>
               </Box>
               <InstructionText text="1. 予約日時" />

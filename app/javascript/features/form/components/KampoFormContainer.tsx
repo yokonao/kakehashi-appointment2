@@ -1,6 +1,6 @@
 import * as React from "react";
 import { MenuSerializer } from "../../../serializers/MenuSerializer";
-import Form from "./form";
+import KampoForm from "./KampoForm";
 
 type Props = {
   menus: MenuSerializer[];
@@ -9,7 +9,7 @@ type Props = {
 
 const KampoFormContainer = (props: Props) => {
   const { menus, isLoading } = props;
-  return <Form title="漢方外来予約" menus={menus} isLoading={isLoading} />;
+  return <KampoForm menus={menus} isLoading={isLoading} />;
 };
 
 export default KampoFormContainer;
