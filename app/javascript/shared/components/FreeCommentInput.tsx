@@ -11,6 +11,7 @@ const FreeCommentInput = (props: Props) => {
   return (
     <Box m={2}>
       <TextField
+        id="free-comment"
         value={value}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           onChanged(e.target.value);

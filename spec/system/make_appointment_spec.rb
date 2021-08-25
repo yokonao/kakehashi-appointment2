@@ -24,7 +24,15 @@ RSpec.describe Appointment, type: :system do
       fill_in 'birthday', with: '19910523'
       fill_in 'phone-number', with: '0000000000'
       fill_in 'email', with: 'appointment-spec@example.com'
-      
+      expect(page).to have_checked_field with: 'yes', visible: false
+      find('[value=no]', visible: false).choose
+      fill_in 'clinical-number', with: '00043'
+      find('[value=糖尿病]', visible: false).check
+      fill_in 'free-comment', with: "spec\n1型糖尿病\n2型糖尿病\nリブレ"
+      expect do
+        click_button '予約'
+        sleep 3
+      end.to change { Appointment.count }.by(1)
       sleep 5
     end
   end

@@ -52,18 +52,19 @@ const KarteInformationInput = (props: Props) => {
       >
         <FormControlLabel
           value="yes"
-          control={<Radio color="primary" />}
+          control={<Radio color="primary" data-testid="is-first-visit-true" />}
           label="はい"
         />
         <FormControlLabel
           value="no"
-          control={<Radio color="primary" />}
+          control={<Radio color="primary" data-testid="is-first-visit-false" />}
           label="いいえ"
         />
       </RadioGroup>
       {!value.isFirstVisit && (
         <>
           <CustomTextField
+            id="clinical-number"
             value={value.clinicalNumber}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               onChanged({ ...value, clinicalNumber: e.target.value });
