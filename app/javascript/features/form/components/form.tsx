@@ -16,11 +16,11 @@ import { MenuSerializer } from "../../../serializers/MenuSerializer";
 import { format } from "date-fns";
 import {
   createAppointment,
-  CreateAppointmentParameters
+  CreateAppointmentParameters,
 } from "../../../shared/api/createAppointment";
 import MenuSelector from "../../../shared/components/MenuSelector";
 import { useNotification } from "../hooks/useNotification";
-import LoadingForm from "./LoadingIndicator";
+import LoadingIndicator from "./LoadingIndicator";
 import SuccessDialog from "./SuccessDialog";
 
 type FormValue = {
@@ -42,10 +42,10 @@ const initialValues: FormValue = {
   fullKanaName: "",
   karteInformation: {
     isFirstVisit: true,
-    clinicalNumber: ""
+    clinicalNumber: "",
   },
   reason: "",
-  freeComment: ""
+  freeComment: "",
 };
 
 type Props = {
@@ -54,9 +54,7 @@ type Props = {
   title: string;
 };
 
-function validate(
-  value: FormValue
-): {
+function validate(value: FormValue): {
   isValid: boolean;
   errors: { [field: string]: string[] };
 } {
@@ -80,7 +78,7 @@ function validate(
     errors["phoneNumber"] = ["電話番号を入力してください"];
   } else if (!/^[0-9]{10,11}$/.test(value.phoneNumber)) {
     errors["phoneNumber"] = [
-      "不正な電話番号です。ハイフン無し数字のみで入力してください"
+      "不正な電話番号です。ハイフン無し数字のみで入力してください",
     ];
   }
   if (value.email.length === 0) {
@@ -108,7 +106,7 @@ function validate(
   }
   const isValid =
     Object.keys(errors)
-      .map(key => errors[key])
+      .map((key) => errors[key])
       .reduce((a, b) => [...a, ...b], []).length == 0;
 
   return { isValid: isValid, errors: errors };
@@ -127,7 +125,7 @@ function createPostParameters(value: FormValue): CreateAppointmentParameters {
     phone_number: value.phoneNumber,
     reason: value.reason,
     free_comment: value.freeComment,
-    menu_id: value.menu ? value.menu.id.toString() : ""
+    menu_id: value.menu ? value.menu.id.toString() : "",
   };
 }
 
@@ -204,7 +202,7 @@ const Form = (props: Props) => {
                   return (
                     <PersonNameField
                       value={field.value}
-                      onChanged={personName =>
+                      onChanged={(personName) =>
                         setFieldValue(field.name, personName)
                       }
                       externalErrors={
@@ -219,7 +217,7 @@ const Form = (props: Props) => {
                   return (
                     <PersonKanaNameInput
                       value={field.value}
-                      onChanged={personKanaName =>
+                      onChanged={(personKanaName) =>
                         setFieldValue(field.name, personKanaName)
                       }
                       externalErrors={
@@ -330,7 +328,7 @@ const Form = (props: Props) => {
                   予約
                 </Button>
               </Box>
-              <LoadingForm isLoading={isSubmitting || isLoading} />
+              <LoadingIndicator isLoading={isSubmitting || isLoading} />
               <SuccessDialog
                 isOpen={isOpenSuccessDialog}
                 onClose={() => setIsOpenSuccessDialog(false)}

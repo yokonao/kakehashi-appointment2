@@ -6,7 +6,7 @@ type PropsLoading = {
   isLoading: boolean;
 };
 
-const LoadingForm = (props: PropsLoading) => {
+const LoadingIndicator = (props: PropsLoading) => {
   const classes = useStyles();
   const isLoading = props.isLoading;
   return (
@@ -16,4 +16,4 @@ const LoadingForm = (props: PropsLoading) => {
   );
 };
 
-export default LoadingForm;
+export default LoadingIndicator;
