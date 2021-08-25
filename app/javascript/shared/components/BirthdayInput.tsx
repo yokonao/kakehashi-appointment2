@@ -43,6 +43,7 @@ const BirthdayInput = (props: Props) => {
   return (
     <Box m={2}>
       <CustomTextField
+        id="birthday"
         value={value}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           setValue(e.target.value);

@@ -35,6 +35,7 @@ const PhoneNumberInput = (props: Props) => {
   return (
     <Box m={2}>
       <CustomTextField
+        id="phone-number"
         value={value}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           onChanged(e.target.value);

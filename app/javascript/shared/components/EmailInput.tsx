@@ -39,6 +39,7 @@ const EmailInput = (props: Props) => {
   return (
     <Box m={2}>
       <CustomTextField
+        id="email"
         value={value}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           onChanged(e.target.value);
