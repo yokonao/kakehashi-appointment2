@@ -46,7 +46,7 @@ const LoginContainer = () => {
             fullWidth
             id="username"
             type="email"
-            label="ユーザーネーム"
+            label="メールアドレス"
             placeholder="Username"
             margin="normal"
           />
