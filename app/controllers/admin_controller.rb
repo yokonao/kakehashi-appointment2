@@ -1,3 +1,3 @@
 class AdminController < ApplicationController
-  before_action :authenticate_administrator!
+  before_action :authenticate_administrator!, except: :login
 end

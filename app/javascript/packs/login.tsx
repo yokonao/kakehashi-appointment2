@@ -21,18 +21,10 @@ const Login = (): JSX.Element => {
     <div className={classes.root}>
       <Router history={history}>
         <ThemeProvider theme={adminTheme}>
-          <NotificationContextProvider>
-            <AdminContextProvider>
-              <AdminHeader />
-              <Box
-                display="flex"
-                justifyContent="center"
-                style={{ width: "100%" }}
-              >
-                <LoginContainer />
-              </Box>
-            </AdminContextProvider>
-          </NotificationContextProvider>
+          <AdminHeader />
+          <Box display="flex" justifyContent="center" style={{ width: "100%" }}>
+            <LoginContainer />
+          </Box>
         </ThemeProvider>
       </Router>
     </div>
