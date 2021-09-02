@@ -88,7 +88,7 @@ const KampoForm = () => {
                   );
                 }}
               </Field>
-              <InstructionText text="2. 氏名（漢字・カタカナ）" />
+              <InstructionText text="2. 氏名" />
               <Field name="fullName">
                 {({ field }: FieldProps<string>) => {
                   return (
