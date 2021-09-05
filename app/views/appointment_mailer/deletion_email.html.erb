@@ -1,0 +1,28 @@
+<p>予約を1件削除しました</p>
+
+<p>削除理由：<%= @reason %></p>
+
+<p>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━<br>
+【予約内容】<br>
+■<%= @menu.department %>外来<br>
+■予約日時：<%= I18n.l @menu.start_at, format: :full_date %><br>
+■氏名：<%= @appointment.full_name %><br>
+■カナ：<%= @appointment.full_kana_name %><br>
+■生年月日：<%= @appointment.birthday %><br>
+■電話番号：<%= @appointment.phone_number %><br>
+■メールアドレス：<%= @appointment.email %><br>
+■診察券番号：<%= @appointment.clinical_number %><br>
+■受診歴：<% if @appointment.is_first_visit then%>なし<% else %>あり<% end %><br>
+■受診理由：<%= @appointment.reason %><br>
+■診察前に伝えておきたいこと：<%= @appointment.free_comment %><br>
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</p>
+    
+<p>管理画面</p>
+<a href="https://kakehashi-appointment.herokuapp.com/admin/dashboard">https://kakehashi-appointment.herokuapp.com/admin/dashboard</a>
+
+<p>かけはし糖尿病・甲状腺クリニック<br>
+〒453-0832<br>
+名古屋市中村区乾出町２丁目３５番地<br>
+052−483−3377<br>
+kakehashi.dm@gmail.com</p>
+<p>※このメールにお心当たりのない方は、 本メールを破棄してください。</p>

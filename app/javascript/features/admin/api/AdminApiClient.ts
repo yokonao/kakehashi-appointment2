@@ -96,10 +96,14 @@ export class AdminApiClient {
     }
   }
 
-  static async deleteAppointment(id: number): Promise<{ message: string }> {
+  static async deleteAppointment(
+    id: number,
+    reason: string
+  ): Promise<{ message: string }> {
     try {
       const res = await client.delete(
-        `/api/admin/appointments/${id.toString()}`
+        `/api/admin/appointments/${id.toString()}`,
+        { data: { reason: reason } }
       );
       const json = JSON.parse(JSON.stringify(res.data));
       if (res.status !== 200) {

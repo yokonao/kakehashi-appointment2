@@ -112,12 +112,13 @@ const Appointments = (props: Props) => {
           if (!selectedAppointmentToDelete) {
             return;
           }
-          AdminApiClient.deleteAppointment(selectedAppointmentToDelete.id).then(
-            (res) => {
-              addInfo(res.message);
-              fetchData();
-            }
-          );
+          AdminApiClient.deleteAppointment(
+            selectedAppointmentToDelete.id,
+            "時間変更のため"
+          ).then((res) => {
+            addInfo(res.message);
+            fetchData();
+          });
           setSelectedAppointmentToDelete(undefined);
         }}
         onCancel={() => {
