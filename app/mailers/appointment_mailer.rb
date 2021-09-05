@@ -11,4 +11,11 @@ class AppointmentMailer < ApplicationMailer
     @menu = @appointment.menu
     mail(to: ENV['DOCTOR_ADDRESS'], subject: 'WEB予約が一件入りました')
   end
+
+  def deletion_email
+    @appointment = params[:appointment]
+    @menu = @appointment.menu
+    @reason = params[:reason]
+    mail(to: ENV['DOCTOR_ADDRESS'], subject: 'WEB予約を一件削除しました')
+  end
 end

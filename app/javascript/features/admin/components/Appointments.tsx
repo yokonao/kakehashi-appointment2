@@ -108,16 +108,17 @@ const Appointments = (props: Props) => {
       />
       <DeleteAppointmentConfirmationDialog
         appointment={selectedAppointmentToDelete}
-        onOk={() => {
+        onOk={(reason: string) => {
           if (!selectedAppointmentToDelete) {
             return;
           }
-          AdminApiClient.deleteAppointment(selectedAppointmentToDelete.id).then(
-            (res) => {
-              addInfo(res.message);
-              fetchData();
-            }
-          );
+          AdminApiClient.deleteAppointment(
+            selectedAppointmentToDelete.id,
+            reason
+          ).then((res) => {
+            addInfo(res.message);
+            fetchData();
+          });
           setSelectedAppointmentToDelete(undefined);
         }}
         onCancel={() => {

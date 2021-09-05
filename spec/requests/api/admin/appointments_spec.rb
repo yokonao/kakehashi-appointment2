@@ -44,13 +44,14 @@ RSpec.describe 'Api::Admin::Appointments', type: :request do
     let!(:appointment1) { create(:appointment, menu_id: menu1.id) }
     let!(:appointment2) { create(:appointment, menu_id: menu2.id) }
     subject do
-      delete api_admin_appointment_destroy_path(id), as: :json
+      delete api_admin_appointment_destroy_path(id), as: :json, params: { reason: reason }
       response
     end
     let(:json) { JSON.parse(response.body) }
 
     context 'when not logged in' do
       let(:id) { appointment1.id }
+      let(:reason) { '時間変更のため' }
       it 'returns 401' do
         expect(subject).to have_http_status(:unauthorized)
       end
@@ -58,6 +59,7 @@ RSpec.describe 'Api::Admin::Appointments', type: :request do
 
     context 'when logged in' do
       let(:id) { appointment1.id }
+      let(:reason) { '時間変更のため' }
       before do
         sign_in administrator
       end
@@ -68,8 +70,18 @@ RSpec.describe 'Api::Admin::Appointments', type: :request do
 
       context 'when specfied id does not exist' do
         let(:id) { -1 }
+        let(:reason) { '時間変更のため' }
         it 'return 400' do
           expect(subject).to have_http_status(:bad_request)
+        end
+      end
+
+      context 'when not specified a reason for deletion' do
+        let(:id) { appointment1.id }
+        let(:reason) { nil }
+        it 'return 400' do
+          expect(subject).to have_http_status(:bad_request)
+          expect(json['message']).to eq '削除理由を入力してください'
         end
       end
     end
