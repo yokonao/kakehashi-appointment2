@@ -7,6 +7,11 @@ class Api::Admin::AppointmentsController < ApplicationController
   end
 
   def destroy
+    reason = params.permit(:reason)[:reason]
+    unless reason
+      render json: { "message": '削除理由を入力してください' }, status: :bad_request
+      return
+    end
     id = params.permit(:id)[:id]
     appointment = Appointment.find(id)
     appointment.destroy
