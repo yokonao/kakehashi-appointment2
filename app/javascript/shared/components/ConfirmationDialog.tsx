@@ -5,7 +5,6 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  Typography,
 } from "@material-ui/core";
 type Props = {
   title: string;
@@ -16,6 +15,7 @@ type Props = {
   okButtonText: string;
   cancelButtonText: string;
   children?: React.ReactNode;
+  disableOkButton?: boolean;
 };
 
 const ConfirmationDialog = (props: Props) => {
@@ -27,7 +27,11 @@ const ConfirmationDialog = (props: Props) => {
         <Button onClick={props.onCancel} color="default">
           {props.cancelButtonText}
         </Button>
-        <Button onClick={props.onOk} color={props.okButtonColor}>
+        <Button
+          onClick={props.onOk}
+          color={props.okButtonColor}
+          disabled={props.disableOkButton}
+        >
           {props.okButtonText}
         </Button>
       </DialogActions>

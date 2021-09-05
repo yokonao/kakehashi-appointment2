@@ -108,13 +108,13 @@ const Appointments = (props: Props) => {
       />
       <DeleteAppointmentConfirmationDialog
         appointment={selectedAppointmentToDelete}
-        onOk={() => {
+        onOk={(reason: string) => {
           if (!selectedAppointmentToDelete) {
             return;
           }
           AdminApiClient.deleteAppointment(
             selectedAppointmentToDelete.id,
-            "時間変更のため"
+            reason
           ).then((res) => {
             addInfo(res.message);
             fetchData();
