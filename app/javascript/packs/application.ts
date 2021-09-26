@@ -6,6 +6,7 @@
 import Rails from "@rails/ujs"
 import * as ActiveStorage from "@rails/activestorage"
 import '../images/kakehashi-dm-logo.svg'
+import "packs/application.css";
 
 Rails.start()
 ActiveStorage.start()
