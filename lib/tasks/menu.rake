@@ -3,7 +3,7 @@
 namespace :menu do
   desc 'execute daily for creating and deleting menus'
   task daily: :environment do
-    Rake::Task['menu:prepare'].invoke(30, 30)
+    Rake::Task['menu:prepare'].invoke(60, 60)
     Rake::Task['menu:purge'].invoke
   end
 
