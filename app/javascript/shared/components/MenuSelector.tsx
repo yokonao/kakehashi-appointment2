@@ -3,6 +3,7 @@ import { addDays, format, subDays } from "date-fns";
 import * as React from "react";
 import useFormElementState from "../../features/form/hooks/useFormElementState";
 import { MenuSerializer } from "../../serializers/MenuSerializer";
+import { MAX_NUMBER_OF_DAYS_RESERVABLE } from "../const";
 import CheckMark from "./CheckMark";
 import CustomTextField from "./CustomTextField";
 import ErrorMessages from "./ErrorMessages";
@@ -23,7 +24,7 @@ const MenuSelector = React.memo((props: Props) => {
   const tomorrow = React.useMemo(() => addDays(new Date(), 1), []);
   const [baseDate, setBaseDate] = React.useState<Date>(tomorrow);
   const minDate = React.useMemo(() => tomorrow, [tomorrow]);
-  const maxDate = React.useMemo(() => addDays(tomorrow, 14), [tomorrow]); // 予約を取れるのは2週間先まで
+  const maxDate = React.useMemo(() => addDays(tomorrow, MAX_NUMBER_OF_DAYS_RESERVABLE), [tomorrow]); // 予約を取れるのは4週間先まで
   const daysPerPage = React.useMemo(() => (isMobile ? 7 : 14), [isMobile]);
   const enabledPrevButton = React.useMemo(
     () => baseDate.getTime() > minDate.getTime(),

@@ -30,10 +30,11 @@ export async function getReservableMenus(): Promise<{
   error: string;
 }> {
   try {
+    const tomorrow = addDays(startOfDay(new Date()), 1);
     const params = {
-      min_date: format(addDays(startOfDay(new Date()), 1), "yyyy-MM-dd"),
+      min_date: format(tomorrow, "yyyy-MM-dd"),
       max_date: format(
-        addDays(startOfDay(new Date()), MAX_NUMBER_OF_DAYS_RESERVABLE),
+        addDays(tomorrow, MAX_NUMBER_OF_DAYS_RESERVABLE),
         "yyyy-MM-dd"
       ),
     };
