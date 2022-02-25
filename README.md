@@ -1,6 +1,11 @@
 # kakehashi-appointment2
 予約システム
 
+## デプロイ
+```
+git push heroku main
+```
+
 ## Tasks
 一日に一度実行すべきタスク
 ```
