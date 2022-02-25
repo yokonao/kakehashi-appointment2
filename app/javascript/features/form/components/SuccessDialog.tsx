@@ -4,7 +4,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogActions,
-  Button
+  Button,
 } from "@material-ui/core";
 import React from "react";
 
@@ -14,8 +14,7 @@ type OpenDialog = {
 };
 
 const SuccessDialog = (props: OpenDialog) => {
-  const isOpen = props.isOpen;
-  const onClose = props.onClose;
+  const { isOpen, onClose } = props;
   return (
     <Dialog open={isOpen}>
       <DialogTitle>予約が成立しました</DialogTitle>
@@ -25,9 +24,11 @@ const SuccessDialog = (props: OpenDialog) => {
           ご入力いただいたメールアドレスに確認メールを送付しています。
         </DialogContentText>
         <DialogContentText>
-          メールが届かない場合はお手数ですが電話にてお問い合わせください。
-          当日のご来院をお待ちしています。
+          メールが届かない場合、迷惑メールに振り分けられている可能性があります。
+          恐れ入りますが迷惑メールフォルダや設定をご確認下さい。
+          それでも当クリニックからのメールが確認できない場合は、お電話にてお問い合わせください。
         </DialogContentText>
+        <DialogContentText>当日のご来院をお待ちしています。</DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button
