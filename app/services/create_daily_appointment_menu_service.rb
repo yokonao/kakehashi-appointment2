@@ -11,7 +11,7 @@ class CreateDailyAppointmentMenuService
 
   def execute
     create_reservable_start_time_array.map do |stamp|
-      Menu.create(department: @date.wday == 4 ? '漢方' : '内科', start_at: Time.at(stamp))
+      Menu.create(department: '内科', start_at: Time.at(stamp))
     end
   end
 
@@ -19,12 +19,10 @@ class CreateDailyAppointmentMenuService
 
   def create_reservable_start_time_array
     case @date.wday
-    when 0
+    when 0, 4
       []
     when 1, 2, 3, 5
       create_time_every(opening_time, morning_closing_time) + create_time_every(afternoon_opening_time, closing_time)
-    when 4
-      create_time_every(opening_time, thursday_closing_time)
     when 6
       create_time_every(opening_time, saturday_morning_closing_time)
     end
