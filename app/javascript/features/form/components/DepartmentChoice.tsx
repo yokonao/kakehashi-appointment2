@@ -56,12 +56,20 @@ const DepartmentChoice = () => {
                 fullWidth
                 size="large"
                 onClick={() => history.push("/form/kampo")}
+                disabled
               >
                 漢方
               </Button>
-              <span style={{ fontSize: "14px" }}>（木曜午前のみ診療）</span>
+              {/* <span style={{ fontSize: "14px" }}>（木曜午前のみ診療）</span> */}
             </div>
           </Grid>
+        </Grid>
+        <Grid style={{ paddingBottom: "2rem" }}>
+          <Typography>* 漢方のWEB予約は現在休止中です</Typography>
+          <Typography>
+            * <b>発熱や風邪症状</b>がある方、および<b>コロナ検査</b>
+            を希望される方は直接お電話ください
+          </Typography>
         </Grid>
       </Container>
       <div style={{ height: "400px" }} />

@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import InternalMedicineFormContainer from "./components/InternalMedicineFormContainer";
-import KampoFormContainer from "./components/KampoFormContainer";
 import DepartmentChoice from "./components/DepartmentChoice";
 
 const Routes = () => {
@@ -13,9 +12,9 @@ const Routes = () => {
       <Route path="/form/internal_medicine" exact>
         <InternalMedicineFormContainer />
       </Route>
-      <Route path="/form/kampo" exact>
+      {/* <Route path="/form/kampo" exact>
         <KampoFormContainer />
-      </Route>
+      </Route> */}
       <Redirect to="/" />
     </Switch>
   );
