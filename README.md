@@ -43,6 +43,19 @@ bin/rails s
 bin/webpack-dev-server
 ```
 
+## Testing
+
+```
+# Run all tests
+bundle ex rspec spec
+
+# Run unit tests
+bundle ex rspec spec --exclude-pattern 'spec/system/**/*_spec.rb'
+
+# Run system tests (using selenium)
+bundle ex rspec spec/system
+```
+
 ## デプロイ
 ```
 git push heroku main
