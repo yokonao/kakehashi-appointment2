@@ -23,12 +23,25 @@
 - Sendgrid
   - メール送信
 
-## Renewal　Design
+## 開発環境構築
 
-- プラットフォーム
-- フロントエンド
-- バックエンド
-- データベース
+```
+asdf install
+
+bundle install
+yarn install
+```
+
+setup database
+```
+bin/rails db:setup db:migrate
+```
+
+launch servers
+```
+bin/rails s
+bin/webpack-dev-server
+```
 
 ## デプロイ
 ```
@@ -43,8 +56,8 @@ bin/rake menu:daily # 不要な予約枠を削除しつつ30日後の予約枠�
 
 予約枠を作成
 ```
-bin/rake menu:prepare[1,30] # 一ヶ月間の予約枠
-bin/rake menu:prepare[30,30] # 30日後の予約枠
+bin/rake 'menu:prepare[1,30]' # 一ヶ月間の予約枠
+bin/rake 'menu:prepare[30,30]' # 30日後の予約枠
 ```
 
 当日以前前且つ予約が取られていない枠を削除する
