@@ -46,6 +46,17 @@ bin/rails s
 bin/webpack-dev-server
 ```
 
+### Install pg gem (Mac)
+
+pg gem が入らない時は --with-pg-config オプションを渡す
+
+```
+brew install libpq
+gem install pg -v '1.2.3' -- --with-pg-config=$(brew --prefix libpq)/bin/pg_config
+```
+
+NOTE: -v オプションは現在の Gemfile.lock に合わせて変えてください
+
 ## Testing
 
 ```
