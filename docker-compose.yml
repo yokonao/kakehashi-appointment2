@@ -10,4 +10,12 @@ services:
       POSTGRES_DB: postgresql_development
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
-      - ./tmp/pgdata:/var/lib/postgresql/data/pgdata
+      - type: volume
+        source: kakehashi-data
+        target: /var/lib/postgresql/data
+        volume:
+          nocopy: true
+
+volumes:
+  kakehashi-data:
+    driver: local
