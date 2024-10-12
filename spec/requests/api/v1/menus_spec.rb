@@ -17,7 +17,7 @@ RSpec.describe 'Api::V1::Menus', type: :request do
       let(:params) { nil }
       it 'returns all menu' do
         expect(subject).to have_http_status(:ok)
-        expect(json.length).to eq 62
+        expect(json.length).to eq 58
       end
     end
     context 'when the min and maxdate is given' do

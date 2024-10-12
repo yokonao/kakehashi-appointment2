@@ -29,7 +29,7 @@ RSpec.describe 'Api::Admin::Menus', type: :request do
         let(:params) { nil }
         it 'returns all menu' do
           expect(subject).to have_http_status(:ok)
-          expect(json.length).to eq 62
+          expect(json.length).to eq 58
         end
       end
 
@@ -44,7 +44,7 @@ RSpec.describe 'Api::Admin::Menus', type: :request do
         it 'contains appointment id' do
           expect(subject).to have_http_status(:ok)
           ## 2021年9月11日は土曜日で午前診療で6枠
-          expect(json.length).to eq 62
+          expect(json.length).to eq 58
           expect(json[0]['appointment_id']).not_to eq nil
         end
       end
@@ -173,13 +173,13 @@ RSpec.describe 'Api::Admin::Menus', type: :request do
       context 'when specifing the day as min date and max date' do
         let(:params) do
           {
-            min_date: '2021-09-09',
-            max_date: '2021-09-09'
+            min_date: '2021-09-08',
+            max_date: '2021-09-08'
           }
         end
         it 'deletes all menus on the day' do
-          # 2021年9月9日は木曜日で午前漢方診療で4枠
-          expect { subject }.to change { Menu.count }.by(-4)
+          # 2021年9月9日は水曜日で午前午後合わせて13枠
+          expect { subject }.to change { Menu.count }.by(-13)
           expect(subject).to have_http_status(:ok)
         end
       end

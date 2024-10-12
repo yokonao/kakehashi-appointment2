@@ -29,11 +29,11 @@ RSpec.describe CreateDailyAppointmentMenuService, type: :helper do
       expect(Menu.first.department).to eq '内科'
     end
 
-    it 'generate kampo physician menus on Thursday' do
+    it 'does not generate kampo physician menus on Thursday' do
       service = CreateDailyAppointmentMenuService.new('2021-07-29')
       service.execute
-      expect(Menu.count).to eq 4
-      expect(Menu.first.department).to eq '漢方'
+      expect(Menu.count).to eq 0
+      # expect(Menu.first.department).to eq '漢方'
     end
 
     it 'generate some physician menus on Friday' do
