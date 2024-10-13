@@ -11,7 +11,7 @@ gem 'devise'
 gem 'jbuilder', '~> 2.7'
 gem 'jsbundling-rails' # asset pipeline
 gem 'pg', '1.5.8'
-gem 'puma', '~> 5.0'
+gem 'puma', '< 7'
 gem 'rails', '7.2.1'
 gem 'rails-i18n'
 gem "sprockets-rails" # asset pipeline
