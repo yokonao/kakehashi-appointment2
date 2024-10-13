@@ -145,6 +145,8 @@ https://dashboard.heroku.com/apps/kakehashi-appointment/resources
   - メール配信の送信主となるメールアドレス
 - DATABASE_URL
   - データベースの接続先
+- DEVELOPER_ADDRESS
+  - 開発者向けメールの配信先
 - DOCTOR_ADDRESS
   - 管理者向けメールの配信先
 - LANG
