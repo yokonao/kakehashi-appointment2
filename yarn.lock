@@ -1646,22 +1646,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rails/activestorage@npm:^6.0.0":
-  version: 6.1.4
-  resolution: "@rails/activestorage@npm:6.1.4"
-  dependencies:
-    spark-md5: "npm:^3.0.0"
-  checksum: 10c0/ff8b43890361e8cdb2577da60962a1ef1c6f537f6f0b252c651010e90ffe51cf28da6fc01a56d3e0caf9cdee9e39fef460331b3eddcb58b986f1bb7fe4a2c06c
-  languageName: node
-  linkType: hard
-
-"@rails/ujs@npm:^6.0.0":
-  version: 6.1.4
-  resolution: "@rails/ujs@npm:6.1.4"
-  checksum: 10c0/d6c1e7d0e49b4bf238a443745cf665a212169d138359b2c13ab005f92bf000ada2de738fb9cfa61d28a0939ca41b102412aeda6ba15405d35eaca41f9df181ba
-  languageName: node
-  linkType: hard
-
 "@types/axios@npm:^0.14.0":
   version: 0.14.0
   resolution: "@types/axios@npm:0.14.0"
@@ -3518,8 +3502,6 @@ __metadata:
     "@material-ui/data-grid": "npm:^4.0.0-alpha.37"
     "@material-ui/icons": "npm:^4.11.2"
     "@material-ui/pickers": "npm:^3.3.10"
-    "@rails/activestorage": "npm:^6.0.0"
-    "@rails/ujs": "npm:^6.0.0"
     "@types/axios": "npm:^0.14.0"
     "@types/react": "npm:^17.0.15"
     "@types/react-dom": "npm:^17.0.9"
@@ -4581,13 +4563,6 @@ __metadata:
   version: 0.6.1
   resolution: "source-map@npm:0.6.1"
   checksum: 10c0/ab55398007c5e5532957cb0beee2368529618ac0ab372d789806f5718123cc4367d57de3904b4e6a4170eb5a0b0f41373066d02ca0735a0c4d75c7d328d3e011
-  languageName: node
-  linkType: hard
-
-"spark-md5@npm:^3.0.0":
-  version: 3.0.1
-  resolution: "spark-md5@npm:3.0.1"
-  checksum: 10c0/d7cacbb304dc1896d8eba383ee21fe7951ff8497243d19c72e4b43496c3a05a3afa4a700d61cf4c2ff1a3b6dbca32a00c870c94833a4ff8a1cb02d96e1fb95cb
   languageName: node
   linkType: hard
 
