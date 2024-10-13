@@ -60,14 +60,15 @@ NOTE: -v オプションは現在の Gemfile.lock に合わせて変えてくだ
 ## Testing
 
 ```
-# Run all tests
-bundle ex rspec spec
-
 # Run unit tests
-bundle ex rspec spec --exclude-pattern 'spec/system/**/*_spec.rb'
+make test
 
 # Run system tests (using selenium)
-bundle ex rspec spec/system
+make test.system
+
+# Run all tests
+# If this passes, you can deploy
+make test.acceptance
 ```
 
 ## デプロイ
