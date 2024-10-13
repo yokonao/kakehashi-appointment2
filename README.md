@@ -39,6 +39,12 @@ setup database
 bin/rails db:setup db:migrate
 ```
 
+setup enviroment variables
+```
+export CUSTOM_DOMAIN_ADDRESS='...' # your mail address
+export DOCTOR_ADDRESS='...' # your mail address
+```
+
 launch servers
 
 ```
