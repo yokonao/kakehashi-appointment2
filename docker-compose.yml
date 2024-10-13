@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   db:
-    image: postgres:13.3
+    image: postgres:16.4
     ports:
       - 5432:5432
     environment:
@@ -11,11 +11,11 @@ services:
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - type: volume
-        source: kakehashi-data
+        source: kakehashi-data-2
         target: /var/lib/postgresql/data
         volume:
           nocopy: true
 
 volumes:
-  kakehashi-data:
+  kakehashi-data-2:
     driver: local
