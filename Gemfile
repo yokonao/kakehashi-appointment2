@@ -12,7 +12,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'jsbundling-rails' # asset pipeline
 gem 'pg', '1.5.8'
 gem 'puma', '~> 5.0'
-gem 'rails', '7.1.3.4'
+gem 'rails', '7.2.1'
 gem 'rails-i18n'
 gem "sprockets-rails" # asset pipeline
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
