@@ -30,6 +30,8 @@
 asdf install
 
 bundle install
+corepack enable
+asdf reshim nodejs
 yarn install
 ```
 
