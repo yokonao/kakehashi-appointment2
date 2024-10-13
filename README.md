@@ -40,6 +40,7 @@ bin/rails db:setup db:migrate
 ```
 
 setup enviroment variables
+
 ```
 export CUSTOM_DOMAIN_ADDRESS='...' # your mail address
 export DOCTOR_ADDRESS='...' # your mail address
@@ -117,4 +118,61 @@ irb(main):001:0> Administrator.create!(email: "your-address@example.com", passwo
 ```
 SECRET_KEY_BASE=hogehoge RAILS_ENV=production bin/rake assets:precompile
 DATABASE_URL=postgresql://postgresql:postgresql@localhost:5432/kakehashi-appointment2_development RAILS_SERVE_STATIC_FILES=1 SECRET_KEY_BASE=hogehoge RAILS_ENV=production bin/rails s -p 3200
+```
+
+## Heroku
+
+production 環境のアプリケーションは Heroku でホスティングしています。
+
+### Add-on
+
+https://dashboard.heroku.com/apps/kakehashi-appointment/resources
+
+以下のアドオンを利用しています。
+
+- [Heroku Posgres](https://data.heroku.com/datastores/bd2b8c3a-2a88-462b-a192-48e453359724)
+  - メインデータストア
+- [Heroku Schedule](https://dashboard.heroku.com/apps/kakehashi-appointment/scheduler)
+  - 定期的な予約枠の作成・削除
+- Twilio Sendgrid
+  - 何に使っているのか不明、要らないかも
+
+### Config Vars
+
+[Heroku Dashboard](https://dashboard.heroku.com/apps/kakehashi-appointment/settings) からアプリケーションの環境変数を設定できる。
+
+- CUSTOM_DOMAIN_ADDRESS
+  - メール配信の送信主となるメールアドレス
+- DATABASE_URL
+  - データベースの接続先
+- DOCTOR_ADDRESS
+  - 管理者向けメールの配信先
+- LANG
+  - en_US.UTF-8 になっているが理由は不明、日本語でもいいかも
+- RACK_ENV
+- RAILS_ENV
+- RAILS_LOG_TO_STDOUT
+- RAILS_SERVE_STATIC_FILES
+  - これは消せる
+- SECRET_KEY_BASE
+  - rails credeintails の encrpyt / decrypt に利用する固定値
+  - 基本的に変えてはいけない
+- SENDGRID_API_KEY
+- SENDGRID_PASSWORD
+  - なぜ設定されているのか不明、実は不要かも
+- SENDGRID_USERNAME
+  - なぜ設定されているのか不明、実は不要かも
+- TZ
+  - Asia/Tokyo
+
+### Connect console
+
+```
+heroku run -a kakehashi-appointment bin/rails console
+```
+
+### Tail logs
+
+```
+heroku logs --tail -a kakehashi-appointment
 ```
