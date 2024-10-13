@@ -9,8 +9,6 @@ gem 'rails', '~> 6.1.4'
 gem 'pg', '~> 1.1'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
-# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker', '~> 5.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
 # Use Active Model has_secure_password
@@ -25,6 +23,10 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'devise'
 
 gem 'net-smtp'
+gem 'net-pop'
+gem 'net-imap'
+
+gem 'jsbundling-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -54,6 +56,7 @@ gem 'rails-i18n'
 gem 'active_model_serializers'
 
 group :development, :test do
+  gem 'debug'
   gem 'factory_bot_rails'
   gem 'forgery_ja'
   gem 'rexml'

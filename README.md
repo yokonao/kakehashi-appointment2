@@ -43,7 +43,7 @@ launch servers
 
 ```
 bin/rails s
-bin/webpack-dev-server
+yarn watch --build
 ```
 
 ### Install pg gem (Mac)
@@ -95,4 +95,19 @@ bin/rake 'menu:prepare[30,30]' # 30日後の予約枠
 
 ```
 bin/rake menu:purge
+```
+
+## 管理者ユーザーの作成
+
+rails console にて Administrator のレコードを作成する。
+
+```ruby
+irb(main):001:0> Administrator.create!(email: "your-address@example.com", password: 'testtest')
+```
+
+## production 動作確認
+
+```
+SECRET_KEY_BASE=hogehoge RAILS_ENV=production bin/rake assets:precompile
+DATABASE_URL=postgresql://postgresql:postgresql@localhost:5432/kakehashi-appointment2_development RAILS_SERVE_STATIC_FILES=1 SECRET_KEY_BASE=hogehoge RAILS_ENV=production bin/rails s -p 3200
 ```
