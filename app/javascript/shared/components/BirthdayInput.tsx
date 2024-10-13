@@ -7,18 +7,17 @@ import CustomTextField from "./CustomTextField";
 import ErrorMessages from "./ErrorMessages";
 
 type Props = {
-  value: Date;
-  onChanged: (date: Date) => void;
+  value: string;
+  onChanged: (date: string) => void;
   externalErrors?: string[];
 };
 
 const BirthdayInput = (props: Props) => {
-  const { onChanged, externalErrors } = props;
-  const [value, setValue] = React.useState("");
+  const { value, onChanged, externalErrors } = props;
   const { state, verify, addErrorMessage, setExternalErrors } =
     useFormElementState();
   const validate = React.useCallback(() => {
-    if (value.length == 0) {
+    if (!value || value.length == 0) {
       addErrorMessage("生年月日を入力してください");
       return false;
     }
@@ -46,10 +45,10 @@ const BirthdayInput = (props: Props) => {
         id="birthday"
         value={value}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-          setValue(e.target.value);
+          onChanged(e.target.value);
         }}
         onBlur={() => {
-          if (validate()) onChanged(parse(value, "yyyyMMdd", new Date()));
+          validate();
         }}
         type="tel"
         placeholder="19850603"

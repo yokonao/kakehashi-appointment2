@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format, parse } from "date-fns";
 import { KarteInformation } from "../../../domain/KarteInformation";
 import { MenuSerializer } from "../../../serializers/MenuSerializer";
 import { CreateAppointmentParameters } from "../../../shared/api/createAppointment";
@@ -7,7 +7,7 @@ export type FormValue = {
   fullName: string;
   fullKanaName: string;
   menu?: MenuSerializer;
-  birthday?: Date;
+  birthday?: string;
   phoneNumber: string;
   email: string;
   karteInformation: KarteInformation;
@@ -40,10 +40,14 @@ export function createPostParameters(
   if (!value.birthday || !value.menu) {
     throw new Error("フォームの状態が不完全です");
   }
+  const birthday = format(
+    parse(value.birthday, "yyyyMMdd", new Date()),
+    "yyyy-MM-dd"
+  );
   return {
     full_name: value.fullName,
     full_kana_name: value.fullKanaName,
-    birthday: format(value.birthday, "yyyy-MM-dd"),
+    birthday: birthday,
     is_first_visit: value.karteInformation.isFirstVisit.toString(),
     clinical_number: value.karteInformation.isFirstVisit
       ? ""

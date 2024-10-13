@@ -122,11 +122,11 @@ const InternalMedicineForm = () => {
               </Field>
               <InstructionText text="3. 生年月日・電話番号・メールアドレス" />
               <Field name="birthday">
-                {({ field }: FieldProps<Date>) => {
+                {({ field }: FieldProps<string>) => {
                   return (
                     <BirthdayInput
                       value={field.value}
-                      onChanged={(date: Date) => {
+                      onChanged={(date: string) => {
                         setFieldValue(field.name, date);
                       }}
                       externalErrors={
