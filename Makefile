@@ -7,8 +7,9 @@ test.system:
 	bundle ex rspec spec/system
 
 test.acceptance:
-	bundle ex rspec spec
-	bin/rake assets:precompile
+	bin/rake assets:clean assets:clobber assets:precompile
+	$(MAKE) test
+	$(MAKE) test.system
 
 # Deploy
 .PHONY: deploy
