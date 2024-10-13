@@ -1,5 +1,5 @@
 // https://stackoverflow.com/questions/23892547/what-is-the-best-way-to-trigger-change-or-input-event-in-react-js#46012210
-function setValue(element, value) {
+const setValue = (element, value) => {
   if (element.tagName === "INPUT") {
     const nativeSetter = Object.getOwnPropertyDescriptor(
       window.HTMLInputElement.prototype,
@@ -15,9 +15,9 @@ function setValue(element, value) {
     nativeSetter.call(element, value);
     element.dispatchEvent(new Event("input", { bubbles: true }));
   }
-}
+};
 
-export default main = () => {
+const main = () => {
   const menuButtons = Array.from(
     document.querySelector(".MuiTable-root").querySelectorAll("button")
   );
@@ -32,7 +32,7 @@ export default main = () => {
     ["full_kana_name", "カケハシ　タロウ"],
     ["birthday", "19800101"],
     ["phone-number", "0000000000"],
-    ["email", "yokotukanao@gamil.com"],
+    ["email", "yokotukanao@gmail.com"],
     ["free-comment", "テストだよ"],
   ];
 
@@ -49,3 +49,5 @@ export default main = () => {
     }
   });
 };
+
+main();
