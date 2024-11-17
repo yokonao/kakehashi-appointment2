@@ -1,8 +1,7 @@
 import { Button, ThemeProvider, Typography } from "@material-ui/core";
-import { createBrowserHistory } from "history";
 import React from "react";
 import ReactDOM from "react-dom";
-import { Router } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import AdminHeader from "../features/admin/components/AdminHeader";
 import { adminTheme } from "../features/admin/styles/adminTheme";
 import { useAdminStyles } from "../features/admin/styles/useAdminStyles";
@@ -13,12 +12,11 @@ import Routes from "../features/admin/Routes";
 import { AdminContextProvider } from "../features/admin/hooks/useAdminContext";
 import LoadingIndicator from "../features/admin/components/LoadingIndicator";
 
-const history = createBrowserHistory();
 const Admin = (): JSX.Element => {
   const classes = useAdminStyles();
   return (
     <div className={classes.root}>
-      <Router history={history}>
+      <BrowserRouter>
         <ThemeProvider theme={adminTheme}>
           <NotificationContextProvider>
             <AdminContextProvider>
@@ -31,7 +29,7 @@ const Admin = (): JSX.Element => {
             </AdminContextProvider>
           </NotificationContextProvider>
         </ThemeProvider>
-      </Router>
+      </BrowserRouter>
     </div>
   );
 };

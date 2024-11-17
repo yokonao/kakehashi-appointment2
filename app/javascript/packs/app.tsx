@@ -1,8 +1,7 @@
 import { createTheme, ThemeProvider } from "@material-ui/core";
-import { createBrowserHistory } from "history";
 import React from "react";
 import ReactDOM from "react-dom";
-import { Router } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import Routes from "../features/form/Routes";
 import { MenusContextProvider } from "../features/form/hooks/useMenusContext";
 import { NotificationContextProvider } from "../features/form/hooks/useNotification";
@@ -17,12 +16,11 @@ const theme = createTheme({
   },
 });
 
-const history = createBrowserHistory();
 const App = (): JSX.Element => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Router history={history}>
+      <BrowserRouter>
         <ThemeProvider theme={theme}>
           <NotificationContextProvider>
             <MenusContextProvider>
@@ -32,7 +30,7 @@ const App = (): JSX.Element => {
             </MenusContextProvider>
           </NotificationContextProvider>
         </ThemeProvider>
-      </Router>
+      </BrowserRouter>
     </div>
   );
 };

@@ -1,19 +1,15 @@
 import React from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Route, Routes as ReactRouterRoutes, Navigate } from "react-router-dom";
 import AppointmentsContainer from "./components/AppointmentsContainer";
 import MenuContainer from "./components/MenuContainer";
 
 const Routes = () => {
   return (
-    <Switch>
-      <Route path="/admin/menus">
-        <MenuContainer />
-      </Route>
-      <Route path="/admin/appointments">
-        <AppointmentsContainer />
-      </Route>
-      <Route render={() => <Redirect to="/admin/menus" />} />
-    </Switch>
+    <ReactRouterRoutes>
+      <Route path="/admin/menus" element={<MenuContainer />} />
+      <Route path="/admin/appointments" element={<AppointmentsContainer />} />
+      <Route element={<Navigate to="/admin/menus" replace />} />
+    </ReactRouterRoutes>
   );
 };
 

@@ -1,9 +1,9 @@
 import { Box, Button, Container, Grid, Typography } from "@material-ui/core";
 import * as React from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const DepartmentChoice = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   return (
     <>
       <Container maxWidth="xs" style={{ backgroundColor: "white" }}>
@@ -34,7 +34,7 @@ const DepartmentChoice = () => {
                 variant="outlined"
                 fullWidth
                 size="large"
-                onClick={() => history.push("/form/internal_medicine")}
+                onClick={() => navigate("/form/internal_medicine")}
               >
                 内科
               </Button>
@@ -55,7 +55,7 @@ const DepartmentChoice = () => {
                 variant="outlined"
                 fullWidth
                 size="large"
-                onClick={() => history.push("/form/kampo")}
+                onClick={() => navigate("/form/kampo")}
                 disabled
               >
                 漢方
