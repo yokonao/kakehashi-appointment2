@@ -52,7 +52,7 @@ launch servers
 
 ```
 bin/rails s
-yarn watch --build
+yarn build --watch
 ```
 
 ### Install pg gem (Mac)
