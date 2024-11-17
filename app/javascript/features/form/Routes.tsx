@@ -15,7 +15,7 @@ const Routes = () => {
       {/* <Route path="/form/kampo" exact>
         <KampoFormContainer />
       </Route> */}
-      <Redirect to="/" />
+      <Route render={() => <Redirect to="/" />} />
     </Switch>
   );
 };

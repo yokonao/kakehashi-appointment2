@@ -12,7 +12,7 @@ const Routes = () => {
       <Route path="/admin/appointments">
         <AppointmentsContainer />
       </Route>
-      <Redirect to="/admin/menus" />
+      <Route render={() => <Redirect to="/admin/menus" />} />
     </Switch>
   );
 };
