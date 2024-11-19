@@ -79,7 +79,6 @@ export const AdminContextProvider: React.FC<Props> = ({ children }) => {
   React.useEffect(() => {
     fetchData();
   }, []);
-  console.log(value);
   return (
     <AdminContext.Provider value={value}>{children}</AdminContext.Provider>
   );

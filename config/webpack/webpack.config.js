@@ -6,7 +6,6 @@ module.exports = {
   devtool: "source-map",
   entry: {
     app: "./app/javascript/packs/app.tsx",
-    login: "./app/javascript/packs/login.tsx",
     admin: "./app/javascript/packs/admin.tsx",
   },
   output: {

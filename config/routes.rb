@@ -14,7 +14,6 @@ Rails.application.routes.draw do
       delete 'appointments/:id', to: 'appointments#destroy', as: 'appointment_destroy'
     end
   end
-  get '/admin/login', to: 'admin#login'
   get '/admin/*admin_path', to: 'admin#show'
   get '/*react_path', to: 'react#show'
  
