@@ -1,4 +1,4 @@
-import { createTheme } from "@material-ui/core";
+import { createTheme } from "@mui/material";
 
 export const adminTheme = createTheme({
   palette: {
@@ -7,7 +7,7 @@ export const adminTheme = createTheme({
       light: "#d1bf93",
     },
     secondary: {
-      main: "#dc143c"
-    }
+      main: "#dc143c",
+    },
   },
 });

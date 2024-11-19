@@ -1,4 +1,4 @@
-import { Icon, InputAdornment } from "@material-ui/core";
+import { Icon, InputAdornment } from "@mui/material";
 import * as React from "react";
 
 const CheckMark = () => (

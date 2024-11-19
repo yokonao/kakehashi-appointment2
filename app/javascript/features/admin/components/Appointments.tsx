@@ -1,8 +1,8 @@
-import { Box, Button } from "@material-ui/core";
+import { Box, Button } from "@mui/material";
 import * as React from "react";
 import { AppointmentSerializer } from "../../../serializers/AppointmentSerializer";
 import { MenuAdminSerializer } from "../../../serializers/MenuAdminSerializer";
-import { DataGrid, GridColDef } from "@material-ui/data-grid";
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import AppointmentDetailDialog, {
   castToAppointmentViewModelForce,
 } from "./AppointmentDetailDialog";
@@ -40,7 +40,6 @@ const createColumns: (
     renderCell: (params) => (
       <Button
         variant="contained"
-        color="default"
         onClick={() => {
           const id = parseInt(params.id.toString());
           onDetail(id);

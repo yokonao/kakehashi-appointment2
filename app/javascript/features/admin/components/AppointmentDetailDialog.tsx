@@ -5,7 +5,7 @@ import {
   DialogContent,
   DialogTitle,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 import * as React from "react";

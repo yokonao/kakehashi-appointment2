@@ -1,4 +1,4 @@
-import { Box, TextField, Typography } from "@material-ui/core";
+import { Box, TextField, Typography } from "@mui/material";
 import * as React from "react";
 import { AppointmentSerializer } from "../../../serializers/AppointmentSerializer";
 import ConfirmationDialog from "../../../shared/components/ConfirmationDialog";

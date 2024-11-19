@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/material/styles";
 import WeeklyMenu from "./WeeklyMenu";
 import { useAdminContext } from "../hooks/useAdminContext";
 

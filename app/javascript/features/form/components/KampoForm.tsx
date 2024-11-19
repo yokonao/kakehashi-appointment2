@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box, Button, Container, Icon, Typography } from "@material-ui/core";
+import { Box, Button, Container, Icon, Typography } from "@mui/material";
 import { Field, FieldProps, Formik } from "formik";
 import PersonNameField from "../../../shared/components/PersonNameInput";
 import useStyles from "../../../styles/useStyles";

@@ -5,7 +5,7 @@ import {
   Toolbar,
   Typography,
   useMediaQuery,
-} from "@material-ui/core";
+} from "@mui/material";
 import { Logo } from "./Logo";
 
 const Header = () => {

@@ -1,4 +1,4 @@
-import { Backdrop, CircularProgress } from "@material-ui/core";
+import { Backdrop, CircularProgress } from "@mui/material";
 import * as React from "react";
 import { useAdminContext } from "../hooks/useAdminContext";
 import { useAdminStyles } from "../styles/useAdminStyles";

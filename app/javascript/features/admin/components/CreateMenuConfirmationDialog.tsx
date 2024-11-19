@@ -1,4 +1,4 @@
-import { Typography } from "@material-ui/core";
+import { Typography } from "@mui/material";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 import * as React from "react";

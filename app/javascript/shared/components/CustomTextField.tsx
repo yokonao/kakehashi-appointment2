@@ -1,4 +1,4 @@
-import { Grid, TextField, TextFieldProps } from "@material-ui/core";
+import { Grid, TextField, TextFieldProps } from "@mui/material";
 import * as React from "react";
 
 type Props = TextFieldProps;

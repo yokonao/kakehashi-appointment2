@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, Toolbar, Typography } from "@mui/material";
 import * as React from "react";
 import { Logo } from "../../../shared/components/Logo";
 import { useAdminStyles } from "../styles/useAdminStyles";

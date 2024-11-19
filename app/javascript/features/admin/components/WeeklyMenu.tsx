@@ -6,7 +6,7 @@ import {
   IconButton,
   makeStyles,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import { addDays, addWeeks, format, startOfWeek, subWeeks } from "date-fns";
 import { ja } from "date-fns/locale";
 import * as React from "react";

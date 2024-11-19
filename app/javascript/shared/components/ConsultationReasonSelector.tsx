@@ -1,4 +1,4 @@
-import { Box, Checkbox, FormControlLabel, FormGroup } from "@material-ui/core";
+import { Box, Checkbox, FormControlLabel, FormGroup } from "@mui/material";
 import * as React from "react";
 import useFormElementState from "../../features/form/hooks/useFormElementState";
 import ErrorMessages from "./ErrorMessages";

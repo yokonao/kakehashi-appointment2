@@ -8,7 +8,7 @@ import {
   List,
   Typography,
   Icon,
-} from "@material-ui/core";
+} from "@mui/material";
 import client from "../../../shared/api/client";
 import { Link, useLocation } from "react-router-dom";
 

@@ -1,4 +1,4 @@
-import { Box, FormControlLabel, Radio, RadioGroup } from "@material-ui/core";
+import { Box, FormControlLabel, Radio, RadioGroup } from "@mui/material";
 import * as React from "react";
 import { KarteInformation } from "../../domain/KarteInformation";
 import useFormElementState from "../../features/form/hooks/useFormElementState";

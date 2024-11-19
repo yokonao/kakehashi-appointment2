@@ -10,7 +10,7 @@ import {
   TableRow,
   Theme,
   withStyles,
-} from "@material-ui/core";
+} from "@mui/material";
 import { format } from "date-fns";
 import {
   createBusinessTimesEveryThirtyMinutes,

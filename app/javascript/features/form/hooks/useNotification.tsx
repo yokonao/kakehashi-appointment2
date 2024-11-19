@@ -1,4 +1,4 @@
-import { Button, Icon, IconButton, Snackbar } from "@material-ui/core";
+import { Button, Icon, IconButton, Snackbar } from "@mui/material";
 import * as React from "react";
 
 type Notification = {

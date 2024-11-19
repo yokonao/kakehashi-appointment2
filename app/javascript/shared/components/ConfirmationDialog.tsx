@@ -5,7 +5,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-} from "@material-ui/core";
+} from "@mui/material";
 type Props = {
   title: string;
   open: boolean;
@@ -24,7 +24,7 @@ const ConfirmationDialog = (props: Props) => {
       <DialogTitle>{props.title}</DialogTitle>
       <DialogContent>{props.children}</DialogContent>
       <DialogActions>
-        <Button onClick={props.onCancel} color="default">
+        <Button onClick={props.onCancel}>
           {props.cancelButtonText}
         </Button>
         <Button

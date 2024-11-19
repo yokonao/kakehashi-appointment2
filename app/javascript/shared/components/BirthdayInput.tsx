@@ -1,4 +1,4 @@
-import { Box } from "@material-ui/core";
+import { Box } from "@mui/material";
 import { parse } from "date-fns";
 import * as React from "react";
 import useFormElementState from "../../features/form/hooks/useFormElementState";
