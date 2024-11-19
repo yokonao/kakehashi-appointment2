@@ -1,18 +1,21 @@
 import React from "react";
-import { Backdrop, CircularProgress } from "@mui/material";
-import useStyles from "../../../styles/useStyles";
+import { Backdrop, CircularProgress, styled } from "@mui/material";
 
 type PropsLoading = {
   isLoading: boolean;
 };
 
+const StyledBackdrop = styled(Backdrop)(({ theme }) => ({
+  zIndex: theme.zIndex.drawer + 1,
+  color: "#fff",
+}));
+
 const LoadingIndicator = (props: PropsLoading) => {
-  const classes = useStyles();
   const isLoading = props.isLoading;
   return (
-    <Backdrop className={classes.backdrop} open={isLoading}>
+    <StyledBackdrop open={isLoading}>
       <CircularProgress color="inherit" />
-    </Backdrop>
+    </StyledBackdrop>
   );
 };
 

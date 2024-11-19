@@ -1,15 +1,18 @@
-import { Backdrop, CircularProgress } from "@mui/material";
+import { Backdrop, CircularProgress, styled } from "@mui/material";
 import * as React from "react";
 import { useAdminContext } from "../hooks/useAdminContext";
-import { useAdminStyles } from "../styles/useAdminStyles";
+
+const StyledBackdrop = styled(Backdrop)(({ theme }) => ({
+  zIndex: theme.zIndex.drawer + 1,
+  color: "#fff",
+}));
 
 const LoadingIndicator = () => {
-  const classes = useAdminStyles();
   const { isLoading } = useAdminContext();
   return (
-    <Backdrop className={classes.backdrop} open={isLoading}>
+    <StyledBackdrop open={isLoading}>
       <CircularProgress color="inherit" />
-    </Backdrop>
+    </StyledBackdrop>
   );
 };
 

@@ -2,7 +2,6 @@ import * as React from "react";
 import { Box, Button, Container, Icon, Typography } from "@mui/material";
 import { Field, FieldProps, Formik } from "formik";
 import PersonNameField from "../../../shared/components/PersonNameInput";
-import useStyles from "../../../styles/useStyles";
 import PhoneNumberInput from "../../../shared/components/PhoneNumberInput";
 import EmailInput from "../../../shared/components/EmailInput";
 import ConsultationReasonSelector from "../../../shared/components/ConsultationReasonSelector";
@@ -24,13 +23,15 @@ import { useMenusContext } from "../hooks/useMenusContext";
 
 const InternalMedicineForm = () => {
   const { internalMedicineMenus: menus, isLoading } = useMenusContext();
-  const classes = useStyles();
   const { addError, addInfo } = useNotification();
   const [isOpenSuccessDialog, setIsOpenSuccessDialog] = React.useState(false);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   return (
-    <Container className={classes.form} maxWidth="md">
+    <Container
+      maxWidth="md"
+      sx={{ backgroundColor: "#ffffff", borderRadius: 30 }}
+    >
       <Formik
         initialValues={initialValues}
         onSubmit={async (values, { setStatus, resetForm }) => {

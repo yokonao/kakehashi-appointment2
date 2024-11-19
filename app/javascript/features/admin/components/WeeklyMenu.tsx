@@ -1,10 +1,9 @@
 import {
   Box,
   Button,
-  Grid,
   Icon,
   IconButton,
-  makeStyles,
+  styled,
   Typography,
 } from "@mui/material";
 import { addDays, addWeeks, format, startOfWeek, subWeeks } from "date-fns";
@@ -23,33 +22,31 @@ import CreateMenuConfirmationDialog from "./CreateMenuConfirmationDialog";
 import DeleteAllDayMenusConfirmationDialog from "./DeleteAllDayMenusConfirmationDialog";
 import DeleteMenuConfirmationDialog from "./DeleteMenuConfirmationDialog";
 
-const useWeeklyMenuStyles = makeStyles((theme) => ({
-  table: {
-    tableLayout: "fixed",
-    borderSpacing: 0,
-    borderCollapse: "collapse",
-    width: "100%",
-    border: "solid 0.5px rgba(224, 224, 224, 1)",
-  },
-  header: {
-    border: "solid 0.5px rgba(224, 224, 224, 1)",
-  },
-  content: {
-    borderLeft: "solid 0.5px rgba(224, 224, 224, 1)",
-    height: "40px",
-  },
-  menuCard: {
-    borderRadius: "5px",
-    margin: "0px 10px",
-    padding: "10px",
-    height: "90%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  actionButton: {
-    marginLeft: "5px",
-  },
+const StyledTable = styled("table")(({ theme }) => ({
+  tableLayout: "fixed",
+  borderSpacing: 0,
+  borderCollapse: "collapse",
+  width: "100%",
+  border: "solid 0.5px rgba(224, 224, 224, 1)",
+}));
+
+const StyleTableHeader = styled("th")(({ theme }) => ({
+  border: "solid 0.5px rgba(224, 224, 224, 1)",
+}));
+
+const StyledTableContent = styled("td")(({ theme }) => ({
+  borderLeft: "solid 0.5px rgba(224, 224, 224, 1)",
+  height: "40px",
+}));
+
+const StyledMenuCard = styled("div")(({ theme }) => ({
+  borderRadius: "5px",
+  margin: "0px 10px",
+  padding: "10px",
+  height: "90%",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
 }));
 
 type Props = {
@@ -58,7 +55,6 @@ type Props = {
 
 const WeeklyMenu = (props: Props) => {
   const { menus } = props;
-  const classes = useWeeklyMenuStyles();
   const { addInfo } = useNotification();
   const { fetchData } = useAdminContext();
   const [baseDate, setBaseDate] = React.useState<Date>(startOfWeek(new Date()));
@@ -91,13 +87,13 @@ const WeeklyMenu = (props: Props) => {
           <Icon>arrow_forward</Icon>
         </IconButton>
       </Box>
-      <table className={classes.table}>
+      <StyledTable>
         <thead>
           <tr>
             {[0, 1, 2, 3, 4, 5, 6].map((e) => {
               const date = addDays(baseDate, e);
               return (
-                <th key={"weekly-menu-header-" + e} className={classes.header}>
+                <StyleTableHeader key={"weekly-menu-header-" + e}>
                   <span>{format(date, "M/dd（E）", { locale: ja })}</span>
                   <Button
                     color="secondary"
@@ -106,7 +102,7 @@ const WeeklyMenu = (props: Props) => {
                   >
                     全削除
                   </Button>
-                </th>
+                </StyleTableHeader>
               );
             })}
           </tr>
@@ -120,13 +116,11 @@ const WeeklyMenu = (props: Props) => {
                     (menu) => menu.start_at.getTime() === date.getTime()
                   );
                   return (
-                    <td
-                      className={classes.content}
+                    <StyledTableContent
                       key={"weekly-menu-content-" + date.toString()}
                     >
                       {menu ? (
-                        <div
-                          className={classes.menuCard}
+                        <StyledMenuCard
                           style={{
                             backgroundColor: menu.appointment_id
                               ? "#ffa899"
@@ -142,12 +136,12 @@ const WeeklyMenu = (props: Props) => {
                                 "HH:mm"
                               )}`}</span>
                               <IconButton
-                                className={classes.actionButton}
                                 color={"default"}
                                 size="small"
                                 onClick={() =>
                                   setSelectedAppointmentId(menu.appointment_id)
                                 }
+                                sx={{ marginLeft: "5px" }}
                               >
                                 <Icon>description</Icon>
                               </IconButton>
@@ -161,43 +155,42 @@ const WeeklyMenu = (props: Props) => {
                                 )}`}
                               </span>
                               <IconButton
-                                className={classes.actionButton}
                                 color={"default"}
                                 size="small"
                                 onClick={() => setMenuToDelete(menu)}
+                                sx={{ marginLeft: "5px" }}
                               >
                                 <Icon>delete</Icon>
                               </IconButton>
                             </>
                           )}
-                        </div>
+                        </StyledMenuCard>
                       ) : (
-                        <div
-                          className={classes.menuCard}
+                        <StyledMenuCard
                           style={{
                             backgroundColor: "#d3d3d3",
                           }}
                         >
                           <IconButton
-                            className={classes.actionButton}
                             color={"default"}
                             size="small"
                             onClick={() => {
                               setDateToCreate(date);
                             }}
+                            sx={{ marginLeft: "5px" }}
                           >
                             <Icon>add</Icon>
                           </IconButton>
-                        </div>
+                        </StyledMenuCard>
                       )}
-                    </td>
+                    </StyledTableContent>
                   );
                 })}
               </tr>
             );
           })}
         </tbody>
-      </table>
+      </StyledTable>
       <AppointmentDetailDialog
         id={selectedAppointmentId}
         onClose={() => {

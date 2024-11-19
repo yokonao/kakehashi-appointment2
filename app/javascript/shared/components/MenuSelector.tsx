@@ -69,7 +69,6 @@ const MenuSelector = React.memo((props: Props) => {
       <ErrorMessages messages={state.errorMessages} />
       {value ? (
         <Button
-          color="default"
           onClick={() => {
             onSelect(undefined);
             addErrorMessage("予約日時を選択してください");

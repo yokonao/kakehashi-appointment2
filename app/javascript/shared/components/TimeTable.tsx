@@ -8,8 +8,7 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  Theme,
-  withStyles,
+  styled,
 } from "@mui/material";
 import { format } from "date-fns";
 import {
@@ -19,7 +18,14 @@ import {
 import { MenuSerializer } from "../../serializers/MenuSerializer";
 import { ja } from "date-fns/locale";
 
-const StyledTableCell = withStyles((theme: Theme) =>
+const PREFIX = "TimeTable";
+
+const classes = {
+  head: `${PREFIX}-head`,
+  body: `${PREFIX}-body`,
+};
+
+const StyledTable = styled(Table)(({ theme }) =>
   createStyles({
     head: {
       backgroundColor: theme.palette.primary.main,
@@ -29,7 +35,9 @@ const StyledTableCell = withStyles((theme: Theme) =>
       fontSize: 14,
     },
   })
-)(TableCell);
+);
+
+const StyledTableCell = TableCell;
 
 type TimeTableProps = {
   menus: MenuSerializer[];
@@ -47,6 +55,10 @@ const TimeTable = (props: TimeTableProps) => {
           key={"header-month-" + format(date, "MM月dd日hh時mm分")}
           align="center"
           padding="none"
+          classes={{
+            head: classes.head,
+            body: classes.body,
+          }}
         >
           {i === 0 || date.getDate() === 1 ? format(date, "M") : ""}
         </StyledTableCell>
@@ -56,6 +68,10 @@ const TimeTable = (props: TimeTableProps) => {
           key={"header-date-" + format(date, "MM月dd日hh時mm分")}
           align="center"
           padding="none"
+          classes={{
+            head: classes.head,
+            body: classes.body,
+          }}
         >
           {format(date, "d")}
         </StyledTableCell>
@@ -65,6 +81,10 @@ const TimeTable = (props: TimeTableProps) => {
           key={"header-week-of-day-" + format(date, "MM月dd日hh時mm分")}
           align="center"
           padding="none"
+          classes={{
+            head: classes.head,
+            body: classes.body,
+          }}
         >
           {ja.localize?.day(date.getDay(), { width: "short" })}
         </StyledTableCell>
@@ -72,18 +92,33 @@ const TimeTable = (props: TimeTableProps) => {
     };
   });
   return (
-    <Table size="small" stickyHeader aria-label="sticky table">
+    <StyledTable size="small" stickyHeader aria-label="sticky table">
       <TableHead>
         <TableRow>
-          <StyledTableCell />
+          <StyledTableCell
+            classes={{
+              head: classes.head,
+              body: classes.body,
+            }}
+          />
           {headers.map((e) => e.month)}
         </TableRow>
         <TableRow>
-          <StyledTableCell />
+          <StyledTableCell
+            classes={{
+              head: classes.head,
+              body: classes.body,
+            }}
+          />
           {headers.map((e) => e.day)}
         </TableRow>
         <TableRow>
-          <StyledTableCell />
+          <StyledTableCell
+            classes={{
+              head: classes.head,
+              body: classes.body,
+            }}
+          />
           {headers.map((e) => e.dayOfWeek)}
         </TableRow>
       </TableHead>
@@ -94,6 +129,10 @@ const TimeTable = (props: TimeTableProps) => {
               key={"header-time-" + format(e, "HH:mm")}
               align="center"
               padding="none"
+              classes={{
+                head: classes.head,
+                body: classes.body,
+              }}
             >
               {format(e, "HH:mm")}
             </StyledTableCell>
@@ -107,6 +146,10 @@ const TimeTable = (props: TimeTableProps) => {
                   align="center"
                   padding="none"
                   size="small"
+                  classes={{
+                    head: classes.head,
+                    body: classes.body,
+                  }}
                 >
                   {menu ? (
                     <IconButton
@@ -131,7 +174,7 @@ const TimeTable = (props: TimeTableProps) => {
           </TableRow>
         ))}
       </TableBody>
-    </Table>
+    </StyledTable>
   );
 };
 

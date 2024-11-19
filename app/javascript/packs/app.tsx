@@ -1,4 +1,4 @@
-import { createTheme, ThemeProvider } from "@mui/material";
+import { createTheme, styled, ThemeProvider } from "@mui/material";
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
@@ -6,7 +6,6 @@ import Routes from "../features/form/Routes";
 import { MenusContextProvider } from "../features/form/hooks/useMenusContext";
 import { NotificationContextProvider } from "../features/form/hooks/useNotification";
 import Header from "../shared/components/Header";
-import useStyles from "../styles/useStyles";
 
 const theme = createTheme({
   palette: {
@@ -16,22 +15,30 @@ const theme = createTheme({
   },
 });
 
+const Root = styled("div")(() => ({
+  flexGrow: 1,
+  backgroundColor: "#fff8e6",
+}));
+
+const Footer = styled("div")(() => ({
+  height: 300,
+}));
+
 const App = (): JSX.Element => {
-  const classes = useStyles();
   return (
-    <div className={classes.root}>
+    <Root>
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           <NotificationContextProvider>
             <MenusContextProvider>
               <Header />
               <Routes />
-              <div className={classes.footer} />
+              <Footer />
             </MenusContextProvider>
           </NotificationContextProvider>
         </ThemeProvider>
       </BrowserRouter>
-    </div>
+    </Root>
   );
 };
 
