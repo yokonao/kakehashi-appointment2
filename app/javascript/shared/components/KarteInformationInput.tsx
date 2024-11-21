@@ -1,10 +1,10 @@
 import { Box, FormControlLabel, Radio, RadioGroup } from "@mui/material";
-import * as React from "react";
 import { KarteInformation } from "../../domain/KarteInformation";
 import useFormElementState from "../../features/form/hooks/useFormElementState";
 import CheckMark from "./CheckMark";
 import CustomTextField from "./CustomTextField";
 import ErrorMessages from "./ErrorMessages";
+import { useCallback, useEffect } from "react";
 
 type Props = {
   value: KarteInformation;
@@ -23,7 +23,7 @@ const KarteInformationInput = (props: Props) => {
   };
   const { state, verify, addErrorMessage, setExternalErrors } =
     useFormElementState();
-  const validate = React.useCallback(() => {
+  const validate = useCallback(() => {
     if (!value.isFirstVisit) {
       if (
         value.clinicalNumber.length > 0 &&
@@ -36,7 +36,7 @@ const KarteInformationInput = (props: Props) => {
     }
     verify();
   }, [value.isFirstVisit, value.clinicalNumber, verify, addErrorMessage]);
-  React.useEffect(() => {
+  useEffect(() => {
     if (externalErrors && externalErrors.length > 0) {
       setExternalErrors(externalErrors);
     }

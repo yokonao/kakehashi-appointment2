@@ -1,5 +1,4 @@
 import { Box, Icon } from "@mui/material";
-import * as React from "react";
 
 type Props = {
   messages: string[];

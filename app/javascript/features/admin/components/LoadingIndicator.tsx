@@ -1,5 +1,4 @@
 import { Backdrop, CircularProgress, styled } from "@mui/material";
-import * as React from "react";
 import { useAdminContext } from "../hooks/useAdminContext";
 
 const StyledBackdrop = styled(Backdrop)(({ theme }) => ({

@@ -8,9 +8,9 @@ import {
 } from "@mui/material";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
-import * as React from "react";
 import { AppointmentSerializer } from "../../../serializers/AppointmentSerializer";
 import { useAdminContext } from "../hooks/useAdminContext";
+import { useMemo } from "react";
 
 export type AppointmentViewModel = {
   id: number;
@@ -61,7 +61,7 @@ const AppointmentDetailDialog = ({
   onClose: () => void;
 }) => {
   const { appointments } = useAdminContext();
-  const appointment = React.useMemo(
+  const appointment = useMemo(
     () => castToAppointmentViewModel(appointments.find((e) => e.id === id)),
     [id, appointments]
   );

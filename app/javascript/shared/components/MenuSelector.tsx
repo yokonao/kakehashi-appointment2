@@ -1,6 +1,5 @@
 import { Box, Button, Grid, Theme, useMediaQuery } from "@mui/material";
 import { addDays, format, subDays } from "date-fns";
-import * as React from "react";
 import useFormElementState from "../../features/form/hooks/useFormElementState";
 import { MenuSerializer } from "../../serializers/MenuSerializer";
 import { MAX_NUMBER_OF_DAYS_RESERVABLE } from "../const";
@@ -8,6 +7,7 @@ import CheckMark from "./CheckMark";
 import CustomTextField from "./CustomTextField";
 import ErrorMessages from "./ErrorMessages";
 import TimeTable from "./TimeTable";
+import { memo, useMemo, useState, useCallback, useEffect } from "react";
 
 type Props = {
   value?: MenuSerializer;
@@ -16,38 +16,38 @@ type Props = {
   onSelect: (menu?: MenuSerializer) => void;
 };
 
-const MenuSelector = React.memo((props: Props) => {
+const MenuSelector = memo((props: Props) => {
   const isMobile = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down("xs")
   );
   const { value, menus, onSelect, externalErrors } = props;
-  const tomorrow = React.useMemo(() => addDays(new Date(), 1), []);
-  const [baseDate, setBaseDate] = React.useState<Date>(tomorrow);
-  const minDate = React.useMemo(() => tomorrow, [tomorrow]);
-  const maxDate = React.useMemo(
+  const tomorrow = useMemo(() => addDays(new Date(), 1), []);
+  const [baseDate, setBaseDate] = useState<Date>(tomorrow);
+  const minDate = useMemo(() => tomorrow, [tomorrow]);
+  const maxDate = useMemo(
     () => addDays(tomorrow, MAX_NUMBER_OF_DAYS_RESERVABLE),
     [tomorrow]
   ); // 予約を取れるのは4週間先まで
-  const daysPerPage = React.useMemo(() => (isMobile ? 7 : 14), [isMobile]);
-  const enabledPrevButton = React.useMemo(
+  const daysPerPage = useMemo(() => (isMobile ? 7 : 14), [isMobile]);
+  const enabledPrevButton = useMemo(
     () => baseDate.getTime() > minDate.getTime(),
     [baseDate, minDate]
   );
-  const enabledNextButton = React.useMemo(
+  const enabledNextButton = useMemo(
     () => addDays(baseDate, daysPerPage).getTime() < maxDate.getTime(),
     [baseDate, daysPerPage, maxDate]
   );
-  const toNext = React.useCallback(
+  const toNext = useCallback(
     () => setBaseDate(addDays(baseDate, daysPerPage)),
     [baseDate, setBaseDate, daysPerPage]
   );
-  const toPrev = React.useCallback(
+  const toPrev = useCallback(
     () => setBaseDate(subDays(baseDate, daysPerPage)),
     [baseDate, setBaseDate, daysPerPage]
   );
   const { state, verify, addErrorMessage, setExternalErrors } =
     useFormElementState();
-  React.useEffect(() => {
+  useEffect(() => {
     if (externalErrors && externalErrors.length > 0) {
       setExternalErrors(externalErrors);
     }

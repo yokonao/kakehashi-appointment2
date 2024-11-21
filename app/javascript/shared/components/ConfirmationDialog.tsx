@@ -1,4 +1,3 @@
-import * as React from "react";
 import {
   Button,
   Dialog,
@@ -6,6 +5,8 @@ import {
   DialogContent,
   DialogTitle,
 } from "@mui/material";
+
+import { ReactNode } from "react";
 type Props = {
   title: string;
   open: boolean;
@@ -14,7 +15,7 @@ type Props = {
   okButtonColor: "primary" | "secondary";
   okButtonText: string;
   cancelButtonText: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
   disableOkButton?: boolean;
 };
 
@@ -24,9 +25,7 @@ const ConfirmationDialog = (props: Props) => {
       <DialogTitle>{props.title}</DialogTitle>
       <DialogContent>{props.children}</DialogContent>
       <DialogActions>
-        <Button onClick={props.onCancel}>
-          {props.cancelButtonText}
-        </Button>
+        <Button onClick={props.onCancel}>{props.cancelButtonText}</Button>
         <Button
           onClick={props.onOk}
           color={props.okButtonColor}

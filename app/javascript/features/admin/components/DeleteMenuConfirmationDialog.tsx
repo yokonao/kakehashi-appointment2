@@ -1,5 +1,4 @@
 import { format } from "date-fns";
-import * as React from "react";
 import { MenuAdminSerializer } from "../../../serializers/MenuAdminSerializer";
 import ConfirmationDialog from "../../../shared/components/ConfirmationDialog";
 

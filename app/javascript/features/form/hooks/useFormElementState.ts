@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useCallback, useReducer } from "react";
 
 type State = {
   isValid: boolean;
@@ -45,17 +45,14 @@ const reducer: React.Reducer<State, Action> = (
   }
 };
 const useFormElementState = () => {
-  const [state, dispatch] = React.useReducer(reducer, initialState);
-  const verify = React.useCallback(
-    () => dispatch({ type: "VERIFY" }),
-    [dispatch]
-  );
-  const addErrorMessage = React.useCallback(
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const verify = useCallback(() => dispatch({ type: "VERIFY" }), [dispatch]);
+  const addErrorMessage = useCallback(
     (message: string) =>
       dispatch({ type: "ADD_ERROR_MESSAGE", payload: message }),
     [dispatch]
   );
-  const setExternalErrors = React.useCallback(
+  const setExternalErrors = useCallback(
     (externalErrors: string[]) => {
       dispatch({ type: "SET_EXTERNAL_ERRORS", payload: externalErrors });
     },

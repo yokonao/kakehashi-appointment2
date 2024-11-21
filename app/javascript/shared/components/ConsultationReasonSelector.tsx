@@ -1,7 +1,7 @@
 import { Box, Checkbox, FormControlLabel, FormGroup } from "@mui/material";
-import * as React from "react";
 import useFormElementState from "../../features/form/hooks/useFormElementState";
 import ErrorMessages from "./ErrorMessages";
+import { useMemo, useState, useEffect } from "react";
 
 type Props = {
   onChanged: (value: string) => void;
@@ -16,13 +16,13 @@ function createInitialState(): State {
 
 const ConsultationReasonSelector = (props: Props) => {
   const { onChanged, externalErrors } = props;
-  const initialState = React.useMemo(() => createInitialState(), []);
-  const [state, setState] = React.useState<State>(initialState);
+  const initialState = useMemo(() => createInitialState(), []);
+  const [state, setState] = useState<State>(initialState);
   const {
     state: { errorMessages },
     setExternalErrors,
   } = useFormElementState();
-  React.useEffect(() => {
+  useEffect(() => {
     if (externalErrors && externalErrors.length > 0) {
       setExternalErrors(externalErrors);
     }

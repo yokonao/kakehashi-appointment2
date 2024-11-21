@@ -1,9 +1,9 @@
 import { Box } from "@mui/material";
-import * as React from "react";
 import useFormElementState from "../../features/form/hooks/useFormElementState";
 import CheckMark from "./CheckMark";
 import ErrorMessages from "./ErrorMessages";
 import CustomTextField from "./CustomTextField";
+import { useCallback, useEffect } from "react";
 
 type Props = {
   value: string;
@@ -19,7 +19,7 @@ const PersonKanaNameInput = (props: Props) => {
   const { value, onChanged, externalErrors } = props;
   const { state, verify, addErrorMessage, setExternalErrors } =
     useFormElementState();
-  const validate = React.useCallback(() => {
+  const validate = useCallback(() => {
     if (validateKana(value)) {
       verify();
     } else if (value.length == 0) {
@@ -28,7 +28,7 @@ const PersonKanaNameInput = (props: Props) => {
       addErrorMessage("カタカナで入力してください");
     }
   }, [value, verify, addErrorMessage]);
-  React.useEffect(() => {
+  useEffect(() => {
     if (externalErrors && externalErrors.length > 0) {
       setExternalErrors(externalErrors);
     }

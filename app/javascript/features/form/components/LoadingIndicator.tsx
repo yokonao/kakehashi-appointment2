@@ -1,4 +1,3 @@
-import React from "react";
 import { Backdrop, CircularProgress, styled } from "@mui/material";
 
 type PropsLoading = {

@@ -5,7 +5,6 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import * as React from "react";
 import { Logo } from "../../../shared/components/Logo";
 
 const StyledAppBar = styled(AppBar)(({ theme }) =>

@@ -1,4 +1,3 @@
-import * as React from "react";
 import { Box, Button, Container, Icon, Typography } from "@mui/material";
 import { Field, FieldProps, Formik } from "formik";
 import PersonNameField from "../../../shared/components/PersonNameInput";
@@ -19,12 +18,13 @@ import SuccessDialog from "./SuccessDialog";
 import { createPostParameters, initialValuesKampo } from "../utils/FormValue";
 import { validate } from "../utils/validator";
 import { useMenusContext } from "../hooks/useMenusContext";
+import { useCallback, useState } from "react";
 
 const KampoForm = () => {
   const { kampoMenus: menus, isLoading } = useMenusContext();
   const { addError, addInfo } = useNotification();
-  const [isOpenSuccessDialog, setIsOpenSuccessDialog] = React.useState(false);
-  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [isOpenSuccessDialog, setIsOpenSuccessDialog] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   return (
     <Container
@@ -62,7 +62,7 @@ const KampoForm = () => {
         }}
       >
         {({ status, setFieldValue, submitForm }) => {
-          const onSelectMenu = React.useCallback(
+          const onSelectMenu = useCallback(
             (menu: MenuSerializer) => setFieldValue("menu", menu),
             [setFieldValue]
           );

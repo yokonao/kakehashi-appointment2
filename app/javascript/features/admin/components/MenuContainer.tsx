@@ -1,4 +1,3 @@
-import React from "react";
 import WeeklyMenu from "./WeeklyMenu";
 import { useAdminContext } from "../hooks/useAdminContext";
 

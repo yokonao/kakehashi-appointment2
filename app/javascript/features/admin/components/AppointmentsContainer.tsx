@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useAdminContext } from "../hooks/useAdminContext";
 import Appointments from "./Appointments";
 

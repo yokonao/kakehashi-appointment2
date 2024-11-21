@@ -1,8 +1,8 @@
 import { Box, TextField, Typography } from "@mui/material";
-import * as React from "react";
 import { AppointmentSerializer } from "../../../serializers/AppointmentSerializer";
 import ConfirmationDialog from "../../../shared/components/ConfirmationDialog";
 import { castToAppointmentViewModel } from "./AppointmentDetailDialog";
+import { useMemo, useState, useEffect } from "react";
 
 type Props = {
   appointment?: AppointmentSerializer;
@@ -12,12 +12,12 @@ type Props = {
 
 const DeleteAppointmentConfirmationDialog = (props: Props) => {
   const { appointment } = props;
-  const data = React.useMemo(
+  const data = useMemo(
     () => castToAppointmentViewModel(appointment),
     [appointment]
   );
-  const [reason, setReason] = React.useState("");
-  React.useEffect(() => setReason(""), [data]);
+  const [reason, setReason] = useState("");
+  useEffect(() => setReason(""), [data]);
   if (!data) {
     return <></>;
   }

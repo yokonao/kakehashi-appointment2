@@ -1,9 +1,9 @@
 import { Box } from "@mui/material";
-import * as React from "react";
 import useFormElementState from "../../features/form/hooks/useFormElementState";
 import CheckMark from "./CheckMark";
 import CustomTextField from "./CustomTextField";
 import ErrorMessages from "./ErrorMessages";
+import { useCallback, useEffect, ChangeEvent } from "react";
 
 type Props = {
   value: string;
@@ -15,14 +15,14 @@ const PersonNameInput = (props: Props) => {
   const { value, onChanged, externalErrors } = props;
   const { state, verify, addErrorMessage, setExternalErrors } =
     useFormElementState();
-  const validate = React.useCallback(() => {
+  const validate = useCallback(() => {
     if (value.length == 0) {
       addErrorMessage("氏名を入力してください");
       return;
     }
     verify();
   }, [value, verify, addErrorMessage]);
-  React.useEffect(() => {
+  useEffect(() => {
     if (externalErrors && externalErrors.length > 0) {
       setExternalErrors(externalErrors);
     }
@@ -33,7 +33,7 @@ const PersonNameInput = (props: Props) => {
         required
         id="full_name"
         value={value}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+        onChange={(e: ChangeEvent<HTMLInputElement>) => {
           onChanged(e.target.value);
         }}
         onBlur={() => {

@@ -1,9 +1,9 @@
 import { Box } from "@mui/material";
-import * as React from "react";
 import useFormElementState from "../../features/form/hooks/useFormElementState";
 import CheckMark from "./CheckMark";
 import CustomTextField from "./CustomTextField";
 import ErrorMessages from "./ErrorMessages";
+import { useCallback, useEffect } from "react";
 
 type Props = {
   value: string;
@@ -15,7 +15,7 @@ const PhoneNumberInput = (props: Props) => {
   const { value, onChanged, externalErrors } = props;
   const { state, verify, addErrorMessage, setExternalErrors } =
     useFormElementState();
-  const validate = React.useCallback(() => {
+  const validate = useCallback(() => {
     if (!value || value.length == 0) {
       addErrorMessage("電話番号を入力してください");
       return;
@@ -26,7 +26,7 @@ const PhoneNumberInput = (props: Props) => {
     }
     verify();
   }, [value, verify, addErrorMessage]);
-  React.useEffect(() => {
+  useEffect(() => {
     if (externalErrors && externalErrors.length > 0) {
       setExternalErrors(externalErrors);
     }

@@ -1,4 +1,3 @@
-import React from "react";
 import { Route, Routes as ReactRouterRoutes, Navigate } from "react-router-dom";
 import AppointmentsContainer from "./components/AppointmentsContainer";
 import MenuContainer from "./components/MenuContainer";

@@ -1,8 +1,7 @@
 import { Box, Button } from "@mui/material";
-import * as React from "react";
 import { AppointmentSerializer } from "../../../serializers/AppointmentSerializer";
 import { MenuAdminSerializer } from "../../../serializers/MenuAdminSerializer";
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import AppointmentDetailDialog, {
   castToAppointmentViewModelForce,
 } from "./AppointmentDetailDialog";
@@ -10,6 +9,7 @@ import DeleteAppointmentConfirmationDialog from "./DeleteAppointmentConfirmation
 import { useNotification } from "../../form/hooks/useNotification";
 import { useAdminContext } from "../hooks/useAdminContext";
 import { AdminApiClient } from "../api/AdminApiClient";
+import { useMemo, useState } from "react";
 
 type Props = {
   appointments: AppointmentSerializer[];
@@ -73,14 +73,14 @@ const Appointments = (props: Props) => {
   const { addInfo } = useNotification();
   const { fetchData } = useAdminContext();
   const { appointments } = props;
-  const rows = React.useMemo(
+  const rows = useMemo(
     () => appointments.map((e) => castToAppointmentViewModelForce(e)),
     [appointments]
   );
   const [selectedAppointmentId, setSelectedAppointmentId] =
-    React.useState<number>(-1);
+    useState<number>(-1);
   const [selectedAppointmentToDelete, setSelectedAppointmentToDelete] =
-    React.useState<AppointmentSerializer | undefined>(undefined);
+    useState<AppointmentSerializer | undefined>(undefined);
   return (
     <Box>
       <div style={{ width: "100%" }}>

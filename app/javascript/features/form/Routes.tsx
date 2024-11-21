@@ -1,4 +1,3 @@
-import * as React from "react";
 import { Route, Routes as ReactRouterRoutes, Navigate } from "react-router-dom";
 import InternalMedicineFormContainer from "./components/InternalMedicineFormContainer";
 import DepartmentChoice from "./components/DepartmentChoice";

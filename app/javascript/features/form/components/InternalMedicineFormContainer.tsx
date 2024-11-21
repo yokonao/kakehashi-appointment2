@@ -1,4 +1,3 @@
-import * as React from "react";
 import InternalMedicineForm from "./InternalMedicineForm";
 
 const InternalMedicineFormContainer = () => {

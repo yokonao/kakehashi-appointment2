@@ -1,5 +1,4 @@
 import { Box, TextField } from "@mui/material";
-import * as React from "react";
 
 type Props = {
   value: string;

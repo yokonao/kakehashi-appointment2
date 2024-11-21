@@ -1,5 +1,14 @@
-import { Button, Icon, IconButton, Snackbar } from "@mui/material";
-import * as React from "react";
+import { Icon, IconButton, Snackbar } from "@mui/material";
+import {
+  Reducer,
+  createContext,
+  ReactNode,
+  FC,
+  useReducer,
+  useCallback,
+  useMemo,
+  useContext,
+} from "react";
 
 type Notification = {
   id: number;
@@ -62,7 +71,7 @@ type Action =
       payload: number;
     };
 
-const reducer: React.Reducer<State, Action> = (state, action) => {
+const reducer: Reducer<State, Action> = (state, action) => {
   switch (action.type) {
     case "ADD_NOTIFICATION":
       return {
@@ -89,15 +98,15 @@ const reducer: React.Reducer<State, Action> = (state, action) => {
   }
 };
 
-const NotificationContext = React.createContext<Context | undefined>(undefined);
+const NotificationContext = createContext<Context | undefined>(undefined);
 
 type Props = {
-  children?: React.ReactNode;
+  children?: ReactNode;
 };
 
-export const NotificationContextProvider: React.FC<Props> = ({ children }) => {
-  const [state, dispatch] = React.useReducer(reducer, initialState);
-  const addError = React.useCallback(
+export const NotificationContextProvider: FC<Props> = ({ children }) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const addError = useCallback(
     (message: string) => {
       dispatch({
         type: "ADD_NOTIFICATION",
@@ -106,7 +115,7 @@ export const NotificationContextProvider: React.FC<Props> = ({ children }) => {
     },
     [dispatch]
   );
-  const addInfo = React.useCallback(
+  const addInfo = useCallback(
     (message: string) => {
       dispatch({
         type: "ADD_NOTIFICATION",
@@ -116,13 +125,13 @@ export const NotificationContextProvider: React.FC<Props> = ({ children }) => {
     [dispatch]
   );
 
-  const deleteMessage = React.useCallback(
+  const deleteMessage = useCallback(
     (id: number) => {
       dispatch({ type: "DELETE_MESSAGE", payload: id });
     },
     [dispatch]
   );
-  const value = React.useMemo<Context>(() => {
+  const value = useMemo<Context>(() => {
     return {
       ...state,
       addError,
@@ -146,7 +155,7 @@ export const NotificationContextProvider: React.FC<Props> = ({ children }) => {
 };
 
 export const useNotification = () => {
-  const context = React.useContext(NotificationContext);
+  const context = useContext(NotificationContext);
   if (!context) {
     throw new Error(
       "useNotification must be within NotificationContextProvider"

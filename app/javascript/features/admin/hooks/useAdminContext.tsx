@@ -1,4 +1,14 @@
-import * as React from "react";
+import {
+  Reducer,
+  createContext,
+  ReactNode,
+  FC,
+  useReducer,
+  useCallback,
+  useMemo,
+  useEffect,
+  useContext,
+} from "react";
 import { AppointmentSerializer } from "../../../serializers/AppointmentSerializer";
 import { MenuAdminSerializer } from "../../../serializers/MenuAdminSerializer";
 import { AdminApiClient } from "../api/AdminApiClient";
@@ -35,7 +45,7 @@ type Action =
       payload: boolean;
     };
 
-const reducer: React.Reducer<State, Action> = (state, action) => {
+const reducer: Reducer<State, Action> = (state, action) => {
   switch (action.type) {
     case "SET_MENUS":
       return { ...state, menus: action.payload };
@@ -48,15 +58,15 @@ const reducer: React.Reducer<State, Action> = (state, action) => {
   }
 };
 
-const AdminContext = React.createContext<Context | undefined>(undefined);
+const AdminContext = createContext<Context | undefined>(undefined);
 
 type Props = {
-  children?: React.ReactNode;
+  children?: ReactNode;
 };
 
-export const AdminContextProvider: React.FC<Props> = ({ children }) => {
-  const [state, dispatch] = React.useReducer(reducer, initialState);
-  const fetchData = React.useCallback(() => {
+export const AdminContextProvider: FC<Props> = ({ children }) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const fetchData = useCallback(() => {
     dispatch({ type: "SET_IS_LOADING", payload: true });
     Promise.all([
       AdminApiClient.getMenus(),
@@ -72,11 +82,11 @@ export const AdminContextProvider: React.FC<Props> = ({ children }) => {
       dispatch({ type: "SET_IS_LOADING", payload: false });
     });
   }, [dispatch]);
-  const value = React.useMemo<Context>(
+  const value = useMemo<Context>(
     () => ({ ...state, fetchData }),
     [state, fetchData]
   );
-  React.useEffect(() => {
+  useEffect(() => {
     fetchData();
   }, []);
   return (
@@ -85,7 +95,7 @@ export const AdminContextProvider: React.FC<Props> = ({ children }) => {
 };
 
 export const useAdminContext = () => {
-  const context = React.useContext(AdminContext);
+  const context = useContext(AdminContext);
   if (!context) {
     throw new Error("useAdminContext must be within AdminContextProvider");
   }

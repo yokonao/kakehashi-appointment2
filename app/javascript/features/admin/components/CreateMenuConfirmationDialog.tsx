@@ -1,8 +1,8 @@
 import { Typography } from "@mui/material";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
-import * as React from "react";
 import ConfirmationDialog from "../../../shared/components/ConfirmationDialog";
+import { useEffect, useState } from "react";
 
 type Props = {
   date?: Date;
@@ -12,8 +12,8 @@ type Props = {
 
 const CreateMenuConfirmationDialog = (props: Props) => {
   const { date } = props;
-  const [department, setDepartment] = React.useState<string>("内科");
-  React.useEffect(
+  const [department, setDepartment] = useState<string>("内科");
+  useEffect(
     () => setDepartment(date?.getDay() === 4 ? "漢方" : "内科"),
     [date]
   );

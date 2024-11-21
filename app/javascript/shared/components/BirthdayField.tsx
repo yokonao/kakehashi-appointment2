@@ -1,6 +1,6 @@
 import { Box, TextField } from "@mui/material";
 import { format, parse } from "date-fns";
-import * as React from "react";
+import { useState, ChangeEvent } from "react";
 
 type Props = {
   value: Date;
@@ -9,8 +9,8 @@ type Props = {
 
 const BirthdayField = (props: Props) => {
   const { value, onChanged } = props;
-  const [rawValue, setRawValue] = React.useState("");
-  const [errorMessages, setErrorMessages] = React.useState<string[]>([]);
+  const [rawValue, setRawValue] = useState("");
+  const [errorMessages, setErrorMessages] = useState<string[]>([]);
 
   return (
     <Box m={2}>
@@ -18,7 +18,7 @@ const BirthdayField = (props: Props) => {
         required
         id="birthday"
         value={value ? format(value, "yyyy年MM月dd日") : rawValue}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+        onChange={(e: ChangeEvent<HTMLInputElement>) => {
           const input = e.target.value;
           const res = /^[0-9]{4}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])$/.test(
             input

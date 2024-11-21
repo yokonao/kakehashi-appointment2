@@ -8,7 +8,6 @@ import {
 } from "@mui/material";
 import { addDays, addWeeks, format, startOfWeek, subWeeks } from "date-fns";
 import { ja } from "date-fns/locale";
-import * as React from "react";
 import {
   createBusinessTimesEveryThirtyMinutes,
   createDaysOnTheTime,
@@ -21,6 +20,7 @@ import AppointmentDetailDialog from "./AppointmentDetailDialog";
 import CreateMenuConfirmationDialog from "./CreateMenuConfirmationDialog";
 import DeleteAllDayMenusConfirmationDialog from "./DeleteAllDayMenusConfirmationDialog";
 import DeleteMenuConfirmationDialog from "./DeleteMenuConfirmationDialog";
+import { useState, useCallback } from "react";
 
 const StyledTable = styled("table")(({ theme }) => ({
   tableLayout: "fixed",
@@ -57,24 +57,20 @@ const WeeklyMenu = (props: Props) => {
   const { menus } = props;
   const { addInfo } = useNotification();
   const { fetchData } = useAdminContext();
-  const [baseDate, setBaseDate] = React.useState<Date>(startOfWeek(new Date()));
-  const toPrev = React.useCallback(() => {
+  const [baseDate, setBaseDate] = useState<Date>(startOfWeek(new Date()));
+  const toPrev = useCallback(() => {
     setBaseDate(subWeeks(baseDate, 1));
   }, [baseDate, setBaseDate]);
-  const toNext = React.useCallback(() => {
+  const toNext = useCallback(() => {
     setBaseDate(addWeeks(baseDate, 1));
   }, [baseDate, setBaseDate]);
   const [selectedAppointmentId, setSelectedAppointmentId] =
-    React.useState<number>(-1);
-  const [menuToDelete, setMenuToDelete] = React.useState<
+    useState<number>(-1);
+  const [menuToDelete, setMenuToDelete] = useState<
     MenuAdminSerializer | undefined
   >(undefined);
-  const [dateToDelete, setDateToDelete] = React.useState<Date | undefined>(
-    undefined
-  );
-  const [dateToCreate, setDateToCreate] = React.useState<Date | undefined>(
-    undefined
-  );
+  const [dateToDelete, setDateToDelete] = useState<Date | undefined>(undefined);
+  const [dateToCreate, setDateToCreate] = useState<Date | undefined>(undefined);
 
   return (
     <Box mt={2}>

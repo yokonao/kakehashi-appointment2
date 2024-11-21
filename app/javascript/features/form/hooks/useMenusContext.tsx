@@ -1,4 +1,14 @@
-import * as React from "react";
+import {
+  Reducer,
+  createContext,
+  ReactNode,
+  FC,
+  useReducer,
+  useCallback,
+  useMemo,
+  useEffect,
+  useContext,
+} from "react";
 import { MenuSerializer } from "../../../serializers/MenuSerializer";
 import { getReservableMenus } from "../../../shared/api/getAllMenus";
 import { useNotification } from "./useNotification";
@@ -35,7 +45,7 @@ type Action =
       payload: boolean;
     };
 
-const reducer: React.Reducer<State, Action> = (state, action) => {
+const reducer: Reducer<State, Action> = (state, action) => {
   switch (action.type) {
     case "SET_INTERNAL_MEDICINE_MENUS":
       return { ...state, internalMedicineMenus: action.payload };
@@ -48,15 +58,15 @@ const reducer: React.Reducer<State, Action> = (state, action) => {
   }
 };
 
-const MenusContext = React.createContext<Context | undefined>(undefined);
+const MenusContext = createContext<Context | undefined>(undefined);
 
 type Props = {
-  children?: React.ReactNode;
+  children?: ReactNode;
 };
 
-export const MenusContextProvider: React.FC<Props> = ({ children }) => {
-  const [state, dispatch] = React.useReducer(reducer, initialState);
-  const setMenus = React.useCallback(
+export const MenusContextProvider: FC<Props> = ({ children }) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const setMenus = useCallback(
     (menus: MenuSerializer[]) => {
       dispatch({
         type: "SET_INTERNAL_MEDICINE_MENUS",
@@ -70,14 +80,14 @@ export const MenusContextProvider: React.FC<Props> = ({ children }) => {
     [dispatch]
   );
   const { addError, addInfo } = useNotification();
-  const value = React.useMemo(
+  const value = useMemo(
     () => ({
       ...state,
       setMenus,
     }),
     [state, setMenus]
   );
-  React.useEffect(() => {
+  useEffect(() => {
     getReservableMenus().then((res) => {
       if (res.error.length > 0) {
         addError(res.error);
@@ -92,7 +102,7 @@ export const MenusContextProvider: React.FC<Props> = ({ children }) => {
 };
 
 export const useMenusContext = () => {
-  const context = React.useContext(MenusContext);
+  const context = useContext(MenusContext);
   if (!context) {
     throw new Error("useMenusContext must be within MenusContextProvider");
   }

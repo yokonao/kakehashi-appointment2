@@ -1,4 +1,3 @@
-import * as React from "react";
 import { Box, Button, Container, Icon, Typography } from "@mui/material";
 import { Field, FieldProps, Formik } from "formik";
 import PersonNameField from "../../../shared/components/PersonNameInput";
@@ -20,12 +19,13 @@ import SuccessDialog from "./SuccessDialog";
 import { createPostParameters, initialValues } from "../utils/FormValue";
 import { validate } from "../utils/validator";
 import { useMenusContext } from "../hooks/useMenusContext";
+import React, { useState } from "react";
 
 const InternalMedicineForm = () => {
   const { internalMedicineMenus: menus, isLoading } = useMenusContext();
   const { addError, addInfo } = useNotification();
-  const [isOpenSuccessDialog, setIsOpenSuccessDialog] = React.useState(false);
-  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [isOpenSuccessDialog, setIsOpenSuccessDialog] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   return (
     <Container
