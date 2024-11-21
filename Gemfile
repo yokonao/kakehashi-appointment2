@@ -10,7 +10,7 @@ gem 'devise'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
 gem 'jsbundling-rails' # asset pipeline
-gem 'pg', '1.5.8'
+gem 'pg', '< 2'
 gem 'puma', '< 7'
 gem 'rails', '7.2.1'
 gem 'rails-i18n'
