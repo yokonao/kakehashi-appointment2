@@ -31,7 +31,14 @@ module.exports = {
       {
         test: /\.(js|jsx|ts|tsx|)$/,
         exclude: /node_modules/,
-        use: ["babel-loader"],
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: [
+              ['@babel/preset-react', { runtime: "automatic" }],
+            ]
+          }
+        }
       },
       {
         test: /\.(png|jpe?g|gif|eot|woff2|woff|ttf|svg)$/i,
