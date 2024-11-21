@@ -1,6 +1,6 @@
 import { createTheme, styled, ThemeProvider } from "@mui/material";
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import Routes from "../features/form/Routes";
 import { MenusContextProvider } from "../features/form/hooks/useMenusContext";
@@ -43,8 +43,7 @@ const App = (): JSX.Element => {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  ReactDOM.render(
-    <App />,
-    document.body.appendChild(document.createElement("div"))
-  );
+  const container = document.body.appendChild(document.createElement("div"));
+  const root = createRoot(container); // createRoot(container!) if you use TypeScript
+  root.render(<App />);
 });

@@ -1,6 +1,6 @@
 import { styled, ThemeProvider } from "@mui/material";
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import AdminHeader from "../features/admin/components/AdminHeader";
 import { adminTheme } from "../features/admin/styles/adminTheme";
@@ -42,8 +42,7 @@ const Admin = (): JSX.Element => {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  ReactDOM.render(
-    <Admin />,
-    document.body.appendChild(document.createElement("div"))
-  );
+  const container = document.body.appendChild(document.createElement("div"));
+  const root = createRoot(container);
+  root.render(<Admin />);
 });
