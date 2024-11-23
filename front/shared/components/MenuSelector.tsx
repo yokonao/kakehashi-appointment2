@@ -1,4 +1,4 @@
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Button, Grid2 } from "@mui/material";
 import { addDays, format, subDays } from "date-fns";
 import useFormElementState from "../../features/form/hooks/useFormElementState";
 import { MenuSerializer } from "../../serializers/MenuSerializer";
@@ -80,14 +80,14 @@ const MenuSelector = memo((props: Props) => {
         </Button>
       ) : (
         <Box>
-          <Grid container justifyContent="space-between">
+          <Grid2 container justifyContent="space-between">
             <Button onClick={toPrev} disabled={!enabledPrevButton}>
               前へ
             </Button>
             <Button onClick={toNext} disabled={!enabledNextButton}>
               次へ
             </Button>
-          </Grid>
+          </Grid2>
           <TimeTable
             baseDate={baseDate}
             menus={menus}
