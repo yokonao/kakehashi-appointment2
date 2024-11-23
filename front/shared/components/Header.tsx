@@ -1,21 +1,17 @@
-import {
-  AppBar,
-  Theme,
-  Toolbar,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
+import { AppBar, Toolbar, Typography } from "@mui/material";
 import { Logo } from "./Logo";
+import { useMediaType } from "../hooks/useMediaType";
 
 const Header = () => {
-  const isMobile = useMediaQuery((theme: Theme) =>
-    theme.breakpoints.down("xs")
-  );
+  const mediaType = useMediaType();
   return (
     <AppBar position="static" color="default">
       <Toolbar>
-        <Logo isMobile={isMobile} />
-        <Typography color="primary" variant={isMobile ? "subtitle2" : "h6"}>
+        <Logo isMobile={mediaType === "mobile"} />
+        <Typography
+          color="primary"
+          variant={mediaType === "mobile" ? "subtitle2" : "h6"}
+        >
           かけはし糖尿病・甲状腺クリニック
         </Typography>
       </Toolbar>

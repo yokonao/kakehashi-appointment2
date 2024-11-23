@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Theme, useMediaQuery } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 import { addDays, format, subDays } from "date-fns";
 import useFormElementState from "../../features/form/hooks/useFormElementState";
 import { MenuSerializer } from "../../serializers/MenuSerializer";
@@ -8,6 +8,7 @@ import CustomTextField from "./CustomTextField";
 import ErrorMessages from "./ErrorMessages";
 import TimeTable from "./TimeTable";
 import { memo, useMemo, useState, useCallback, useEffect } from "react";
+import { useMediaType } from "../hooks/useMediaType";
 
 type Props = {
   value?: MenuSerializer;
@@ -17,9 +18,7 @@ type Props = {
 };
 
 const MenuSelector = memo((props: Props) => {
-  const isMobile = useMediaQuery((theme: Theme) =>
-    theme.breakpoints.down("xs")
-  );
+  const mediaType = useMediaType();
   const { value, menus, onSelect, externalErrors } = props;
   const tomorrow = useMemo(() => addDays(new Date(), 1), []);
   const [baseDate, setBaseDate] = useState<Date>(tomorrow);
@@ -28,7 +27,10 @@ const MenuSelector = memo((props: Props) => {
     () => addDays(tomorrow, MAX_NUMBER_OF_DAYS_RESERVABLE),
     [tomorrow]
   ); // 予約を取れるのは4週間先まで
-  const daysPerPage = useMemo(() => (isMobile ? 7 : 14), [isMobile]);
+  const daysPerPage = useMemo(
+    () => (mediaType === "mobile" ? 7 : 14),
+    [mediaType]
+  );
   const enabledPrevButton = useMemo(
     () => baseDate.getTime() > minDate.getTime(),
     [baseDate, minDate]
@@ -53,7 +55,7 @@ const MenuSelector = memo((props: Props) => {
     }
   }, [externalErrors]);
   return (
-    <Box m={isMobile ? 0 : 2}>
+    <Box m={mediaType === "mobile" ? 0 : 2}>
       <Box mb={2}>
         <CustomTextField
           value={value ? format(value.start_at, "yyyy年M月d日H時mm分") : ""}
