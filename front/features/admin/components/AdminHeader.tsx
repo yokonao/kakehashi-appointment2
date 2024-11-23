@@ -1,22 +1,12 @@
 import {
   AppBar,
-  createStyles,
-  styled,
   Toolbar,
   Typography,
 } from "@mui/material";
 
-const StyledAppBar = styled(AppBar)(() =>
-  createStyles({
-    body: {
-      fontSize: 14,
-    },
-  })
-);
-
 const AdminHeader = () => {
   return (
-    <StyledAppBar
+    <AppBar
       position="fixed"
       color="default"
       sx={{ zIndex: 10, backgroundColor: "white" }}
@@ -26,7 +16,7 @@ const AdminHeader = () => {
           かけはし糖尿病・甲状腺クリニック 管理画面
         </Typography>
       </Toolbar>
-    </StyledAppBar>
+    </AppBar>
   );
 };
 
