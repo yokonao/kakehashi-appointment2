@@ -8,7 +8,7 @@ test.system:
 
 test.acceptance:
 	yarn typecheck
-	bin/rake assets:clean assets:clobber assets:precompile
+	bin/rake assets:clobber assets:precompile
 	$(MAKE) test
 	$(MAKE) test.system
 
