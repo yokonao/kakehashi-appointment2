@@ -7,7 +7,7 @@ test.system:
 	bundle ex rspec spec/system
 
 test.acceptance:
-	# yarn typecheck
+	yarn typecheck
 	bin/rake assets:precompile
 	$(MAKE) test
 	$(MAKE) test.system
