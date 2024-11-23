@@ -128,10 +128,6 @@ GEM
     ffi (1.17.0-arm64-darwin)
     ffi (1.17.0-x86_64-darwin)
     ffi (1.17.0-x86_64-linux-gnu)
-    forgery (0.3.12)
-      nokogiri (~> 1.4)
-    forgery_ja (0.2.2)
-      forgery (~> 0.3.8)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.6)
@@ -317,7 +313,6 @@ DEPENDENCIES
   debug
   devise
   factory_bot_rails
-  forgery_ja
   listen (~> 3.3)
   pg (< 2)
   puma (< 7)
