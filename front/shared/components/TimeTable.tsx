@@ -24,20 +24,6 @@ const classes = {
   body: `${PREFIX}-body`,
 };
 
-const StyledTable = styled(Table)(({ theme }) =>
-  createStyles({
-    head: {
-      backgroundColor: theme.palette.primary.main,
-      color: theme.palette.common.white,
-    },
-    body: {
-      fontSize: 14,
-    },
-  })
-);
-
-const StyledTableCell = TableCell;
-
 type TimeTableProps = {
   menus: MenuSerializer[];
   baseDate: Date;
@@ -50,7 +36,7 @@ const TimeTable = (props: TimeTableProps) => {
   const headers = createDaysOnTheTime(baseDate, days).map((date, i) => {
     return {
       month: (
-        <StyledTableCell
+        <TableCell
           key={"header-month-" + format(date, "MM月dd日hh時mm分")}
           align="center"
           padding="none"
@@ -60,10 +46,10 @@ const TimeTable = (props: TimeTableProps) => {
           }}
         >
           {i === 0 || date.getDate() === 1 ? format(date, "M") : ""}
-        </StyledTableCell>
+        </TableCell>
       ),
       day: (
-        <StyledTableCell
+        <TableCell
           key={"header-date-" + format(date, "MM月dd日hh時mm分")}
           align="center"
           padding="none"
@@ -73,10 +59,10 @@ const TimeTable = (props: TimeTableProps) => {
           }}
         >
           {format(date, "d")}
-        </StyledTableCell>
+        </TableCell>
       ),
       dayOfWeek: (
-        <StyledTableCell
+        <TableCell
           key={"header-week-of-day-" + format(date, "MM月dd日hh時mm分")}
           align="center"
           padding="none"
@@ -86,15 +72,15 @@ const TimeTable = (props: TimeTableProps) => {
           }}
         >
           {ja.localize?.day(date.getDay(), { width: "short" })}
-        </StyledTableCell>
+        </TableCell>
       ),
     };
   });
   return (
-    <StyledTable size="small" stickyHeader aria-label="sticky table">
+    <Table size="small" stickyHeader aria-label="sticky table">
       <TableHead>
         <TableRow>
-          <StyledTableCell
+          <TableCell
             classes={{
               head: classes.head,
               body: classes.body,
@@ -103,7 +89,7 @@ const TimeTable = (props: TimeTableProps) => {
           {headers.map((e) => e.month)}
         </TableRow>
         <TableRow>
-          <StyledTableCell
+          <TableCell
             classes={{
               head: classes.head,
               body: classes.body,
@@ -112,7 +98,7 @@ const TimeTable = (props: TimeTableProps) => {
           {headers.map((e) => e.day)}
         </TableRow>
         <TableRow>
-          <StyledTableCell
+          <TableCell
             classes={{
               head: classes.head,
               body: classes.body,
@@ -124,7 +110,7 @@ const TimeTable = (props: TimeTableProps) => {
       <TableBody>
         {createBusinessTimesEveryThirtyMinutes(baseDate).map((e) => (
           <TableRow key={"table-row-" + e.toString()}>
-            <StyledTableCell
+            <TableCell
               key={"header-time-" + format(e, "HH:mm")}
               align="center"
               padding="none"
@@ -134,13 +120,13 @@ const TimeTable = (props: TimeTableProps) => {
               }}
             >
               {format(e, "HH:mm")}
-            </StyledTableCell>
+            </TableCell>
             {createDaysOnTheTime(e, days).map((date) => {
               const menu = menus.find(
                 (menu) => menu.start_at.getTime() === date.getTime()
               );
               return (
-                <StyledTableCell
+                <TableCell
                   key={"menu-" + date.toString()}
                   align="center"
                   padding="none"
@@ -167,13 +153,13 @@ const TimeTable = (props: TimeTableProps) => {
                       <Icon>close</Icon>
                     </IconButton>
                   )}
-                </StyledTableCell>
+                </TableCell>
               );
             })}
           </TableRow>
         ))}
       </TableBody>
-    </StyledTable>
+    </Table>
   );
 };
 
