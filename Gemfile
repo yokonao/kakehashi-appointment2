@@ -12,12 +12,10 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'devise'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
-gem 'jsbundling-rails' # asset pipeline
 gem 'pg', '< 2'
 gem 'puma', '< 7'
 gem 'rails', '8.0.0'
 gem 'rails-i18n'
-gem "sprockets-rails" # asset pipeline
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
