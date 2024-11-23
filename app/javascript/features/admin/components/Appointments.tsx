@@ -81,6 +81,9 @@ const Appointments = (props: Props) => {
     useState<number>(-1);
   const [selectedAppointmentToDelete, setSelectedAppointmentToDelete] =
     useState<AppointmentSerializer | undefined>(undefined);
+
+  const [currentPage, setCurrentPage] = useState(0);
+
   return (
     <Box>
       <div style={{ width: "100%" }}>
@@ -95,7 +98,13 @@ const Appointments = (props: Props) => {
                 appointments.find((e) => e.id === id)
               )
           )}
-          pageSize={10}
+          paginationModel={{
+            page: currentPage,
+            pageSize: 10,
+          }}
+          onPaginationModelChange={({ page }) => {
+            setCurrentPage(page);
+          }}
           autoHeight
           sx={{ margin: 2 }}
         />
