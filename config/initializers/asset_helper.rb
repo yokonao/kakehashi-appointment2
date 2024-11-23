@@ -19,7 +19,7 @@ module AssetHelper
   # - development 環境においては、アセット開発サーバに対するリクエストパスとして直接利用される
   # - production 環境においては、manifest ファイルを参照して論理名から実体名を解決するために利用される
   def compute_asset_path(path, _options = {})
-    MANIFEST ? MANIFEST.dig(path, 'file') || path : "#{FRONT_SERVER_URL}/#{path}"
+    MANIFEST ? "/#{MANIFEST.dig(path, 'file')}" || path : "#{FRONT_SERVER_URL}/#{path}"
   end
 end
 
