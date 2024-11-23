@@ -10,8 +10,6 @@ gem 'active_model_serializers', git: 'https://github.com/rails-api/active_model_
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'devise'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.7'
 gem 'pg', '< 2'
 gem 'puma', '< 7'
 gem 'rails', '8.0.0'
