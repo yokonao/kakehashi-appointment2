@@ -35,7 +35,6 @@ end
 group :development, :test do
   gem 'debug'
   gem 'factory_bot_rails'
-  gem 'forgery_ja'
   gem 'rexml'
   gem 'rspec-rails'
   gem 'rubocop', require: false
