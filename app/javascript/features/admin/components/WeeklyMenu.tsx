@@ -22,7 +22,7 @@ import DeleteAllDayMenusConfirmationDialog from "./DeleteAllDayMenusConfirmation
 import DeleteMenuConfirmationDialog from "./DeleteMenuConfirmationDialog";
 import { useState, useCallback } from "react";
 
-const StyledTable = styled("table")(({ theme }) => ({
+const StyledTable = styled("table")(() => ({
   tableLayout: "fixed",
   borderSpacing: 0,
   borderCollapse: "collapse",
@@ -30,20 +30,20 @@ const StyledTable = styled("table")(({ theme }) => ({
   border: "solid 0.5px rgba(224, 224, 224, 1)",
 }));
 
-const StyleTableHeader = styled("th")(({ theme }) => ({
+const StyleTableHeader = styled("th")(() => ({
   border: "solid 0.5px rgba(224, 224, 224, 1)",
 }));
 
-const StyledTableContent = styled("td")(({ theme }) => ({
+const StyledTableContent = styled("td")(() => ({
   borderLeft: "solid 0.5px rgba(224, 224, 224, 1)",
   height: "40px",
 }));
 
-const StyledMenuCard = styled("div")(({ theme }) => ({
+const StyledMenuCard = styled("div")(() => ({
   borderRadius: "5px",
   margin: "0px 10px",
   padding: "10px",
-  height: "90%",
+  height: "50%",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",

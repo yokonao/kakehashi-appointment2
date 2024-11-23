@@ -97,6 +97,7 @@ const Appointments = (props: Props) => {
           )}
           pageSize={10}
           autoHeight
+          sx={{ margin: 2 }}
         />
       </div>
       <AppointmentDetailDialog

@@ -15,7 +15,7 @@ const DrawerContainer = styled("div")(() => ({ overflow: "auto" }));
 const AdminDrawer = () => {
   const location = useLocation();
   return (
-    <Drawer variant="permanent" sx={{ width: 240, flexShrink: 0 }}>
+    <Drawer variant="permanent" sx={{ width: 120, flexShrink: 0 }}>
       <Toolbar />
       <DrawerContainer>
         <List>
