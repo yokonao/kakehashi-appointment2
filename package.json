@@ -1,6 +1,10 @@
 {
   "name": "kakehashi-appointment2",
   "private": true,
+  "engines": {
+    "node": "22.9.0"
+  },
+  "packageManager": "yarn@4.5.0",
   "dependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
@@ -19,15 +23,10 @@
     "typescript": "^5.7.2",
     "vite": "^5.0.0"
   },
-  "version": "0.1.0",
   "scripts": {
     "build": "vite build",
     "mv-assets": "rm -rf public/assets && mv dist/assets public/",
     "watch": "vite dev",
     "typecheck": "tsc --noEmit"
-  },
-  "engines": {
-    "node": "22.9.0"
-  },
-  "packageManager": "yarn@4.5.0"
+  }
 }
