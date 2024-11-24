@@ -122,6 +122,20 @@ SECRET_KEY_BASE=hogehoge RAILS_ENV=production bin/rake assets:precompile
 DATABASE_URL=postgresql://postgresql:postgresql@localhost:5432/kakehashi-appointment2_development RAILS_SERVE_STATIC_FILES=1 SECRET_KEY_BASE=hogehoge RAILS_ENV=production bin/rails s -p 3200
 ```
 
+## Update Dependencies
+
+```
+# bundler のバージョンを最新化する
+gem install bundler
+bundle update --bundler
+
+# 依存 gem を Gemfile の制約の範囲内で最新化する
+bundle update
+
+# yarn のバージョンを最新化する
+yarn set version canary
+```
+
 ## Heroku
 
 production 環境のアプリケーションは Heroku でホスティングしています。
