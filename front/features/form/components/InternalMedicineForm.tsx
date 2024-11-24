@@ -19,7 +19,7 @@ import SuccessDialog from "./SuccessDialog";
 import { createPostParameters, initialValues } from "../utils/FormValue";
 import { validate } from "../utils/validator";
 import { useMenusContext } from "../hooks/useMenusContext";
-import React, { useState } from "react";
+import { useCallback, useState } from "react";
 
 const InternalMedicineForm = () => {
   const { internalMedicineMenus: menus, isLoading } = useMenusContext();
@@ -63,7 +63,7 @@ const InternalMedicineForm = () => {
         }}
       >
         {({ status, setFieldValue, submitForm }) => {
-          const onSelectMenu = React.useCallback(
+          const onSelectMenu = useCallback(
             (menu: MenuSerializer) => setFieldValue("menu", menu),
             [setFieldValue]
           );
