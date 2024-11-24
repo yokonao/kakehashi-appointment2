@@ -7,7 +7,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { format } from "date-fns";
+import { Day, format } from "date-fns";
 import {
   createBusinessTimesEveryThirtyMinutes,
   createDaysOnTheTime,
@@ -69,7 +69,7 @@ const TimeTable = (props: TimeTableProps) => {
             body: classes.body,
           }}
         >
-          {ja.localize?.day(date.getDay(), { width: "short" })}
+          {ja.localize?.day(date.getDay() as Day, { width: "short" })}
         </TableCell>
       ),
     };

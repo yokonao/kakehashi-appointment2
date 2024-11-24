@@ -1238,10 +1238,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"date-fns@npm:^2.23.0":
-  version: 2.23.0
-  resolution: "date-fns@npm:2.23.0"
-  checksum: 10c0/d08f142a2b1c8a84b29ef7374636e8c018daa288df2046915994849f2084e86d3bb168bb9869156d319ae19ce50e89b6fadf16a541d3cfc7b692700a19c7fde2
+"date-fns@npm:^4.0.0":
+  version: 4.1.0
+  resolution: "date-fns@npm:4.1.0"
+  checksum: 10c0/b79ff32830e6b7faa009590af6ae0fb8c3fd9ffad46d930548fbb5acf473773b4712ae887e156ba91a7b3dc30591ce0f517d69fd83bd9c38650fdc03b4e0bac8
   languageName: node
   linkType: hard
 
@@ -1777,7 +1777,7 @@ __metadata:
     "@types/react": "npm:18.3.1"
     "@types/react-dom": "npm:18.3.1"
     axios: "npm:^1.0.0"
-    date-fns: "npm:^2.23.0"
+    date-fns: "npm:^4.0.0"
     formik: "npm:^2.2.9"
     react: "npm:18.3.1"
     react-dom: "npm:18.3.1"
