@@ -134,6 +134,10 @@ bundle update
 
 # yarn のバージョンを最新化する
 yarn set version canary
+
+# 依存 npm package のバージョンを全て最新化する
+# NOTE: メジャーバージョンが上がる可能性もあるので差分は要チェック
+yarn up '*'
 ```
 
 ## Heroku
