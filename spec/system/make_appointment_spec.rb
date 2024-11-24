@@ -31,9 +31,8 @@ RSpec.describe Appointment, type: :system do
       fill_in 'free-comment', with: "spec\n1型糖尿病\n2型糖尿病\nリブレ"
       expect do
         click_button '予約'
-        sleep 3
+        assert_text '予約が成立しました', wait: 3
       end.to change { Appointment.count }.by(1)
-      sleep 1
     end
   end
 end
