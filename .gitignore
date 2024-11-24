@@ -34,3 +34,5 @@ yarn-debug.log*
 
 # Output of vite build
 /dist/*
+
+.yarn/install-state.gz
