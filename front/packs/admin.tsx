@@ -8,6 +8,7 @@ import AdminDrawer from "../features/admin/components/AdminDrawer";
 import Routes from "../features/admin/Routes";
 import { AdminContextProvider } from "../features/admin/hooks/useAdminContext";
 import LoadingIndicator from "../features/admin/components/LoadingIndicator";
+import { ReactNode } from "react";
 
 const Root = styled("div")(() => ({
   display: "flex",
@@ -19,7 +20,7 @@ const Main = styled("main")(({ theme }) => ({
   paddingTop: theme.spacing(8),
 }));
 
-const Admin = (): JSX.Element => {
+const Admin = (): ReactNode => {
   return (
     <Root>
       <BrowserRouter>

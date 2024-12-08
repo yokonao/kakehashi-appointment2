@@ -5,6 +5,7 @@ import Routes from "../features/form/Routes";
 import { MenusContextProvider } from "../features/form/hooks/useMenusContext";
 import { NotificationContextProvider } from "../features/form/hooks/useNotification";
 import Header from "../shared/components/Header";
+import { ReactNode } from "react";
 
 const theme = createTheme({
   palette: {
@@ -23,7 +24,7 @@ const Footer = styled("div")(() => ({
   height: 300,
 }));
 
-const App = (): JSX.Element => {
+const App = (): ReactNode => {
   return (
     <Root>
       <BrowserRouter>
