@@ -1,3 +1,14 @@
+# Dependencies
+.PHONY: update.gem update.npm
+update.gem:
+	gem install bundler
+	bundle update --bundler
+	bundle update
+
+update.npm:
+	yarn set version canary
+	yarn up '*'
+
 # Testing
 .PHONY: test test.system test.acceptance
 test:

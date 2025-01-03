@@ -125,19 +125,11 @@ DATABASE_URL=postgresql://postgresql:postgresql@localhost:5432/kakehashi-appoint
 ## Update Dependencies
 
 ```
-# bundler のバージョンを最新化する
-gem install bundler
-bundle update --bundler
+# gem を最新化
+make update.gem
 
-# 依存 gem を Gemfile の制約の範囲内で最新化する
-bundle update
-
-# yarn のバージョンを最新化する
-yarn set version canary
-
-# 依存 npm package のバージョンを全て最新化する
-# NOTE: メジャーバージョンが上がる可能性もあるので差分は要チェック
-yarn up '*'
+# npm パッケージを最新化
+make update.npm
 ```
 
 ## Heroku
