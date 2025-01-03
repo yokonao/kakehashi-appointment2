@@ -5,7 +5,7 @@ RSpec.describe 'Set a day when the company is closed', type: :system do
   after  { ActionController::Base.allow_forgery_protection = false }
 
   before do
-    (1...7).each do |i|
+    (-7...7).each do |i|
       CreateDailyAppointmentMenuService.new(Date.today + i.days).execute
     end
     Administrator.create!(email: "test+admin@example.com", password: 'testtest')
