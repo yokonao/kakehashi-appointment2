@@ -10,7 +10,7 @@
     "@emotion/styled": "^11.14.0",
     "@mui/material": "^6.3.0",
     "@mui/x-data-grid": "^7.23.5",
-    "@types/node": "^22.10.2",
+    "@types/node": "^22.10.5",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
     "axios": "^1.7.9",
@@ -20,7 +20,7 @@
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.1.1",
     "typescript": "^5.7.2",
-    "vite": "^6.0.6"
+    "vite": "^6.0.7"
   },
   "scripts": {
     "build": "vite build",
