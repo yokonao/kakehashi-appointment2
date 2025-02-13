@@ -8,9 +8,9 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
-    "@mui/material": "^6.4.2",
-    "@mui/x-data-grid": "^7.25.0",
-    "@types/node": "^22.13.0",
+    "@mui/material": "^6.4.4",
+    "@mui/x-data-grid": "^7.26.0",
+    "@types/node": "^22.13.4",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "axios": "^1.7.9",
@@ -20,7 +20,7 @@
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.1.5",
     "typescript": "^5.7.3",
-    "vite": "^6.0.11"
+    "vite": "^6.1.0"
   },
   "scripts": {
     "build": "vite build",
