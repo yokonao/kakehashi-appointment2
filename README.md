@@ -124,11 +124,29 @@ DATABASE_URL=postgresql://postgresql:postgresql@localhost:5432/kakehashi-appoint
 
 ## Update Dependencies
 
-```
-# gem を最新化
-make update.gem
+### Ruby
 
-# npm パッケージを最新化
+以下を更新する：
+
+- mise.toml
+- Gemfile の ruby directive
+
+### gem
+
+```
+make update.gem
+```
+
+### Node.js
+
+以下を更新：
+
+- mise.toml
+- package.json の engines.node
+
+### npm パッケージ
+
+```
 make update.npm
 ```
 
@@ -182,11 +200,19 @@ https://dashboard.heroku.com/apps/kakehashi-appointment/resources
 ### Connect console
 
 ```
+
 heroku run -a kakehashi-appointment bin/rails console
+
 ```
 
 ### Tail logs
 
 ```
+
 heroku logs --tail -a kakehashi-appointment
+
+```
+
+```
+
 ```
