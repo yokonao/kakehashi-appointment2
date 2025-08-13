@@ -9,7 +9,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'devise'
 gem 'pg', '< 2'
 gem 'puma', '< 7'
-gem 'rails', '8.0.0'
+gem 'rails', '8.0.2'
 gem 'rails-i18n'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
