@@ -31,7 +31,6 @@ end
 
 group :development, :test do
   gem 'debug'
-  gem 'rexml'
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
 end

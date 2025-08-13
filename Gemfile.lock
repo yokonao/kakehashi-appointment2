@@ -306,7 +306,6 @@ DEPENDENCIES
   puma
   rails (= 8.0.2)
   rails-i18n
-  rexml
   rubocop
   rubocop-rails
   selenium-webdriver
