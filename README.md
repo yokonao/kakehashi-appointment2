@@ -27,11 +27,10 @@
 ## 開発環境構築
 
 ```
-asdf install
+mise install
 
 bundle install
 corepack enable
-asdf reshim nodejs
 yarn install
 ```
 
