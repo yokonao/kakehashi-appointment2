@@ -3,9 +3,22 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   build: {
-    manifest: 'manifest.json',
+    manifest: "manifest.json",
     rollupOptions: {
       input: ["front/packs/admin.tsx", "front/packs/app.tsx"],
+      onwarn(warning, warn) {
+        // 特定モジュールの use client 警告を無視
+        // Next.jsのApp Routerに対応するためのディレクティブであり無視されても問題ない
+        if (
+          warning.code === "MODULE_LEVEL_DIRECTIVE" &&
+          warning.message.includes("use client") &&
+          (warning.loc?.file?.includes("node_modules/@mui/") ||
+            warning.loc?.file?.includes("node_modules/react-router/"))
+        ) {
+          return;
+        }
+        warn(warning);
+      },
     },
   },
   publicDir: false,
