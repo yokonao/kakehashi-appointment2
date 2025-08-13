@@ -1,8 +1,8 @@
-require 'test_helper'
+require "test_helper"
 
 class ReactsTest < ActionDispatch::IntegrationTest
   test "GET /form returns 200" do
-    get '/form'
+    get "/form"
     assert_response :ok
   end
 end
