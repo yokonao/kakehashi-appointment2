@@ -2,7 +2,7 @@
   "name": "kakehashi-appointment2",
   "private": true,
   "engines": {
-    "node": "22.14.0"
+    "node": "22.18.0"
   },
   "packageManager": "yarn@4.7.0",
   "dependencies": {
