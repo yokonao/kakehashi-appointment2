@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AppointmentMailer < ApplicationMailer
   default from: ENV['CUSTOM_DOMAIN_ADDRESS']
   def appointment_email

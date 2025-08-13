@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MenuSerializer < ActiveModel::Serializer
   attribute :id
   attribute :department

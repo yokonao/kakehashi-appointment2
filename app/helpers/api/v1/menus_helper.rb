@@ -1,2 +1,8 @@
-module Api::V1::MenusHelper
+# frozen_string_literal: true
+
+module Api
+  module V1
+    module MenusHelper
+    end
+  end
 end

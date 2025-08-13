@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AppointmentAdminSerializer < ActiveModel::Serializer
   attribute :id
   attribute :full_name
