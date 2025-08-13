@@ -15,8 +15,8 @@ class Api::V1::MenusTest < ActionDispatch::IntegrationTest
     
     assert_response :ok
     json = JSON.parse(response.body)
-    # 58 from CreateDailyAppointmentMenuService + 3 from fixtures
-    assert_equal 61, json.length
+    # 58 from CreateDailyAppointmentMenuService + 2 from fixtures
+    assert_equal 60, json.length
   end
 
   test "GET /index returns menus of one day when min and max date is given" do

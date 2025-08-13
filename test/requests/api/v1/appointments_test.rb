@@ -2,7 +2,7 @@ require "test_helper"
 
 class Api::V1::AppointmentsTest < ActionDispatch::IntegrationTest
   setup do
-    @menu = menus(:one)
+    @menu = menus(:menu_one)
     @valid_params = {
       full_name: '架橋 花子',
       full_kana_name: 'カケハシ ハナコ',

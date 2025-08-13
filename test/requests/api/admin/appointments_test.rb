@@ -5,8 +5,8 @@ class Api::Admin::AppointmentsIndexTest < ActionDispatch::IntegrationTest
 
   setup do
     @administrator = administrators(:admin_one)
-    @menu1 = menus(:one)
-    @menu2 = menus(:two)
+    @menu1 = menus(:menu_one)
+    @menu2 = menus(:menu_two)
     @valid_params = {
       full_name: '架橋 花子',
       full_kana_name: 'カケハシ ハナコ',
@@ -38,7 +38,7 @@ class Api::Admin::AppointmentsIndexTest < ActionDispatch::IntegrationTest
     assert_response :ok
     
     json = JSON.parse(response.body)
-    assert_equal 3, json.length
+    assert_equal 2, json.length
   end
 
   test "contains start time when logged in" do
@@ -57,8 +57,8 @@ class Api::Admin::AppointmentsDestroyTest < ActionDispatch::IntegrationTest
 
   setup do
     @administrator = administrators(:admin_one)
-    @menu1 = menus(:one)
-    @menu2 = menus(:two)
+    @menu1 = menus(:menu_one)
+    @menu2 = menus(:menu_two)
     @valid_params = {
       full_name: '架橋 花子',
       full_kana_name: 'カケハシ ハナコ',
@@ -72,6 +72,11 @@ class Api::Admin::AppointmentsDestroyTest < ActionDispatch::IntegrationTest
     }
     @appointment1 = Appointment.create!(@valid_params.merge(menu_id: @menu1.id))
     @appointment2 = Appointment.create!(@valid_params.merge(menu_id: @menu2.id))
+  end
+
+  teardown do
+    @appointment1.destroy!
+    @appointment2.destroy!
   end
 
   test "returns 401 when not logged in" do
