@@ -11,7 +11,7 @@ class CreateDailyAppointmentMenuService
 
   def execute
     create_reservable_start_time_array.map do |stamp|
-      Menu.create(department: '内科', start_at: Time.at(stamp))
+      Menu.create(department: "内科", start_at: Time.at(stamp))
     end
   end
 

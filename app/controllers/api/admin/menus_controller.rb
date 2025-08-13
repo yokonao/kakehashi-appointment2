@@ -25,7 +25,7 @@ module Api
         menu = Menu.find(id)
         menu.destroy
         if menu.errors.empty?
-          render json: { "message": '予約枠を削除しました' }
+          render json: { "message": "予約枠を削除しました" }
         else
           render json: { "message": menu.errors.full_messages }, status: :bad_request
         end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'mail'
+require "mail"
 
 class EmailValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
@@ -11,11 +11,11 @@ class EmailValidator < ActiveModel::EachValidator
       valid = mail.domain && mail.address == value
 
       # check domain for mail address.
-      valid &&= mail.domain.split('.').length > 1
+      valid &&= mail.domain.split(".").length > 1
     rescue StandardError => _e
       valid = false
     end
 
-    record.errors.add(attribute, I18n.t('errors.messages.invalid')) unless valid
+    record.errors.add(attribute, I18n.t("errors.messages.invalid")) unless valid
   end
 end
