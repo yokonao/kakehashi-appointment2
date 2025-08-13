@@ -50,7 +50,11 @@ RSpec.configure do |config|
   # The settings below are suggested to provide a good initial experience
   # with RSpec, but feel free to customize to your heart's content.
   config.before(:each, type: :system) do
-    driven_by :selenium_chrome
+    if ENV.fetch('SELENIUM_CHROME_HEADFULL', false)
+      driven_by :selenium, using: :chrome
+    else
+      driven_by :selenium, using: :headless_chrome
+    end
   end
   #   # This allows you to limit a spec run to individual examples or groups
   #   # you care about by tagging them with `:focus` metadata. When nothing
