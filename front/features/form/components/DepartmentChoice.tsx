@@ -1,4 +1,4 @@
-import { Box, Button, Container, Grid2, Typography } from "@mui/material";
+import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const DepartmentChoice = () => {
@@ -14,12 +14,12 @@ const DepartmentChoice = () => {
         <Box textAlign="center">
           <Typography>翌日〜4週後までの予約が可能です</Typography>
         </Box>
-        <Grid2
+        <Grid
           container
           spacing={1}
           style={{ paddingTop: "2rem", paddingBottom: "2rem" }}
         >
-          <Grid2 size={{ xs: 6 }}>
+          <Grid size={{ xs: 6 }}>
             <div
               style={{
                 display: "flex",
@@ -39,8 +39,8 @@ const DepartmentChoice = () => {
               </Button>
               <span style={{ fontSize: "14px" }}>（木曜・日曜は休診）</span>
             </div>
-          </Grid2>
-          <Grid2 size={{ xs: 6 }}>
+          </Grid>
+          <Grid size={{ xs: 6 }}>
             <div
               style={{
                 display: "flex",
@@ -61,15 +61,15 @@ const DepartmentChoice = () => {
               </Button>
               {/* <span style={{ fontSize: "14px" }}>（木曜午前のみ診療）</span> */}
             </div>
-          </Grid2>
-        </Grid2>
-        <Grid2 style={{ paddingBottom: "2rem" }}>
+          </Grid>
+        </Grid>
+        <Grid style={{ paddingBottom: "2rem" }}>
           <Typography>* 漢方のWEB予約は現在休止中です</Typography>
           <Typography>
             * <b>発熱や風邪症状</b>がある方、および<b>コロナ検査</b>
             を希望される方は直接お電話ください
           </Typography>
-        </Grid2>
+        </Grid>
       </Container>
       <div style={{ height: "400px" }} />
     </>
