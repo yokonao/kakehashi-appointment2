@@ -6,7 +6,7 @@ class EmailValidator < ActiveModel::EachValidator
       mail = Mail::Address.new(value)
 
       # check legal address
-      valid = (mail.domain && mail.address == value)
+      valid = mail.domain && mail.address == value
 
       # check domain for mail address.
       valid &&= mail.domain.split('.').length > 1

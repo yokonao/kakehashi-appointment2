@@ -9,7 +9,7 @@ class StatsService
     count = appointments.count { |appointment| appointment.created_at > 1.day.ago }
     {
       appointment_count: count == MAX_DAILY_FETCH_COUNT ? "#{count}+" : count.to_s,
-      latest_appointment_created_at: appointments.first&.created_at,
+      latest_appointment_created_at: appointments.first&.created_at
     }
   end
 end
