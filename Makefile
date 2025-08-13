@@ -12,10 +12,10 @@ update.npm:
 # Testing
 .PHONY: test test.system test.acceptance
 test:
-	bundle ex rspec spec --exclude-pattern 'spec/system/**/*_spec.rb'
+	bin/rails test
 
 test.system:
-	bundle ex rspec spec/system
+	bin/rails test test/system
 
 test.acceptance:
 	yarn typecheck
