@@ -12,7 +12,7 @@ gem 'puma', '< 7'
 gem 'rails', '8.0.2'
 gem 'rails-i18n'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: [:windows, :jruby]
 
 group :development do
   # NOTE: この gem を外すと開発環境のサーバー起動時に以下のようなエラーが発生する
