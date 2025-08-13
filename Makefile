@@ -18,6 +18,7 @@ test.system:
 	bin/rails test test/system
 
 test.acceptance:
+	bin/rubocop
 	yarn typecheck
 	bin/rake assets:precompile
 	$(MAKE) test
