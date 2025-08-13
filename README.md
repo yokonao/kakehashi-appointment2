@@ -199,19 +199,11 @@ https://dashboard.heroku.com/apps/kakehashi-appointment/resources
 ### Connect console
 
 ```
-
 heroku run -a kakehashi-appointment bin/rails console
-
 ```
 
 ### Tail logs
 
 ```
-
 heroku logs --tail -a kakehashi-appointment
-
-```
-
-```
-
 ```
