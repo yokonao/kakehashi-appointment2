@@ -323,14 +323,14 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
-  bootsnap (>= 1.4.4)
-  capybara (>= 3.26)
+  bootsnap
+  capybara
   debug
   devise
   factory_bot_rails
-  listen (~> 3.3)
-  pg (< 2)
-  puma (< 7)
+  listen
+  pg
+  puma
   rails (= 8.0.2)
   rails-i18n
   rexml

@@ -5,10 +5,10 @@ ruby '3.4.5'
 
 gem 'active_model_serializers'
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.4.4', require: false
+gem 'bootsnap', require: false
 gem 'devise'
-gem 'pg', '< 2'
-gem 'puma', '< 7'
+gem 'pg'
+gem 'puma'
 gem 'rails', '8.0.2'
 gem 'rails-i18n'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -20,12 +20,12 @@ group :development do
   #
   # Display performance information such as SQL time and flame graphs for each request in your browser.
   # Can be configured to work on production as well see: https://github.com/MiniProfiler/rack-mini-profiler/blob/master/README.md
-  gem 'listen', '~> 3.3'
+  gem 'listen'
 end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 3.26'
+  gem 'capybara'
   gem 'selenium-webdriver'
 end
 
