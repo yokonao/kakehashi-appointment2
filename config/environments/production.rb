@@ -1,4 +1,4 @@
-require 'active_support/core_ext/integer/time'
+require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -22,7 +22,7 @@ Rails.application.configure do
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
-  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
+  config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = 'http://assets.example.com'
@@ -42,7 +42,7 @@ Rails.application.configure do
   config.log_level = :info
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [:request_id]
+  config.log_tags = [ :request_id ]
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -71,7 +71,7 @@ Rails.application.configure do
   # require "syslog/logger"
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
-  if ENV['RAILS_LOG_TO_STDOUT'].present?
+  if ENV["RAILS_LOG_TO_STDOUT"].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
@@ -102,12 +102,12 @@ Rails.application.configure do
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.default_url_options = { host: 'kakehashi-appointment.herokuapp.com' }
+  config.action_mailer.default_url_options = { host: "kakehashi-appointment.herokuapp.com" }
   config.action_mailer.smtp_settings = {
-    user_name: 'apikey',
-    password: ENV['SENDGRID_API_KEY'],
-    domain: 'herokuapp.com',
-    address: 'smtp.sendgrid.net',
+    user_name: "apikey",
+    password: ENV["SENDGRID_API_KEY"],
+    domain: "herokuapp.com",
+    address: "smtp.sendgrid.net",
     port: 587,
     authentication: :plain,
     enable_starttls_auto: true

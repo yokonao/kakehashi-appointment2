@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module AssetHelper
-  FRONT_SERVER_URL = Rails.env.development? && ENV['FRONT_SERVER_URL']
-  MANIFEST_PATH = 'dist/manifest.json'
+  FRONT_SERVER_URL = Rails.env.development? && ENV["FRONT_SERVER_URL"]
+  MANIFEST_PATH = "dist/manifest.json"
   MANIFEST = !FRONT_SERVER_URL && JSON.parse(File.read(MANIFEST_PATH)).freeze
 
   # @override
