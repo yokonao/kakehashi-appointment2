@@ -5,3 +5,37 @@ node = "22"
 [env]
 CUSTOM_DOMAIN_ADDRESS = 'kakehashi@example.com'
 DOCOTR_ADDRESS = 'doctor@example.com'
+
+[tasks.update-gem]
+run = """
+gem install bundler
+bundle update --bundler
+bundle update
+"""
+
+[tasks.update-npm]
+run = """
+yarn set version canary
+yarn up '*'
+"""
+
+[tasks."test.unit"]
+run = "bin/rails test"
+
+[tasks."test.system"]
+run = "bin/rails test test/system"
+
+[tasks."test.acceptance"]
+run = """
+bin/rubocop
+yarn typecheck
+bin/rake assets:precompile
+bin/rails test
+bin/rails test test/system
+"""
+
+[tasks.deploy]
+run = """
+git pull origin main
+git push heroku main
+"""

@@ -62,14 +62,14 @@ NOTE: -v オプションは現在の Gemfile.lock に合わせて変えてくだ
 
 ```
 # Run unit tests
-make test
+mise test.unit
 
 # Run system tests (using selenium)
-make test.system
+mise test.system
 
 # Run all tests
 # If this passes, you can deploy
-make test.acceptance
+mise test.acceptance
 ```
 
 ## デプロイ
@@ -126,7 +126,7 @@ DATABASE_URL=postgresql://postgresql:postgresql@localhost:5432/kakehashi-appoint
 ### gem
 
 ```
-make update.gem
+mise update-gem
 ```
 
 ### Node.js
@@ -139,7 +139,7 @@ make update.gem
 ### npm パッケージ
 
 ```
-make update.npm
+mise update-npm
 ```
 
 ## Heroku
