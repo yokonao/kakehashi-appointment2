@@ -35,5 +35,8 @@ module KakehashiAppointment2
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Disable ActiveStorage
+    config.active_storage.draw_routes = false
   end
 end
