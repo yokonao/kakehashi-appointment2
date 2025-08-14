@@ -1,3 +1,7 @@
 [tools]
 ruby = "3.4"
 node = "22"
+
+[env]
+CUSTOM_DOMAIN_ADDRESS = 'kakehashi@example.com'
+DOCOTR_ADDRESS = 'doctor@example.com'
