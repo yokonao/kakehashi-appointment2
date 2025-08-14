@@ -26,9 +26,16 @@
 
 ## 開発環境構築
 
+本プロジェクトでは開発環境を構成するツールとして [mise](https://github.com/jdx/mise) を利用しています。
+公式ドキュメントに従いあらかじめインストールしておいてください。
+
+まずは Ruby 等のラインタイムをインストールします。
+
 ```
 mise install
+```
 
+```
 bundle install
 corepack enable
 yarn install
@@ -53,7 +60,7 @@ pg gem が入らない時は --with-pg-config オプションを渡す
 
 ```
 brew install libpq
-gem install pg -v '1.2.3' -- --with-pg-config=$(brew --prefix libpq)/bin/pg_config
+gem install pg -v '1.6.1' -- --with-pg-config=$(brew --prefix libpq)/bin/pg_config
 ```
 
 NOTE: -v オプションは現在の Gemfile.lock に合わせて変えてください
@@ -75,7 +82,7 @@ mise test.acceptance
 ## デプロイ
 
 ```
-git push heroku main
+mise deploy
 ```
 
 ## Tasks
