@@ -1,3 +1,10 @@
+<header class="bg-yellow-500 text-white shadow-lg">
+  <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+    <h1 class="text-xl font-bold">かけはし糖尿病・甲状腺クリニック 管理画面</h1>
+    <%= button_to "ログアウト", destroy_administrator_session_path, method: :delete, class: "bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded transition duration-200" %>
+  </div>
+</header>
+
 <div class="container mx-auto px-4 py-8">
   <h1 class="text-3xl font-bold mb-6">予約一覧</h1>
   
