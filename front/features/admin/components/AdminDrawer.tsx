@@ -41,7 +41,16 @@ const AdminDrawer = () => {
           <ListItemButton
             key={"ログアウト"}
             onClick={async () => {
-              await client.delete("/administrators/sign_out");
+              try {
+                await client.delete("/administrators/sign_out");
+              } catch (error) {
+                // HACK: DELETE メソッドに対してリダイレクトが発生すると DELETE メソッドのままそのパスにアクセスしようとしてしまうため 404 エラーを無視している
+                if (error.name === "AxiosError" && error.message === "Request failed with status code 404") {
+                  // ignore
+                } else {
+                  throw error;
+                }
+              }
               window.location.href = "/administrators/sign_in";
             }}
           >
