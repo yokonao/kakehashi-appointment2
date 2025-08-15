@@ -7,6 +7,7 @@ gem "active_model_serializers"
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 gem "devise"
+gem "kaminari"
 gem "pg"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
