@@ -30,7 +30,7 @@ run = "bin/rails test test/system"
 run = """
 bin/rubocop
 yarn typecheck
-bin/rake assets:precompile
+bin/rake assets:clobber assets:precompile
 bin/rails test
 bin/rails test test/system
 """

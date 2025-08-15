@@ -8,6 +8,6 @@ Rails.application.load_tasks
 namespace :assets do
   task :precompile do
     system("yarn build")
-    system("yarn mv-assets")
+    system("yarn cp-assets")
   end
 end

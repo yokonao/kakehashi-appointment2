@@ -24,7 +24,7 @@
   },
   "scripts": {
     "build": "vite build",
-    "mv-assets": "rm -rf public/assets && mv dist/assets public/",
+    "cp-assets": "cp -r dist/assets/. public/assets",
     "watch": "vite dev",
     "typecheck": "tsc --noEmit"
   }
