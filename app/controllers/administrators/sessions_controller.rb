@@ -2,12 +2,10 @@
 
 module Administrators
   class SessionsController < Devise::SessionsController
-    ADMIN_V2_DEV = ENV.fetch("ADMIN_V2_DEV", false)
-
     private
 
     def after_sign_in_path_for(_resource)
-      ADMIN_V2_DEV ? "/admin/v2/appointments" : "/admin/menus"
+      "/admin/v2/appointments"
     end
 
     def after_sign_out_path_for(_resource)
