@@ -6,6 +6,16 @@
 </header>
 
 <div class="container mx-auto px-4 py-8">
+  <% if flash[:notice] %>
+    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+  <% if flash[:alert] %>
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
   <h1 class="text-3xl font-bold mb-6">予約一覧</h1>
   
   <div class="overflow-x-auto">
@@ -59,7 +69,7 @@
   <div class="sticky top-0 bg-white border-b border-gray-200 px-6 py-4">
     <div class="flex justify-between items-center">
       <h2 class="text-xl font-bold">予約詳細</h2>
-      <button onclick="closeDrawer()" class="text-gray-500 hover:text-gray-700">
+      <button onclick="closeDrawer()" class="text-gray-500 hover:text-gray-700 cursor-pointer">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
         </svg>
@@ -75,6 +85,7 @@
 
 <!-- Overlay -->
 <div id="drawer-overlay" class="fixed inset-0 bg-transparent bg-opacity-50 z-40 hidden" onclick="closeDrawer()"></div>
+
 
 <script>
   let currentAppointment = null;
@@ -110,7 +121,7 @@
             </div>
             <div>
               <span class="text-gray-600">メールアドレス: </span>
-              <span class="font-medium text-sm">${appointmentData.email}</span>
+              <span class="font-medium">${appointmentData.email}</span>
             </div>
           </div>
         </div>
@@ -170,9 +181,45 @@
             </div>
             <div>
               <span class="text-gray-600">予約作成日時:</span>
-              <span class="font-medium text-sm">${formatDateTime(appointmentData.created_at)}</span>
+              <span class="font-medium">${formatDateTime(appointmentData.created_at)}</span>
             </div>
           </div>
+        </div>
+        
+        <!-- Delete Section -->
+        <div class="pt-6 border-t border-gray-200">
+          <h3 class="text-lg font-semibold mb-3 text-red-600">予約の削除</h3>
+          <form action="/admin/v2/appointments/${appointmentData.id}" method="post" onsubmit="return confirmDelete(event, '${appointmentData.id}')">
+            <input type="hidden" name="_method" value="delete">
+            <input type="hidden" name="authenticity_token" value="${getAuthenticityToken()}">
+            <div class="space-y-3">
+              <div>
+                <label for="delete-reason-${appointmentData.id}" class="block text-sm font-medium text-gray-700 mb-2">
+                  削除理由（5文字以上）<span class="text-red-500">*</span>
+                </label>
+                <textarea
+                  name="reason"
+                  id="delete-reason-${appointmentData.id}"
+                  rows="3"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                  placeholder="削除理由を入力してください"
+                  oninput="validateDeleteReason('${appointmentData.id}')"
+                  required
+                ></textarea>
+                <div id="delete-reason-error-${appointmentData.id}" class="text-red-500 text-sm mt-1 hidden">
+                  削除理由は5文字以上で入力してください
+                </div>
+              </div>
+              <button
+                type="submit"
+                id="delete-btn-${appointmentData.id}"
+                disabled
+                class="w-full bg-red-500 text-white font-semibold py-3 px-4 rounded transition duration-200 disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-red-600"
+              >
+                予約を削除
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     `;
@@ -207,10 +254,51 @@
     return `${date.getFullYear()}年${(date.getMonth() + 1).toString().padStart(2, '0')}月${date.getDate().toString().padStart(2, '0')}日 ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
   }
   
+  // Get authenticity token for Rails forms
+  function getAuthenticityToken() {
+    return document.querySelector('meta[name="csrf-token"]')?.content || '';
+  }
+  
   // Close drawer on Escape key
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       closeDrawer();
     }
   });
+  
+  // Delete validation function
+  function validateDeleteReason(appointmentId) {
+    const reasonInput = document.getElementById(`delete-reason-${appointmentId}`);
+    const errorDiv = document.getElementById(`delete-reason-error-${appointmentId}`);
+    const deleteBtn = document.getElementById(`delete-btn-${appointmentId}`);
+    
+    const reason = reasonInput.value.trim();
+    
+    if (reason.length >= 5) {
+      errorDiv.classList.add('hidden');
+      deleteBtn.disabled = false;
+    } else {
+      errorDiv.classList.remove('hidden');
+      deleteBtn.disabled = true;
+    }
+  }
+  
+  // Confirm before deleting
+  function confirmDelete(event, appointmentId) {
+    const reasonInput = document.getElementById(`delete-reason-${appointmentId}`);
+    const reason = reasonInput.value.trim();
+    
+    if (reason.length < 5) {
+      event.preventDefault();
+      alert('削除理由は5文字以上で入力してください');
+      return false;
+    }
+    
+    if (!confirm('本当にこの予約を削除しますか？この操作は取り消せません。')) {
+      event.preventDefault();
+      return false;
+    }
+    
+    return true;
+  }
 </script>

@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     namespace :v2 do
-      resources :appointments, only: [ :index ]
+      resources :appointments, only: [ :index, :destroy ]
     end
   end
 
