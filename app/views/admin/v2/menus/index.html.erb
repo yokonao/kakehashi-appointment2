@@ -91,80 +91,87 @@
           
           <!-- Time Slots -->
           <div class="p-2 space-y-2">
-            <% day_menus.each do |menu| %>
-              <% if menu.appointment.present? %>
-                <% appointment = menu.appointment.first %>
-                <div class="p-2 bg-yellow-100 border border-yellow-300 rounded hover:bg-yellow-200 cursor-pointer" 
-                     onclick="openAppointmentDrawer('<%= appointment.id %>')"
-                     data-appointment-id="<%= appointment.id %>"
-                     data-appointment='<%= appointment.to_json(include: :menu) %>'>
-                  <div class="text-sm font-medium text-yellow-800">
-                    <%= menu.department %> <%= menu.start_at.strftime("%H:%M") %>
-                    <svg class="inline w-4 h-4 text-yellow-600 ml-1" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"></path>
-                    </svg>
-                  </div>
+            <%
+              # 営業時間のスロットを30分ごとに生成
+              time_slots = []
+              
+              # 午前の診療時間: 9:00-12:30
+              current_time = Time.parse("09:00")
+              end_morning = Time.parse("12:00")
+              while current_time <= end_morning
+                time_slots << current_time.strftime("%H:%M")
+                current_time += 30.minutes
+              end
+              
+              # 昼休憩表示用
+              time_slots << "LUNCH_BREAK"
+              
+              # 午後の診療時間: 14:30-18:00
+              current_time = Time.parse("14:30")
+              end_afternoon = Time.parse("17:30")
+              while current_time <= end_afternoon
+                time_slots << current_time.strftime("%H:%M")
+                current_time += 30.minutes
+              end
+            %>
+            
+            <% time_slots.each do |time_slot| %>
+              <% if time_slot == "LUNCH_BREAK" %>
+                <!-- 昼休憩スロット -->
+                <div class="p-2 bg-gray-50 border border-gray-200 rounded">
+                  <div class="text-xs text-gray-500 text-center">12:30 - 14:00 昼休憩</div>
                 </div>
               <% else %>
-                <div class="p-2 bg-gray-100 hover:bg-gray-200 rounded flex justify-between items-center group">
-                  <div class="text-sm">
-                    <%= menu.department %> <%= menu.start_at.strftime("%H:%M") %>
+                <% 
+                  # この時間のメニューを探す
+                  slot_menu = day_menus.find { |m| m.start_at.strftime("%H:%M") == time_slot }
+                %>
+                <% if slot_menu %>
+                  <% if slot_menu.appointment.present? %>
+                    <% appointment = slot_menu.appointment.first %>
+                    <div class="p-2 bg-yellow-100 border border-yellow-300 rounded hover:bg-yellow-200 cursor-pointer" 
+                         onclick="openAppointmentDrawer('<%= appointment.id %>')"
+                         data-appointment-id="<%= appointment.id %>"
+                         data-appointment='<%= appointment.to_json(include: :menu) %>'>
+                      <div class="text-sm font-medium text-yellow-800">
+                        内科 <%= time_slot %>
+                        <svg class="inline w-4 h-4 text-yellow-600 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"></path>
+                        </svg>
+                      </div>
+                    </div>
+                  <% else %>
+                    <div class="p-2 bg-gray-100 hover:bg-gray-200 rounded flex justify-between items-center group">
+                      <div class="text-sm">
+                        内科 <%= time_slot %>
+                      </div>
+                      <%= button_to "×", admin_v2_menu_path(slot_menu, date: @week_start), method: :delete, 
+                          class: "text-red-500 hover:text-red-700 font-bold text-lg opacity-0 group-hover:opacity-100 transition cursor-pointer",
+                          data: { confirm: "この予約枠を削除しますか？" } %>
+                    </div>
+                  <% end %>
+                <% else %>
+                  <!-- 予約枠がない時間帯 -->
+                  <div class="p-2 border border-gray-200 rounded hover:bg-gray-50 flex justify-center items-center">
+                    <button onclick="createSlotDirectly('<%= current_date %>', '<%= time_slot %>')" 
+                            class="text-gray-400 hover:text-gray-600 transition cursor-pointer">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                      </svg>
+                    </button>
+                    <div class="text-sm">
+                      内科 <%= time_slot %>
+                    </div>
                   </div>
-                  <%= button_to "×", admin_v2_menu_path(menu, date: @week_start), method: :delete, 
-                      class: "text-red-500 hover:text-red-700 font-bold text-lg opacity-0 group-hover:opacity-100 transition cursor-pointer",
-                      data: { confirm: "この予約枠を削除しますか？" } %>
-                </div>
+                <% end %>
               <% end %>
             <% end %>
-            
-            <!-- Add Slot Button -->
-            <button onclick="openAddSlotModal('<%= current_date %>')" class="w-full p-2 border-2 border-dashed border-gray-300 rounded hover:border-gray-400 hover:bg-gray-50 transition">
-              <svg class="w-5 h-5 mx-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-              </svg>
-            </button>
           </div>
         </div>
       <% end %>
     </div>
 </div>
 
-<!-- Add Slot Modal -->
-<div id="addSlotModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden z-50">
-  <div class="flex items-center justify-center min-h-screen px-4">
-    <div class="bg-white rounded-lg shadow-xl max-w-md w-full">
-      <div class="px-6 py-4 border-b">
-        <h3 class="text-lg font-semibold">予約枠を追加</h3>
-      </div>
-      
-      <%= form_with model: Menu.new, url: admin_v2_menus_path, local: true, class: "p-6" do |f| %>
-        <%= f.hidden_field :start_at, id: "slot_start_at" %>
-        
-        <div class="mb-4">
-          <label class="block text-sm font-medium text-gray-700 mb-2">診療科</label>
-          <%= f.select :department, options_for_select([["内科", "内科"], ["漢方", "漢方"]]), {}, 
-              class: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500" %>
-        </div>
-        
-        <div class="mb-4">
-          <label class="block text-sm font-medium text-gray-700 mb-2">時間</label>
-          <select id="slot_time" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500">
-            <% %w[09:00 09:30 10:00 10:30 11:00 11:30 13:00 13:30 14:00 14:30 15:00 15:30 16:00 16:30 17:00 17:30].each do |time| %>
-              <option value="<%= time %>"><%= time %></option>
-            <% end %>
-          </select>
-        </div>
-        
-        <div class="flex justify-end space-x-3">
-          <button type="button" onclick="closeAddSlotModal()" class="px-4 py-2 text-gray-700 hover:text-gray-900">
-            キャンセル
-          </button>
-          <%= f.submit "追加", class: "px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition" %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-</div>
 
 <!-- Appointment Drawer -->
 <div id="appointment-drawer" class="fixed right-0 top-0 h-full w-160 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out z-50 overflow-y-auto">
@@ -193,25 +200,34 @@
   let currentDate = null;
   let currentAppointment = null;
 
-  function openAddSlotModal(date) {
-    currentDate = date;
-    document.getElementById('addSlotModal').classList.remove('hidden');
-    updateStartAt();
-  }
-
-  function closeAddSlotModal() {
-    document.getElementById('addSlotModal').classList.add('hidden');
-  }
-
-  function updateStartAt() {
-    if (!currentDate) return;
+  // 直接スロットを作成する関数
+  function createSlotDirectly(date, time) {
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '<%= admin_v2_menus_path %>';
     
-    const time = document.getElementById('slot_time').value;
-    const dateTime = `${currentDate} ${time}:00`;
-    document.getElementById('slot_start_at').value = dateTime;
+    const tokenInput = document.createElement('input');
+    tokenInput.type = 'hidden';
+    tokenInput.name = 'authenticity_token';
+    tokenInput.value = document.querySelector('meta[name="csrf-token"]').content;
+    
+    const startAtInput = document.createElement('input');
+    startAtInput.type = 'hidden';
+    startAtInput.name = 'menu[start_at]';
+    startAtInput.value = `${date} ${time}:00`;
+    
+    const departmentInput = document.createElement('input');
+    departmentInput.type = 'hidden';
+    departmentInput.name = 'menu[department]';
+    departmentInput.value = '内科';  // 自動で内科に設定
+    
+    form.appendChild(tokenInput);
+    form.appendChild(startAtInput);
+    form.appendChild(departmentInput);
+    
+    document.body.appendChild(form);
+    form.submit();
   }
-
-  document.getElementById('slot_time').addEventListener('change', updateStartAt);
 
   function toggleDeleteMode(date) {
     if (confirm(`${date}の予約のない枠をすべて削除しますか？`)) {
