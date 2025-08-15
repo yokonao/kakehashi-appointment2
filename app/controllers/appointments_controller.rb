@@ -1,0 +1,53 @@
+class AppointmentsController < ApplicationController
+  def new
+    @week_offset = params[:week_offset].to_i
+    @week_offset = 0 if @week_offset < 0  # 負の値は0にリセット
+    @week_offset = 3 if @week_offset > 3  # 最大3週間先まで
+
+    @base_date = Date.today + (@week_offset * 7)
+    load_available_menus
+  end
+
+  def create
+    @menu = Menu.find(params[:menu_id])
+
+    # 予約を作成
+    @appointment = Appointment.new(
+      menu: @menu,
+      full_name: "#{params[:last_name]} #{params[:first_name]}",
+      full_kana_name: "#{params[:last_kana]} #{params[:first_kana]}",
+      birthday: Date.new(params[:birth_year].to_i, params[:birth_month].to_i, params[:birth_day].to_i),
+      is_first_visit: params[:is_first_visit] == "true",
+      email: params[:email],
+      phone_number: params[:phone_number],
+      reason: params[:consultation_reason],
+      free_comment: params[:free_comment],
+    )
+
+    if @appointment.save
+      # メール送信
+      AppointmentMailer.with(appointment: @appointment).appointment_email.deliver_later
+      AppointmentMailer.with(appointment: @appointment).notification_email.deliver_later
+      redirect_to appointment_complete_path(appointment_id: @appointment.id)
+    else
+      flash[:error] = "予約の作成に失敗しました。"
+      redirect_to appointments_path
+    end
+  end
+
+  def complete
+    @appointment = Appointment.find(params[:appointment_id])
+  end
+
+  private
+
+  def load_available_menus
+    # 次の30日間のメニューを取得
+    @menus = Menu.where("start_at >= ? AND start_at <= ?", Date.today, Date.today + 30.days)
+                 .order(:start_at)
+                 .includes(:appointment)
+
+    # 日付ごとにグループ化
+    @menus_by_date = @menus.group_by { |menu| menu.start_at.to_date }
+  end
+end

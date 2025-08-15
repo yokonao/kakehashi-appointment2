@@ -1,0 +1,64 @@
+<body class="bg-amber-50">
+  <div class="min-h-screen">
+    <!-- ヘッダー -->
+    <header class="bg-white shadow-sm">
+      <div class="max-w-4xl mx-auto px-4 py-4">
+        <div class="flex items-center gap-2">
+          <svg class="w-8 h-8 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+          </svg>
+          <h1 class="text-xl font-semibold text-gray-800">かけはし糖尿病・甲状腺クリニック</h1>
+        </div>
+      </div>
+    </header>
+
+    <div class="max-w-4xl mx-auto px-4 py-8">
+      <div class="bg-white rounded-lg shadow-lg p-8">
+        <div class="text-center mb-8">
+          <div class="inline-flex items-center justify-center w-20 h-20 bg-green-100 rounded-full mb-4">
+            <svg class="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
+          <h2 class="text-3xl font-bold mb-2">予約が完了しました</h2>
+          <p class="text-gray-600">ご予約ありがとうございます。当日のご来院をお待ちしています。</p>
+        </div>
+
+        <div class="bg-amber-50 rounded-lg p-6 mb-6">
+          <h3 class="text-lg font-semibold mb-4">予約内容</h3>
+          <div class="space-y-2">
+            <div class="flex justify-between">
+              <span class="text-gray-600">診療日時:</span>
+              <span class="font-semibold">
+                <%= @appointment.menu.start_at.strftime('%Y/%m/%d %H:%M') %>
+              </span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600">診療科:</span>
+              <span class="font-semibold"><%= @appointment.menu.department %></span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-600">患者様名:</span>
+              <span class="font-semibold"><%= @appointment.full_name %></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gray-50 rounded-lg p-6 mb-6">
+          <h3 class="text-lg font-semibold mb-3">確認メールについて</h3>
+          <p class="text-sm text-gray-700">
+            ご入力いただいたメールアドレス（<%= @appointment.email %>）に予約確認メールを送信しました。
+            メールが届かない場合は、迷惑メールフォルダをご確認ください。
+          </p>
+        </div>
+
+        <div class="text-center">
+          <a href="/" class="inline-block px-8 py-3 bg-amber-600 text-white font-medium rounded-lg hover:bg-amber-700 transition-colors">
+            トップページへ戻る
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

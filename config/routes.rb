@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
   devise_for :administrators, controllers: { sessions: "administrators/sessions" }, skip: [ :passwords ]
+
+  resources :appointments, only: [ :new, :create ] do
+    collection do
+      get :complete, to: "appointments#complete", as: "complete"
+    end
+  end
+  get "/appointment_complete", to: "appointments#complete"
+
   namespace :api do
     namespace :v1 do
       get "menus/index"
