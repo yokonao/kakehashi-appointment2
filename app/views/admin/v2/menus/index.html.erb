@@ -83,7 +83,7 @@
               <div class="text-sm text-gray-600">
                 <%= %w[日 月 火 水 木 金 土][current_date.wday] %>
               </div>
-              <button onclick="toggleDeleteMode('<%= current_date %>')" class="text-xs text-red-500 mt-1 hover:underline cursor-pointer">
+              <button onclick="toggleDeleteMode('<%= current_date %>')" class="text-xs text-red-500 mt-1 hover:underline cursor-pointer" data-test-id="delete-all-button-<%= current_date %>">
                 全削除
               </button>
             </div>

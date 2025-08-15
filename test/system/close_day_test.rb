@@ -14,15 +14,17 @@ class CloseDayTest < ApplicationSystemTestCase
     fill_in "administrator_password", with: "testtest"
     click_button "ログイン"
 
-    visit "/admin/menus"
+    visit "/admin/v2/menus"
     assert_text "かけはし糖尿病・甲状腺クリニック 管理画面"
 
-    page.find("span", text: "（金）").sibling("button").click
-    assert_text "の予約枠を全て削除します"
-    assert_selector "button", text: "削除"
-
     menu_count_before = Menu.count
-    click_button "削除"
+
+    this_friday = Date.current.end_of_week - 2.day
+    button = page.find("button[data-test-id='delete-all-button-#{this_friday}']")
+    accept_confirm "#{this_friday}の予約のない枠をすべて削除しますか？" do
+      button.click
+    end
+
     assert_text "件の予約枠を削除しました"
     assert_equal menu_count_before - 13, Menu.count
   end
