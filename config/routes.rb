@@ -18,6 +18,11 @@ Rails.application.routes.draw do
   namespace :admin do
     namespace :v2 do
       resources :appointments, only: [ :index, :destroy ]
+      resources :menus, only: [ :index, :create, :destroy ] do
+        collection do
+          delete :destroy_all
+        end
+      end
     end
   end
 
