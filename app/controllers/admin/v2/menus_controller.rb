@@ -33,10 +33,10 @@ class Admin::V2::MenusController < Admin::BaseController
       flash[:notice] = "予約枠を削除しました"
     end
 
-    redirect_to admin_v2_menus_path(date: @menu.start_at.to_date)
+    redirect_to admin_v2_menus_path(date: params[:date] || @menu.start_at.to_date)
   rescue ActiveRecord::RecordNotFound
     flash[:alert] = "指定された予約枠が見つかりません"
-    redirect_to admin_v2_menus_path
+    redirect_to admin_v2_menus_path(date: params[:date])
   end
 
   def destroy_all
@@ -51,7 +51,7 @@ class Admin::V2::MenusController < Admin::BaseController
     menus.destroy_all
 
     flash[:notice] = "#{count}件の予約枠を削除しました"
-    redirect_to admin_v2_menus_path
+    redirect_to admin_v2_menus_path(date: params[:date] || min_date)
   end
 
   private
