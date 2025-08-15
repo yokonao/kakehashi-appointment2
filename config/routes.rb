@@ -15,6 +15,12 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :admin do
+    namespace :v2 do
+      resources :appointments, only: [ :index ]
+    end
+  end
+
   # localhost で Chrome DevTools を使っているとここにリクエストが来ることがあるので 404 を返すように設定している
   # https://chromium.googlesource.com/devtools/devtools-frontend/+/main/docs/ecosystem/automatic_workspace_folders.md
   get "/.well-known/appspecific/com.chrome.devtools.json", to: proc { [ 404, {}, [ "" ] ] }

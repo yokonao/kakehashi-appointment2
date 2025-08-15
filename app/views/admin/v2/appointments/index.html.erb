@@ -1,0 +1,47 @@
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold mb-6">予約一覧</h1>
+  
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-white border border-gray-300">
+      <thead>
+        <tr class="bg-gray-100">
+          <th class="px-4 py-2 border-b text-left">患者名</th>
+          <th class="px-4 py-2 border-b text-left">生年月日</th>
+          <th class="px-4 py-2 border-b text-left">診療歴</th>
+          <th class="px-4 py-2 border-b text-left">予約日時</th>
+          <th class="px-4 py-2 border-b text-left">診療科</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @appointments.each do |appointment| %>
+          <tr class="hover:bg-gray-50">
+            <td class="px-4 py-2 border-b">
+              <%= appointment.full_name %>
+              <br>
+              <span class="text-sm text-gray-600">(<%= appointment.full_kana_name %>)</span>
+            </td>
+            <td class="px-4 py-2 border-b">
+              <%= appointment.birthday.strftime("%Y年%m月%d日") %>
+            </td>
+            <td class="px-4 py-2 border-b">
+              <% if appointment.is_first_visit %>
+                <span class="inline-block px-2 py-1 text-xs font-semibold bg-blue-500 rounded">初診</span>
+              <% else %>
+                <span class="inline-block px-2 py-1 text-xs font-semibold bg-green-500 rounded">再診</span>
+                <% if appointment.clinical_number.present? %>
+                  <span class="text-sm text-gray-600">（診察券番号: <%= appointment.clinical_number %>）</span>
+                <% end %>
+              <% end %>
+            </td>
+            <td class="px-4 py-2 border-b">
+              <%= appointment.menu.start_at.strftime("%Y年%m月%d日 %H:%M") %>
+            </td>
+            <td class="px-4 py-2 border-b">
+              <%= appointment.menu.department %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
