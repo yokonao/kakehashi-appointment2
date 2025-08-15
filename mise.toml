@@ -5,6 +5,7 @@ node = "22"
 [env]
 CUSTOM_DOMAIN_ADDRESS = 'kakehashi@example.com'
 DOCOTR_ADDRESS = 'doctor@example.com'
+FRONT_SERVER_URL = 'http://localhost:14000'
 
 [tasks.update-gem]
 run = """
