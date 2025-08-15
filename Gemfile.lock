@@ -317,7 +317,7 @@ DEPENDENCIES
   rails-i18n
   rubocop-rails-omakase
   selenium-webdriver
-  tailwindcss-rails (~> 4.3)
+  tailwindcss-rails
   tzinfo-data
 
 RUBY VERSION
