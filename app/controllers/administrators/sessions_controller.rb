@@ -12,7 +12,7 @@ module Administrators
     private
 
     def after_sign_in_path_for(_resource)
-      ADMIN_V2_DEV ? "/admin/menus" : "/admin/v2/appointments"
+      ADMIN_V2_DEV ? "/admin/v2/appointments" : "/admin/menus"
     end
   end
 end
