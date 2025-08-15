@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :administrators, controllers: { sessions: "administrators/sessions" }
+  devise_for :administrators, controllers: { sessions: "administrators/sessions" }, skip: [ :passwords ]
   namespace :api do
     namespace :v1 do
       get "menus/index"
@@ -14,6 +14,11 @@ Rails.application.routes.draw do
       delete "appointments/:id", to: "appointments#destroy", as: "appointment_destroy"
     end
   end
+
+  # localhost で Chrome DevTools を使っているとここにリクエストが来ることがあるので 404 を返すように設定している
+  # https://chromium.googlesource.com/devtools/devtools-frontend/+/main/docs/ecosystem/automatic_workspace_folders.md
+  get "/.well-known/appspecific/com.chrome.devtools.json", to: proc { [ 404, {}, [ "" ] ] }
+
   get "/admin/*admin_path", to: "admin#show"
   get "/*react_path", to: "react#show"
 
