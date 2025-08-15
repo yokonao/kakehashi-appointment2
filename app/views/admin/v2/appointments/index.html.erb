@@ -21,7 +21,7 @@
       </thead>
       <tbody>
         <% @appointments.each do |appointment| %>
-          <tr class="hover:bg-gray-50">
+          <tr class="hover:bg-gray-50 cursor-pointer" onclick="openDrawer('<%= appointment.id %>')" data-appointment-id="<%= appointment.id %>" data-appointment='<%= appointment.to_json(include: :menu) %>'>
             <td class="px-4 py-2 border-b">
               <%= appointment.full_name %>
               <br>
@@ -32,9 +32,9 @@
             </td>
             <td class="px-4 py-2 border-b">
               <% if appointment.is_first_visit %>
-                <span class="inline-block px-2 py-1 text-xs font-semibold bg-blue-500 rounded">初診</span>
+                <span class="inline-block px-2 py-1 text-xs text-white font-semibold bg-blue-500 rounded">初診</span>
               <% else %>
-                <span class="inline-block px-2 py-1 text-xs font-semibold bg-green-500 rounded">再診</span>
+                <span class="inline-block px-2 py-1 text-xs text-white font-semibold bg-green-500 rounded">再診</span>
                 <% if appointment.clinical_number.present? %>
                   <span class="text-sm text-gray-600">（診察券番号: <%= appointment.clinical_number %>）</span>
                 <% end %>
@@ -52,3 +52,165 @@
     </table>
   </div>
 </div>
+
+<!-- Drawer for appointment details -->
+<div id="appointment-drawer" class="fixed right-0 top-0 h-full w-160 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out z-50 overflow-y-auto">
+  <!-- Drawer header -->
+  <div class="sticky top-0 bg-white border-b border-gray-200 px-6 py-4">
+    <div class="flex justify-between items-center">
+      <h2 class="text-xl font-bold">予約詳細</h2>
+      <button onclick="closeDrawer()" class="text-gray-500 hover:text-gray-700">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+  
+  <!-- Drawer content -->
+  <div id="drawer-content" class="p-6">
+    <!-- Content will be dynamically inserted here -->
+  </div>
+</div>
+
+<!-- Overlay -->
+<div id="drawer-overlay" class="fixed inset-0 bg-transparent bg-opacity-50 z-40 hidden" onclick="closeDrawer()"></div>
+
+<script>
+  let currentAppointment = null;
+  
+  function openDrawer(appointmentId) {
+    const row = document.querySelector(`[data-appointment-id="${appointmentId}"]`);
+    const appointmentData = JSON.parse(row.dataset.appointment);
+    currentAppointment = appointmentData;
+    
+    // Update drawer content
+    const drawerContent = document.getElementById('drawer-content');
+    drawerContent.innerHTML = `
+      <div class="space-y-6">
+        <!-- Patient Information -->
+        <div>
+          <h3 class="text-lg font-semibold mb-3 text-gray-700">患者情報</h3>
+          <div class="bg-gray-50 rounded-lg p-4 space-y-2">
+            <div>
+              <span class="text-gray-600">氏名: </span>
+              <span class="font-medium">${appointmentData.full_name}</span>
+            </div>
+            <div>
+              <span class="text-gray-600">フリガナ: </span>
+              <span class="font-medium">${appointmentData.full_kana_name}</span>
+            </div>
+            <div>
+              <span class="text-gray-600">生年月日: </span>
+              <span class="font-medium">${formatDate(appointmentData.birthday)}</span>
+            </div>
+            <div>
+              <span class="text-gray-600">電話番号: </span>
+              <span class="font-medium">${appointmentData.phone_number}</span>
+            </div>
+            <div>
+              <span class="text-gray-600">メールアドレス: </span>
+              <span class="font-medium text-sm">${appointmentData.email}</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Appointment Information -->
+        <div>
+          <h3 class="text-lg font-semibold mb-3 text-gray-700">予約情報</h3>
+          <div class="bg-gray-50 rounded-lg p-4 space-y-2">
+            <div>
+              <span class="text-gray-600">予約日時: </span>
+              <span class="font-medium">${formatDateTime(appointmentData.menu.start_at)}</span>
+            </div>
+            <div>
+              <span class="text-gray-600">診療科: </span>
+              <span class="font-medium">${appointmentData.menu.department}</span>
+            </div>
+            <div>
+              <span class="text-gray-600">診療歴: </span>
+              <span class="font-medium">
+                ${appointmentData.is_first_visit ? 
+                  '<span class="inline-block px-2 py-1 text-xs text-white bg-blue-500 rounded">初診</span>' : 
+                  '<span class="inline-block px-2 py-1 text-xs text-white bg-green-500 rounded">再診</span>'}
+              </span>
+            </div>
+            ${!appointmentData.is_first_visit && appointmentData.clinical_number ? 
+              `<div>
+                <span class="text-gray-600">診察券番号: </span>
+                <span class="font-medium">${appointmentData.clinical_number}</span>
+              </div>` : ''}
+          </div>
+        </div>
+        
+        <!-- Consultation Details -->
+        <div>
+          <h3 class="text-lg font-semibold mb-3 text-gray-700">相談内容</h3>
+          <div class="bg-gray-50 rounded-lg p-4">
+            <p class="text-gray-800 whitespace-pre-wrap">${appointmentData.reason || '記載なし'}</p>
+          </div>
+        </div>
+        
+        <!-- Free Comment -->
+        ${appointmentData.free_comment ? 
+          `<div>
+            <h3 class="text-lg font-semibold mb-3 text-gray-700">その他コメント</h3>
+            <div class="bg-gray-50 rounded-lg p-4">
+              <p class="text-gray-800 whitespace-pre-wrap">${appointmentData.free_comment}</p>
+            </div>
+          </div>` : ''}
+        
+        <!-- Metadata -->
+        <div>
+          <h3 class="text-lg font-semibold mb-3 text-gray-700">システム情報</h3>
+          <div class="bg-gray-50 rounded-lg p-4 space-y-2">
+            <div>
+              <span class="text-gray-600">予約ID:</span>
+              <span class="font-medium">${appointmentData.id}</span>
+            </div>
+            <div>
+              <span class="text-gray-600">予約作成日時:</span>
+              <span class="font-medium text-sm">${formatDateTime(appointmentData.created_at)}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    
+    // Show drawer and overlay
+    const drawer = document.getElementById('appointment-drawer');
+    const overlay = document.getElementById('drawer-overlay');
+    
+    overlay.classList.remove('hidden');
+    setTimeout(() => {
+      drawer.classList.remove('translate-x-full');
+    }, 10);
+  }
+  
+  function closeDrawer() {
+    const drawer = document.getElementById('appointment-drawer');
+    const overlay = document.getElementById('drawer-overlay');
+    
+    drawer.classList.add('translate-x-full');
+    setTimeout(() => {
+      overlay.classList.add('hidden');
+    }, 300);
+  }
+  
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    return `${date.getFullYear()}年${(date.getMonth() + 1).toString().padStart(2, '0')}月${date.getDate().toString().padStart(2, '0')}日`;
+  }
+  
+  function formatDateTime(dateString) {
+    const date = new Date(dateString);
+    return `${date.getFullYear()}年${(date.getMonth() + 1).toString().padStart(2, '0')}月${date.getDate().toString().padStart(2, '0')}日 ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+  }
+  
+  // Close drawer on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeDrawer();
+    }
+  });
+</script>
