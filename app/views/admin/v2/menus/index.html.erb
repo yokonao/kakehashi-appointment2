@@ -93,7 +93,11 @@
           <div class="p-2 space-y-2">
             <% day_menus.each do |menu| %>
               <% if menu.appointment.present? %>
-                <div class="p-2 bg-yellow-100 border border-yellow-300 rounded">
+                <% appointment = menu.appointment.first %>
+                <div class="p-2 bg-yellow-100 border border-yellow-300 rounded hover:bg-yellow-200 cursor-pointer" 
+                     onclick="openAppointmentDrawer('<%= appointment.id %>')"
+                     data-appointment-id="<%= appointment.id %>"
+                     data-appointment='<%= appointment.to_json(include: :menu) %>'>
                   <div class="text-sm font-medium text-yellow-800">
                     <%= menu.department %> <%= menu.start_at.strftime("%H:%M") %>
                     <svg class="inline w-4 h-4 text-yellow-600 ml-1" fill="currentColor" viewBox="0 0 20 20">
@@ -162,8 +166,32 @@
   </div>
 </div>
 
+<!-- Appointment Drawer -->
+<div id="appointment-drawer" class="fixed right-0 top-0 h-full w-160 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out z-50 overflow-y-auto">
+  <!-- Drawer header -->
+  <div class="sticky top-0 bg-white border-b border-gray-200 px-6 py-4">
+    <div class="flex justify-between items-center">
+      <h2 class="text-xl font-bold">予約詳細</h2>
+      <button onclick="closeAppointmentDrawer()" class="text-gray-500 hover:text-gray-700 cursor-pointer">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+  
+  <!-- Drawer content -->
+  <div id="drawer-content" class="p-6">
+    <!-- Content will be dynamically inserted here -->
+  </div>
+</div>
+
+<!-- Overlay -->
+<div id="drawer-overlay" class="fixed inset-0 bg-transparent bg-opacity-50 z-40 hidden" onclick="closeAppointmentDrawer()"></div>
+
 <script>
   let currentDate = null;
+  let currentAppointment = null;
 
   function openAddSlotModal(date) {
     currentDate = date;
@@ -221,10 +249,217 @@
     }
   }
 
-  // Close modal on Escape key
+  // Appointment Drawer Functions
+  function openAppointmentDrawer(appointmentId) {
+    const element = document.querySelector(`[data-appointment-id="${appointmentId}"]`);
+    const appointmentData = JSON.parse(element.dataset.appointment);
+    currentAppointment = appointmentData;
+    
+    // Update drawer content
+    const drawerContent = document.getElementById('drawer-content');
+    drawerContent.innerHTML = `
+      <div class="space-y-6">
+        <!-- Patient Information -->
+        <div>
+          <h3 class="text-lg font-semibold mb-3 text-gray-700">患者情報</h3>
+          <div class="bg-gray-50 rounded-lg p-4 space-y-2">
+            <div>
+              <span class="text-gray-600">氏名: </span>
+              <span class="font-medium">${appointmentData.full_name}</span>
+            </div>
+            <div>
+              <span class="text-gray-600">フリガナ: </span>
+              <span class="font-medium">${appointmentData.full_kana_name}</span>
+            </div>
+            <div>
+              <span class="text-gray-600">生年月日: </span>
+              <span class="font-medium">${formatDate(appointmentData.birthday)}</span>
+            </div>
+            <div>
+              <span class="text-gray-600">電話番号: </span>
+              <span class="font-medium">${appointmentData.phone_number}</span>
+            </div>
+            <div>
+              <span class="text-gray-600">メールアドレス: </span>
+              <span class="font-medium">${appointmentData.email}</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Appointment Information -->
+        <div>
+          <h3 class="text-lg font-semibold mb-3 text-gray-700">予約情報</h3>
+          <div class="bg-gray-50 rounded-lg p-4 space-y-2">
+            <div>
+              <span class="text-gray-600">予約日時: </span>
+              <span class="font-medium">${formatDateTime(appointmentData.menu.start_at)}</span>
+            </div>
+            <div>
+              <span class="text-gray-600">診療科: </span>
+              <span class="font-medium">${appointmentData.menu.department}</span>
+            </div>
+            <div>
+              <span class="text-gray-600">診療歴: </span>
+              <span class="font-medium">
+                ${appointmentData.is_first_visit ? 
+                  '<span class="inline-block px-2 py-1 text-xs text-white bg-blue-500 rounded">初診</span>' : 
+                  '<span class="inline-block px-2 py-1 text-xs text-white bg-green-500 rounded">再診</span>'}
+              </span>
+            </div>
+            ${!appointmentData.is_first_visit && appointmentData.clinical_number ? 
+              `<div>
+                <span class="text-gray-600">診察券番号: </span>
+                <span class="font-medium">${appointmentData.clinical_number}</span>
+              </div>` : ''}
+          </div>
+        </div>
+        
+        <!-- Consultation Details -->
+        <div>
+          <h3 class="text-lg font-semibold mb-3 text-gray-700">相談内容</h3>
+          <div class="bg-gray-50 rounded-lg p-4">
+            <p class="text-gray-800 whitespace-pre-wrap">${appointmentData.reason || '記載なし'}</p>
+          </div>
+        </div>
+        
+        <!-- Free Comment -->
+        ${appointmentData.free_comment ? 
+          `<div>
+            <h3 class="text-lg font-semibold mb-3 text-gray-700">その他コメント</h3>
+            <div class="bg-gray-50 rounded-lg p-4">
+              <p class="text-gray-800 whitespace-pre-wrap">${appointmentData.free_comment}</p>
+            </div>
+          </div>` : ''}
+        
+        <!-- Metadata -->
+        <div>
+          <h3 class="text-lg font-semibold mb-3 text-gray-700">システム情報</h3>
+          <div class="bg-gray-50 rounded-lg p-4 space-y-2">
+            <div>
+              <span class="text-gray-600">予約ID:</span>
+              <span class="font-medium">${appointmentData.id}</span>
+            </div>
+            <div>
+              <span class="text-gray-600">予約作成日時:</span>
+              <span class="font-medium">${formatDateTime(appointmentData.created_at)}</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Delete Section -->
+        <div class="pt-6 border-t border-gray-200">
+          <h3 class="text-lg font-semibold mb-3 text-red-600">予約の削除</h3>
+          <form action="/admin/v2/appointments/${appointmentData.id}" method="post" onsubmit="return confirmDelete(event, '${appointmentData.id}')">
+            <input type="hidden" name="_method" value="delete">
+            <input type="hidden" name="authenticity_token" value="${getAuthenticityToken()}">
+            <div class="space-y-3">
+              <div>
+                <label for="delete-reason-${appointmentData.id}" class="block text-sm font-medium text-gray-700 mb-2">
+                  削除理由（5文字以上）<span class="text-red-500">*</span>
+                </label>
+                <textarea
+                  name="reason"
+                  id="delete-reason-${appointmentData.id}"
+                  rows="3"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                  placeholder="削除理由を入力してください"
+                  oninput="validateDeleteReason('${appointmentData.id}')"
+                  required
+                ></textarea>
+                <div id="delete-reason-error-${appointmentData.id}" class="text-red-500 text-sm mt-1 hidden">
+                  削除理由は5文字以上で入力してください
+                </div>
+              </div>
+              <button
+                type="submit"
+                id="delete-btn-${appointmentData.id}"
+                disabled
+                class="w-full bg-red-500 text-white font-semibold py-3 px-4 rounded transition duration-200 disabled:bg-gray-300 disabled:cursor-not-allowed hover:bg-red-600"
+              >
+                予約を削除
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    `;
+    
+    // Show drawer and overlay
+    const drawer = document.getElementById('appointment-drawer');
+    const overlay = document.getElementById('drawer-overlay');
+    
+    overlay.classList.remove('hidden');
+    setTimeout(() => {
+      drawer.classList.remove('translate-x-full');
+    }, 10);
+  }
+
+  function closeAppointmentDrawer() {
+    const drawer = document.getElementById('appointment-drawer');
+    const overlay = document.getElementById('drawer-overlay');
+    
+    drawer.classList.add('translate-x-full');
+    setTimeout(() => {
+      overlay.classList.add('hidden');
+    }, 300);
+  }
+
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    return `${date.getFullYear()}年${(date.getMonth() + 1).toString().padStart(2, '0')}月${date.getDate().toString().padStart(2, '0')}日`;
+  }
+  
+  function formatDateTime(dateString) {
+    const date = new Date(dateString);
+    return `${date.getFullYear()}年${(date.getMonth() + 1).toString().padStart(2, '0')}月${date.getDate().toString().padStart(2, '0')}日 ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+  }
+  
+  // Get authenticity token for Rails forms
+  function getAuthenticityToken() {
+    return document.querySelector('meta[name="csrf-token"]')?.content || '';
+  }
+
+  // Delete validation function
+  function validateDeleteReason(appointmentId) {
+    const reasonInput = document.getElementById(`delete-reason-${appointmentId}`);
+    const errorDiv = document.getElementById(`delete-reason-error-${appointmentId}`);
+    const deleteBtn = document.getElementById(`delete-btn-${appointmentId}`);
+    
+    const reason = reasonInput.value.trim();
+    
+    if (reason.length >= 5) {
+      errorDiv.classList.add('hidden');
+      deleteBtn.disabled = false;
+    } else {
+      errorDiv.classList.remove('hidden');
+      deleteBtn.disabled = true;
+    }
+  }
+  
+  // Confirm before deleting
+  function confirmDelete(event, appointmentId) {
+    const reasonInput = document.getElementById(`delete-reason-${appointmentId}`);
+    const reason = reasonInput.value.trim();
+    
+    if (reason.length < 5) {
+      event.preventDefault();
+      alert('削除理由は5文字以上で入力してください');
+      return false;
+    }
+    
+    if (!confirm('本当にこの予約を削除しますか？この操作は取り消せません。')) {
+      event.preventDefault();
+      return false;
+    }
+    
+    return true;
+  }
+
+  // Close modal/drawer on Escape key
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       closeAddSlotModal();
+      closeAppointmentDrawer();
     }
   });
 </script>
