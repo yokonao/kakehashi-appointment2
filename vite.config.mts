@@ -5,7 +5,7 @@ export default defineConfig({
   build: {
     manifest: "manifest.json",
     rollupOptions: {
-      input: ["front/packs/admin.tsx", "front/packs/app.tsx"],
+      input: ["front/packs/app.tsx"],
       onwarn(warning, warn) {
         // 特定モジュールの use client 警告を無視
         // Next.jsのApp Routerに対応するためのディレクティブであり無視されても問題ない

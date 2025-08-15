@@ -38,7 +38,6 @@ Rails.application.routes.draw do
   # https://chromium.googlesource.com/devtools/devtools-frontend/+/main/docs/ecosystem/automatic_workspace_folders.md
   get "/.well-known/appspecific/com.chrome.devtools.json", to: proc { [ 404, {}, [ "" ] ] }
 
-  get "/admin/*admin_path", to: "admin#show"
   get "/*react_path", to: "react#show"
 
   root to: "react#show"
