@@ -8,9 +8,12 @@ gem "active_model_serializers"
 gem "bootsnap", require: false
 gem "devise"
 gem "pg"
+# The modern asset pipeline for Rails [https://github.com/rails/propshaft]
+gem "propshaft"
 gem "puma"
 gem "rails", "8.0.2"
 gem "rails-i18n"
+gem "tailwindcss-rails"
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: [ :windows, :jruby ]
 

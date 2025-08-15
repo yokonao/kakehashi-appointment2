@@ -11,6 +11,11 @@
     <% end %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+
+    <% unless @disable_propshaft %>
+    <%# Includes all stylesheet files in app/assets %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <% end %>
   </head>
 
   <body>

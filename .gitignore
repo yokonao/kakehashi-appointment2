@@ -36,3 +36,6 @@ yarn-debug.log*
 /dist/*
 
 .yarn/install-state.gz
+
+/app/assets/builds/*
+!/app/assets/builds/.keep
