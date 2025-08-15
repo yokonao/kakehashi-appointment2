@@ -15,7 +15,7 @@ class Admin::V2::MenusController < Admin::BaseController
     @menu = Menu.new(menu_params)
 
     if @menu.save
-      flash[:notice] = "予約枠を作成しました"
+      flash[:notice] = "予約枠を作成しました (#{@menu.department} #{@menu.start_at.strftime('%Y-%m-%d %H:%M')})"
     else
       flash[:alert] = @menu.errors.full_messages.join(", ")
     end
@@ -30,7 +30,7 @@ class Admin::V2::MenusController < Admin::BaseController
       flash[:alert] = "予約がある枠は削除できません"
     else
       @menu.destroy
-      flash[:notice] = "予約枠を削除しました"
+      flash[:notice] = "予約枠を削除しました (#{@menu.department} #{@menu.start_at.strftime('%Y-%m-%d %H:%M')})"
     end
 
     redirect_to admin_v2_menus_path(date: params[:date] || @menu.start_at.to_date)
