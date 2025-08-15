@@ -1,37 +1,36 @@
 <header class="bg-yellow-500 text-white shadow-lg">
-  <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+  <div class="container px-4 py-4 flex justify-between items-center">
     <h1 class="text-xl font-bold">かけはし糖尿病・甲状腺クリニック 管理画面</h1>
     <%= button_to "ログアウト", destroy_administrator_session_path, method: :delete, class: "bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded transition duration-200" %>
   </div>
 </header>
 
-<div class="flex">
-  <!-- Sidebar -->
-  <nav class="w-64 bg-gray-800 min-h-screen">
-    <div class="p-4">
-      <ul class="space-y-2">
-        <li>
-          <%= link_to admin_v2_appointments_path, class: "flex items-center space-x-3 text-white bg-gray-700 rounded px-3 py-2 transition" do %>
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
-            </svg>
-            <span>予約一覧</span>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to admin_v2_menus_path, class: "flex items-center space-x-3 text-gray-300 hover:text-white hover:bg-gray-700 rounded px-3 py-2 transition" do %>
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-            </svg>
-            <span>予約枠管理</span>
-          <% end %>
-        </li>
-      </ul>
-    </div>
-  </nav>
+<!-- Navigation Bar -->
+<nav class="bg-gray-800 shadow">
+  <div class="container px-4">
+    <ul class="flex space-x-1">
+      <li>
+        <%= link_to admin_v2_appointments_path, class: "flex items-center space-x-2 text-white bg-gray-700 px-4 py-3 transition" do %>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+          </svg>
+          <span>予約一覧</span>
+        <% end %>
+      </li>
+      <li>
+        <%= link_to admin_v2_menus_path, class: "flex items-center space-x-2 text-gray-300 hover:text-white hover:bg-gray-700 px-4 py-3 transition" do %>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          </svg>
+          <span>予約枠管理</span>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+</nav>
 
-  <!-- Main Content -->
-  <div class="flex-1 p-6 bg-gray-50">
+<!-- Main Content -->
+<div class="p-6 bg-gray-50 min-h-screen">
     <% if flash[:notice] %>
       <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
         <%= flash[:notice] %>
@@ -42,7 +41,7 @@
         <%= flash[:alert] %>
       </div>
     <% end %>
-    <h1 class="text-3xl font-bold mb-6">予約一覧</h1>
+    <h1 class="text-xl font-bold mb-6">予約一覧</h1>
   
   <div class="overflow-x-auto">
     <table class="min-w-full bg-white border border-gray-300">
@@ -86,7 +85,6 @@
         <% end %>
       </tbody>
     </table>
-  </div>
   </div>
 </div>
 
