@@ -14,6 +14,8 @@ class Admin::V2::MenusController < Admin::BaseController
   def create
     @menu = Menu.new(menu_params)
 
+    # TODO: start_at が重複しないようにバリデーションする
+
     if @menu.save
       flash[:notice] = "予約枠を作成しました"
     else
