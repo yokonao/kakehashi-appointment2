@@ -32,10 +32,15 @@ end
 namespace :appointment do
   desc "create random appointment"
   task random: :environment do
-    ids = Menu.where(start_at: Time.now...).pluck(:id)
+    ids = Menu.where(start_at: Time.now...).pluck(:id).shuffle
     throw "予約枠が存在しません" if ids.empty?
-    10.times do
-      Appointment.create(random_params.merge(menu_id: ids.sample))
+    10.times do |i|
+      if ids.length < i
+        puts "予約枠が足りません。終了します。"
+        break
+      end
+      Appointment.create(random_params.merge(menu_id: ids[i]))
+      puts "予約を作成しました: meun_id #{ids[i]}"
     end
   end
 
