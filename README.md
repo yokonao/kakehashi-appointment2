@@ -37,8 +37,6 @@ mise install
 
 ```
 bundle install
-corepack enable
-yarn install
 ```
 
 setup database
@@ -51,7 +49,7 @@ launch servers
 
 ```
 bin/rails s
-yarn build --watch
+bin/rails tailwindcss:watch
 ```
 
 ### Install pg gem (Mac)
@@ -134,19 +132,6 @@ DATABASE_URL=postgresql://postgresql:postgresql@localhost:5432/kakehashi-appoint
 
 ```
 mise update-gem
-```
-
-### Node.js
-
-以下を更新：
-
-- mise.toml
-- package.json の engines.node
-
-### npm パッケージ
-
-```
-mise update-npm
 ```
 
 ## Heroku

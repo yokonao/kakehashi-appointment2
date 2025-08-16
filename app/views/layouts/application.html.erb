@@ -6,9 +6,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
     <link rel="stylesheet" href="/application.css" />
-    <% if ENV['MANIFEST_PATH'].nil? && Rails.env.development? %>
-      <script type="module" src="http://localhost:14000/@vite/client"></script>
-    <% end %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
