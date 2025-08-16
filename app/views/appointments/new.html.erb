@@ -157,13 +157,18 @@
             <h3 class="text-lg font-semibold mb-4">4. 当院を初めてご利用になりますか？</h3>
             <div class="space-y-2">
               <label class="flex items-center">
-                <input type="radio" name="is_first_visit" value="true" required class="mr-2">
+                <input type="radio" name="is_first_visit" value="true" required class="mr-2" id="first_visit_yes">
                 <span>はい</span>
               </label>
               <label class="flex items-center">
-                <input type="radio" name="is_first_visit" value="false" required class="mr-2">
+                <input type="radio" name="is_first_visit" value="false" required class="mr-2" id="first_visit_no">
                 <span>いいえ</span>
               </label>
+              <div id="clinical_number_field" class="mt-4" style="display: none;">
+                <input type="text" id="clinical_number" name="clinical_number" placeholder="00028" 
+                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500">
+                <p class="text-sm text-gray-500 mt-1">再診の方は診察券番号を入力してください</p>
+              </div>
             </div>
           </div>
 
@@ -229,6 +234,27 @@
           selectedDateDisplay.value = `${date} ${time}`;
           menuIdInput.value = menuId;
         });
+      });
+
+      // 初診・再診の切り替えによる診察券番号フィールドの表示制御
+      const firstVisitYes = document.getElementById('first_visit_yes');
+      const firstVisitNo = document.getElementById('first_visit_no');
+      const patientIdField = document.getElementById('clinical_number_field');
+      const patientIdInput = document.getElementById('clinical_number');
+      
+      firstVisitYes.addEventListener('change', function() {
+        if (this.checked) {
+          patientIdField.style.display = 'none';
+          patientIdInput.value = '';
+          patientIdInput.removeAttribute('required');
+        }
+      });
+      
+      firstVisitNo.addEventListener('change', function() {
+        if (this.checked) {
+          patientIdField.style.display = 'block';
+          patientIdInput.setAttribute('required', 'required');
+        }
       });
     });
   </script>

@@ -18,6 +18,7 @@ class AppointmentsController < ApplicationController
       full_kana_name: params[:full_kana_name],
       birthday: Date.strptime(params[:birthday], "%Y%m%d"),
       is_first_visit: params[:is_first_visit] == "true",
+      clinical_number: params[:clinical_number],
       email: params[:email],
       phone_number: params[:phone_number],
       reason: params[:consultation_reason],
