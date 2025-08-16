@@ -13,10 +13,13 @@ ja:
         appointment: 予約
       appointment:
         name: 氏名
+        full_name: 氏名
+        full_kana_name: 氏名（カナ）
         clinical_number: 診察券番号
         start_at: 開始時刻
         end_at: 終了時刻
         menu: 予約枠
+        reason: 受診理由
       administrator:
         email: メールアドレス
         password: パスワード

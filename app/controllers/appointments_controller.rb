@@ -9,7 +9,12 @@ class AppointmentsController < ApplicationController
   end
 
   def create
-    @menu = Menu.find(params[:menu_id])
+    begin
+      @menu = Menu.find(params[:menu_id])
+    rescue ActiveRecord::RecordNotFound
+      flash[:alert] = "予約時間を選択してください"
+      redirect_to new_appointment_path and return
+    end
 
     # 予約を作成
     @appointment = Appointment.new(
@@ -31,8 +36,8 @@ class AppointmentsController < ApplicationController
       AppointmentMailer.with(appointment: @appointment).notification_email.deliver_later
       redirect_to appointment_complete_path(appointment_id: @appointment.id)
     else
-      flash[:error] = "予約の作成に失敗しました。"
-      redirect_to appointments_path
+      flash[:alert] = "予約の作成に失敗しました。" + @appointment.errors.full_messages.join(", ")
+      redirect_to new_appointment_path
     end
   end
 
