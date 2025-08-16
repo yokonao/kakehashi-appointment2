@@ -3,7 +3,7 @@ ruby = "3.4"
 
 [env]
 CUSTOM_DOMAIN_ADDRESS = 'kakehashi@example.com'
-DOCOTR_ADDRESS = 'doctor@example.com'
+DOCTOR_ADDRESS = 'doctor@example.com'
 
 [tasks.update-gem]
 run = """
