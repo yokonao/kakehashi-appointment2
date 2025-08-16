@@ -10,7 +10,7 @@ const main = () => {
     ["full_kana_name", "カケハシ　タロウ"],
     ["birthday", "19800101"],
     ["phone_number", "0000000000"],
-    ["email", "yokotukanao@gmail.com"],
+    ["email", "kakehashi-appintment@example.com"],
     ["free_comment", "テストだよ"],
   ];
   values.forEach(([id, value]) => {

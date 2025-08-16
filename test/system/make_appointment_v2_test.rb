@@ -20,7 +20,7 @@ class MakeAppointmentV2Test < ApplicationSystemTestCase
     fill_in "full_kana_name", with: "カケハシ　タロウ"
     fill_in "birthday", with: "19800101"
     fill_in "phone_number", with: "0000000000"
-    fill_in "email", with: "yokotukanao@gmail.com"
+    fill_in "email", with: "kakehashi-appintment@example.com"
 
     # 初診を選択（はい）
     find('input[name="is_first_visit"][value="true"]').click
@@ -47,7 +47,7 @@ class MakeAppointmentV2Test < ApplicationSystemTestCase
     assert_equal "カケハシ　タロウ", appointment.full_kana_name
     assert_equal "1980-01-01", appointment.birthday.to_s
     assert_equal "0000000000", appointment.phone_number
-    assert_equal "yokotukanao@gmail.com", appointment.email
+    assert_equal "kakehashi-appintment@example.com", appointment.email
     assert_equal true, appointment.is_first_visit
     assert_equal "テストだよ", appointment.free_comment
   end

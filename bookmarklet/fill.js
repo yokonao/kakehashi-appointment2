@@ -32,7 +32,7 @@ const main = () => {
     ["full_kana_name", "カケハシ　タロウ"],
     ["birthday", "19800101"],
     ["phone-number", "0000000000"],
-    ["email", "yokotukanao@gmail.com"],
+    ["email", "kakehashi-appintment@example.com"],
     ["free-comment", "テストだよ"],
   ];
 
