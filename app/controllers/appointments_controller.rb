@@ -14,9 +14,9 @@ class AppointmentsController < ApplicationController
     # 予約を作成
     @appointment = Appointment.new(
       menu: @menu,
-      full_name: "#{params[:last_name]} #{params[:first_name]}",
-      full_kana_name: "#{params[:last_kana]} #{params[:first_kana]}",
-      birthday: Date.new(params[:birth_year].to_i, params[:birth_month].to_i, params[:birth_day].to_i),
+      full_name: params[:full_name],
+      full_kana_name: params[:full_kana_name],
+      birthday: Date.strptime(params[:birthday], "%Y%m%d"),
       is_first_visit: params[:is_first_visit] == "true",
       email: params[:email],
       phone_number: params[:phone_number],

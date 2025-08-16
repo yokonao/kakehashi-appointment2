@@ -129,40 +129,26 @@
         <div class="space-y-6">
           <div>
             <h3 class="text-lg font-semibold mb-4">2. 氏名</h3>
-            <div class="grid grid-cols-2 gap-4">
-              <input type="text" name="last_name" placeholder="架橋" required
-                      class="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500">
-              <input type="text" name="first_name" placeholder="花子" required
-                      class="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500">
-            </div>
+            <input type="text" id="full_name" name="full_name" placeholder="架橋　花子" required
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500">
             <p class="text-sm text-gray-500 mt-1">氏名</p>
-            
-            <div class="grid grid-cols-2 gap-4 mt-4">
-              <input type="text" name="last_kana" placeholder="カケハシ" required
-                      class="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500">
-              <input type="text" name="first_kana" placeholder="ハナコ" required
-                      class="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500">
-            </div>
+
+            <input type="text" id="full_kana_name" name="full_kana_name" placeholder="カケハシ ハナコ" required
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500">
             <p class="text-sm text-gray-500 mt-1">カナ</p>
           </div>
 
           <div>
             <h3 class="text-lg font-semibold mb-4">3. 生年月日・電話番号・メールアドレス</h3>
-            <div class="grid grid-cols-3 gap-2 mb-4">
-              <input type="number" name="birth_year" placeholder="1985" min="1900" max="2024" required
-                      class="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500">
-              <input type="number" name="birth_month" placeholder="06" min="1" max="12" required
-                      class="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500">
-              <input type="number" name="birth_day" placeholder="03" min="1" max="31" required
-                      class="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500">
-            </div>
+            <input type="number" id="birthday" name="birthday" placeholder="19930101" required
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500">
             <p class="text-sm text-gray-500 mb-4">1993年1月1日生 → 19930101</p>
-            
-            <input type="tel" name="phone_number" placeholder="0524833377" required
+
+            <input type="tel" id="phone_number" name="phone_number" placeholder="0524833377" required
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 mb-1">
             <p class="text-sm text-gray-500 mb-4">電話番号（ハイフン無し）</p>
-            
-            <input type="email" name="email" placeholder="test@example.com" required
+
+            <input type="email" id="email" name="email" placeholder="test@example.com" required
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 mb-1">
             <p class="text-sm text-gray-500">メールアドレス</p>
           </div>
@@ -195,7 +181,7 @@
 
           <div>
             <h3 class="text-lg font-semibold mb-4">6. その他（任意）</h3>
-            <textarea name="free_comment" rows="5" placeholder="診察前に伝えておきたいことをご自由にお書きください"
+            <textarea id="free_comment" name="free_comment" rows="5" placeholder="診察前に伝えておきたいことをご自由にお書きください"
                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"></textarea>
             <p class="text-sm text-gray-500 mt-1">自由記入欄</p>
           </div>
@@ -222,7 +208,6 @@
       const slotButtons = document.querySelectorAll('.slot-button');
       const selectedDateDisplay = document.getElementById('selected_date_display');
       const menuIdInput = document.getElementById('menu_id');
-      const nextStepButton = document.getElementById('next_step_button');
       
       slotButtons.forEach(button => {
         button.addEventListener('click', function() {
@@ -243,9 +228,6 @@
           
           selectedDateDisplay.value = `${date} ${time}`;
           menuIdInput.value = menuId;
-          
-          // 次へボタンを有効化
-          nextStepButton.disabled = false;
         });
       });
     });
